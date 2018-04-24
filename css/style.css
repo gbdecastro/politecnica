@@ -1,0 +1,146 @@
+/*bs calout*/
+.bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+.bs-callout h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.bs-callout p:last-child {
+    margin-bottom: 0;
+}
+.bs-callout code {
+    border-radius: 3px;
+}
+.bs-callout+.bs-callout {
+    margin-top: -5px;
+}
+.bs-callout-default {
+    border-left-color: #777;
+}
+.bs-callout-default h4 {
+    color: #777;
+}
+.bs-callout-primary {
+    border-left-color: #428bca;
+}
+.bs-callout-primary h4 {
+    color: #428bca;
+}
+.bs-callout-success {
+    border-left-color: #5cb85c;
+}
+.bs-callout-success h4 {
+    color: #5cb85c;
+}
+.bs-callout-danger {
+    border-left-color: #d9534f;
+}
+.bs-callout-danger h4 {
+    color: #d9534f;
+}
+.bs-callout-warning {
+    border-left-color: #f0ad4e;
+}
+.bs-callout-warning h4 {
+    color: #f0ad4e;
+}
+.bs-callout-info {
+    border-left-color: #5bc0de;
+}
+.bs-callout-info h4 {
+    color: #5bc0de;
+}
+/*MENUS*/
+.navbar{
+	min-height: 50px;
+}
+a:hover{
+	color: #2f3801; 
+}
+.navbar-default{
+	border-color: #2f3801;
+	border:0px;
+}
+.navbar-brand img{
+	text-align: center;
+	margin-top: -16px;
+
+}
+.navbar-brand a{
+	padding: 10px
+}
+.navbar-nav .current{
+	background-color: #2f3801;
+}
+
+.navbar-default .navbar-nav > li.current > a{
+	color: #fff;
+}
+
+.navbar-default .navbar-nav > li:hover{
+	background-color: #3e4a01;
+}
+
+.navbar-default .navbar-nav > li > a:hover{
+	color: #fff;
+}
+
+/*BOTOES*/
+.btn-poli,
+.btn-poli:active,
+.btn-poli:focus{
+	background-color: #2f3801;
+	color: #fff;	
+}
+.btn-poli:hover{
+	background-color: #3e4a01;
+	color: #fff;
+}
+
+/*
+	CALENDARIO
+*/
+.fc-content:hover{
+	cursor: pointer;
+}
+.fc-toolbar { text-transform: capitalize; }
+
+/*FORMULARIOS*/
+.select2{
+	width: 90%;
+}
+label{
+	display: inline-block;
+	max-width: 100%;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+.obrigatorio::before {
+	content: '* ';
+	color: #f70000;	
+	font-family: "Open Sans";
+	font-weight: 400;
+	font-style: normal;	
+}
+.dicas{
+	font-size: 10px;
+}
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}

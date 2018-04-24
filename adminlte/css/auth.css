@@ -1,0 +1,9 @@
+.auth-links {
+    margin-top: 10px;
+}
+.login-page{
+	background-image: url('../../img/logo_fundo.png');
+	background-position: absolute; 
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
