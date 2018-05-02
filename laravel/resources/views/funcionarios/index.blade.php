@@ -101,16 +101,7 @@
                         message: 'Nome Inválido'
                     }
                 }
-            },
-            tx_funcao: {
-                message: 'Função Inválida',
-                validators: {                  
-                    regexp: {
-                        regexp: /^[A-Za-z ]+$/,
-                        message: 'Nome Inválido'
-                    }
-                }
-            },            
+            }  
             tx_email: {     
                 validators: {
                     notEmpty: {
@@ -191,16 +182,7 @@
                         message: 'Nome Inválido'
                     }
                 }
-            },
-            tx_funcao: {
-                message: 'Função Inválida',
-                validators: {                  
-                    regexp: {
-                        regexp: /^[A-Za-z ]+$/,
-                        message: 'Nome Inválido'
-                    }
-                }
-            },               
+            },             
             tx_email: {     
                 validators: {
                     notEmpty: {
