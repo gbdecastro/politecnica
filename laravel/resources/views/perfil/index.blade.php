@@ -30,9 +30,12 @@
                     <li class="list-group-item">
                       <b>Data de Admissão</b> <a class="pull-right">{{ date_format(date_create_from_format("Y-m-d",Auth::user()->dt_admissao),"d/m/Y") }}</a>
                     </li>                   
-                    <li class="list-group-item">
-                        <b>Nota</b> <a class="pull-right">{{ Auth::user()->nb_nota }}</a>
-                    </li>                    
+                    @if(Auth::user()->nb_category_user == 1)
+                        <li class="list-group-item">
+                                <b>Nota</b> <a class="pull-right">{{ Auth::user()->nb_nota }}</a>
+                        </li>                    
+                    @endif
+                    
                 </ul>
 
             </div>
@@ -119,6 +122,38 @@
         <!-- /.nav-tabs-custom -->
     </div>
     <!-- /.col -->
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="box box-poli">
+            <div class="box-header with-border">
+                <h3 class="box-title">Alterar Senha</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>            
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="tx_senha" class="obrigatorio">Senha:</label>
+                    <input type="password" name="alterar_senha" id="alterar_senha" autocomplete="off" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" id="btn_alterar_senha" class="btn btn-poli">Alterar Senha</button>
+                </div>	                
+            </div>
+            <div class="box-footer">
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+
+                    <h4><i class="icon fa fa-warning"></i> Atenção!</h4>
+                        Ao Alterar a Senha, deverá set efetuado novamento o login. 
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /.row -->
 @endsection

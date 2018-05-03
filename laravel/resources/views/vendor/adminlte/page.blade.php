@@ -54,7 +54,10 @@
                             </p>
                           </li>
                           <!-- Menu Footer-->
-                          <li class="user-footer">                       
+                          <li class="user-footer">   
+                            <div class="pull-left">
+                                <a href="/perfil" class="btn btn-default btn-flat"> Alterar Senha </a>
+                            </div>                    
                             <div class="pull-right">
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">Logout</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

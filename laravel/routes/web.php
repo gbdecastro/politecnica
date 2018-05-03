@@ -33,6 +33,7 @@ Auth::routes();
 //ROTAS DE PERFIL
 Route::get('/perfil','PerfilController@index');
 Route::post('perfil/foto','PerfilController@foto');
+Route::post('perfil/alterarSenha','PerfilController@alterarSenha');
 
 //ROTAS DE VIEW DO PAINEL (ADMIN)
 Route::get('painel', 'PainelController@index');
