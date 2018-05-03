@@ -120,11 +120,7 @@
                     stringLenght: {
                         min: 6,
                         message: 'Nome do Projeto deve conter 6 caracteres no mínimo'
-                    },
-                    regexp: {
-                        regexp: /^[A-Za-z0-9 ]+$/,
-                        message: 'Somente Alfanuméricos'
-                    }                
+                    }               
                 }
             }
         }
@@ -150,11 +146,7 @@
                     stringLenght: {
                         min: 6,
                         message: 'Nome do Projeto deve conter 6 caracteres no mínimo'
-                    },
-                    regexp: {
-                        regexp: /^[A-Za-z0-9 ]+$/,
-                        message: 'Somente Alfanuméricos'
-                    }                
+                    }              
                 }
             }
         }

@@ -9,10 +9,6 @@
 					<h4 class="modal-title">Novo projeto</h4>
 				</div>
 				<div class="modal-body">
-					<div class="form-group">
-						<label for="id_projeto" class="label-control obrigatorio">Código Projeto:</label>
-						<input type="text" name="id_projeto" class="form-control obrigatorio" v-model="new_projeto.id_projeto" required>
-					</div>
 
 					<div class="form-group">
 						<label for="tx_projeto" class="label-control obrigatorio">Nome:</label>
@@ -21,9 +17,14 @@
 					
 					<div class="form-group">
 						<label for="id_grupo" class="label-control obrigatorio">Grupo:</label>
-						<select id="id_grupo" class="form-control obrigatorio select2-native" required>
+						<select id="id_grupo" class="form-control obrigatorio select2-native"  required>
 						</select>
 					</div>
+
+					<div class="form-group">
+						<label for="id_projeto" class="label-control obrigatorio">Código Projeto:</label>
+						<input type="text" name="id_projeto" class="form-control obrigatorio" v-model="new_projeto.id_projeto" disabled>
+					</div>					
 					
 					<div class="form-group">
 						<label for="cs_status" class="label-control obrigatorio">Status</label>

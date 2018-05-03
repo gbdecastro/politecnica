@@ -32,12 +32,13 @@ class GruposController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'tx_grupo' => 'required|string|min:6',
-            'tx_color' => 'required',
-        ]);
+
+        $id_grupo = DB::select('SELECT F_G_PK_GRUPOS() AS id_grupo FROM DUAL');
+        
+        $id_grupo = $id_grupo[0]->id_grupo;
 
         Grupos::create([
+            'id_grupo' => $id_grupo,
             'tx_grupo' => $request->input('tx_grupo'),
             'tx_color' => $request->input('tx_color'),
             'created_at' => date('d-m-Y H:i:s')

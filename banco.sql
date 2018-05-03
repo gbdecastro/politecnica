@@ -75,14 +75,14 @@ DROP TABLE IF EXISTS `grupos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `grupos` (
-  `id_grupo` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_grupo` int(10) unsigned NOT NULL,
   `tx_grupo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tx_color` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `cs_situacao` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '1 Ativo, 0 Desativado.',
   PRIMARY KEY (`id_grupo`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

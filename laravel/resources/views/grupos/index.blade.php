@@ -89,10 +89,6 @@
                 validators: {
                     notEmpty: {
                         message: 'Campo Obrigatório'
-                    },
-                    regexp: {
-                        regexp: /^[A-Za-z0-9 ]+$/,
-                        message: 'Somente Alfanuméricos'
                     }
                 }
             },
@@ -123,10 +119,6 @@
                 validators: {
                     notEmpty: {
                         message: 'Campo Obrigatório'
-                    },
-                    regexp: {
-                        regexp: /^[A-Za-z0-9 ]+$/,
-                        message: 'Somente Alfanuméricos'
                     }
                 }
             },

@@ -9,10 +9,6 @@
 					<h4 class="modal-title">Editar Projeto</h4>
 				</div>
 				<div class="modal-body">
-					<div class="form-group">
-						<label for="id_projeto" class="obrigatorio">Código:</label>
-						<input type="text" name="id_projeto" class="form-control" v-model="edit_projeto.id_projeto" disabled>
-					</div>
 
 					<div class="form-group">
 						<label for="tx_projeto" class="obrigatorio">Nome:</label>
@@ -23,6 +19,11 @@
 						<label for="id_grupo_edit" class="label-control obrigatorio">Grupo:</label>
 						<input type="text" id="id_grupo_edit" v-model="edit_projeto.tx_grupo" class="form-control" disabled>
 					</div>
+
+					<div class="form-group">
+						<label for="id_projeto" class="obrigatorio">Código:</label>
+						<input type="text" name="id_projeto_edit" class="form-control" v-model="edit_projeto.id_projeto" disabled>
+					</div>					
 
 					<div class="form-group">
 						<label for="cs_status_edit" class="label-control obrigatorio">Status: </label>

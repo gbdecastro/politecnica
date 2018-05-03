@@ -15,7 +15,7 @@ class ProjetosController extends Controller
     {
         $this->middleware('admin');
     }
-
+    
     //função para retornar ao VUE
     public function getProjetos(){
         $projetos =  DB::table('projetos')
@@ -53,15 +53,18 @@ class ProjetosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function gerarCodigoProjeto($id_grupo)
+    {
+        $id_projeto =  DB::select('SELECT F_G_ID_PROJETO('.$id_grupo.') as id_projeto FROM DUAL');
+
+        return $id_projeto[0]->id_projeto;
+    }
+
+
+
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'tx_projeto' => 'required|string|min:3',
-            'id_projeto' => 'required',
-            'id_grupo' => 'required',
-            'id_empresa' => 'required',
-        ]);
-
         $id_empresa = $request->input('id_empresa');
 
         /*NAO É NUMERO E MARCADO PRA CRIAR UMA NOVA EMPRESA*/

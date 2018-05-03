@@ -70,3 +70,13 @@ $('#novo_projeto').click(function () {
       });        
   });
 });
+
+$('#id_grupo').on('select2:close',function(){
+  id_grupo = $('#id_grupo').val();
+  $.ajax({
+    url: 'projetos/gerarCodigoProjeto/'+id_grupo,
+    type: 'get'
+  }).done(function(data){
+    $('input[name="id_projeto"]').val(data);
+  });
+});

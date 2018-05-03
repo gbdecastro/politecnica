@@ -91,6 +91,7 @@ Route::resource('projetos','ProjetosController',['except' => 'show', 'create', '
 Route::delete('projetos/{id_projeto}/{id_grupo}', 'ProjetosController@destroy');
 Route::get('vue_projetos','ProjetosController@getProjetos');
 Route::get('projeto/{id_projeto}','ProjetosController@getProjeto');
+Route::get('projetos/gerarCodigoProjeto/{id_grupo}','ProjetosController@gerarCodigoProjeto');
 Route::put('projetos','ProjetosController@update');
 Route::post('projetos/mudarSituacao', 'ProjetosController@mudarSituacao');
 
