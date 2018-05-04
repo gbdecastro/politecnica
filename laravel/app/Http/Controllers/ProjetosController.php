@@ -93,7 +93,7 @@ class ProjetosController extends Controller
         DB::table('projetos')->insert([
         [
             'tx_projeto' => $request->input('tx_projeto'),
-            'id_projeto' => $request->input('id_projeto'),
+            'id_projeto' => $this->gerarCodigoProjeto($request->input('id_grupo')),
             'id_grupo' => $request->input('id_grupo'),
             'id_empresa' => $id_empresa,
             'cs_status'  => $request->input('cs_status'),            

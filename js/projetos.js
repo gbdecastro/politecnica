@@ -180,8 +180,6 @@ new Vue({
       projeto.id_empresa = $('#id_empresa').val();
       projeto.id_grupo = $('#id_grupo').val();
       projeto.cs_status = $('#cs_status').val();
-
-      console.log(projeto.id_projeto);
       
       projeto.tx_projeto = projeto.tx_projeto.toUpperCase();
 
