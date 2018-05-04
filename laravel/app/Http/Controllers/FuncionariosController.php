@@ -34,50 +34,57 @@ class FuncionariosController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validar = $this->validate($request, [
             'tx_name' => 'required|string|max:255',
             'tx_email' => 'required|string|email|max:255|unique:users',
             'dt_admissao' => 'required',
             'tx_password' => 'required|string|min:6|',
-            'nb_category_user' => 'required',
-            'nb_nota' =>  'between:0,10'
+            'nb_category_user' => 'required'
         ]);
 
-        DB::table('users')->insert([
-        [
-            'tx_name' => $request->input('tx_name'),
-            'tx_email' => $request->input('tx_email'),
-            'dt_admissao' => $request->input('dt_admissao'),
-            'tx_funcao' => $request->input('tx_funcao'),
-            'tx_password' => bcrypt($request->input('tx_password')),
-            'nb_category_user' => $request->input('nb_category_user'),
-            'nb_nota' => $request->input('nb_nota')
-        ]
+        if($validar){
+          DB::table('users')->insert([
+          [
+              'tx_name' => $request->input('tx_name'),
+              'tx_email' => $request->input('tx_email'),
+              'dt_admissao' => $request->input('dt_admissao'),
+              'tx_funcao' => $request->input('tx_funcao'),
+              'tx_password' => bcrypt($request->input('tx_password')),
+              'nb_category_user' => $request->input('nb_category_user'),
+              'nb_nota' => $request->input('nb_nota')
+          ]
 
-        ]);
+          ]);
+        }else{
+          return $validar;
+        }
     }
 
     public function update(Request $request)
     {
 
-        $this->validate($request, [
+        $validar = $this->validate($request, [
             'tx_name' => 'required|string|max:255',
             'tx_email' => 'required|string|email',
             'dt_admissao' => 'required',
-            'nb_category_user' => 'required',
-            'nb_nota' =>  'required|between:0,10'
+            'nb_category_user' => 'required'
         ]);        
-        DB::table('users')
-            ->where('id_usuario', $request->input('id_usuario'))
-            ->update([
-                'tx_name' => $request->input('tx_name'),
-                'tx_email' => $request->input('tx_email'),
-                'dt_admissao' => $request->input('dt_admissao'),
-                'tx_funcao' => $request->input('tx_funcao'),
-                'nb_category_user' => $request->input('nb_category_user'),
-                'nb_nota' => $request->input('nb_nota')
 
-        ]);
+        if($validar){
+          DB::table('users')
+              ->where('id_usuario', $request->input('id_usuario'))
+              ->update([
+                  'tx_name' => $request->input('tx_name'),
+                  'tx_email' => $request->input('tx_email'),
+                  'dt_admissao' => $request->input('dt_admissao'),
+                  'tx_funcao' => $request->input('tx_funcao'),
+                  'nb_category_user' => $request->input('nb_category_user'),
+                  'nb_nota' => $request->input('nb_nota')
+
+          ]);
+        }else{
+          return $validar;
+        }
     }
 
     public function destroy($id_projeto, $id_grupo, $id_funcionario){

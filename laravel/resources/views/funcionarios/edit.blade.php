@@ -25,7 +25,7 @@
                     </div>                    
                     
                     <div class="form-group">
-                        <label for="nb_nota" class="control-label obrigatorio">Nota</label>
+                        <label for="nb_nota" class="control-label">Nota</label>
                         <input id="nb_nota" type="text" class="form-control" name="nb_nota" v-model="edit_funcionario.nb_nota" required>
                     </div>                        
 

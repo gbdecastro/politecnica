@@ -76,7 +76,7 @@
 
 @section('js')
 <script src="{{ asset('js/funcionarios.js') }}"></script>
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     //validacao do formulario create_funcionario
     $('#create_funcionario').bootstrapValidator({
         message: 'This value is not valid',
@@ -195,10 +195,7 @@
                 }
             },                
             nb_nota: {
-                validators: {
-                    notEmpty: {
-                        message: 'Campo Obrigatório'
-                    },                       
+                validators: {                   
                     between: {
                         min: 0,
                         max: 10,
@@ -216,5 +213,5 @@
     }).on('success.field.bv', function(e, data) {
         data.bv.disableSubmitButtons(false);
     });   
-</script>
+</script> --}}
 @endsection
