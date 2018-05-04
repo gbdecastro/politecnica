@@ -183,7 +183,7 @@ new Vue({
 
       projeto.tx_projeto = projeto.tx_projeto.toUpperCase();
 
-      if(projeto.tx_projeto == '' || projeto.id_projeto == ''){
+      if(projeto.tx_projeto == ''){
         toastr.error("Preencher Campo Obrigatório"); 
         return false;
       }else{
