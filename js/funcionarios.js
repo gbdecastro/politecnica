@@ -198,15 +198,13 @@ new Vue({
       this.edit_funcionario.dt_admissao = funcionario.dt_admissao;
       this.edit_funcionario.nb_nota = funcionario.nb_nota;
 
-      if (funcionario.nb_category_user == 'Funcionário') {
-        this.edit_funcionario.nb_category_user = 0;
-      } else {
-        this.edit_funcionario.nb_category_user = 1;
-      }
-      if(funcionario.tx_name == '' || funcionario.tx_email == '' || funcionario.nb_nota || funcionario.dt_admissao == ''){
+      this.edit_funcionario.nb_category_user = funcionario.nb_category_user == 'Administrador' ? 1 : 0;
+
+      if(funcionario.tx_name == '' || funcionario.tx_email == '' || funcionario.dt_admissao == ''){
         toastr.error("Preencher Campos Obrigatórios");
         return false;
-      }      
+      }     
+
       $('#edit_funcionario_categoria').val(this.edit_funcionario.nb_category_user).trigger('change');
     },
 
