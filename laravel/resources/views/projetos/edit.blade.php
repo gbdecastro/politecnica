@@ -31,6 +31,7 @@
 							<option value="0">Investimento</option>
 							<option value="1">Contratado</option>
 							<option value="2">Favor</option>
+							<option value="3">Permanente</option>
 						</select>
 					</div>					
 
