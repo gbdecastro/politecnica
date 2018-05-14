@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" @click="createFuncionario" id="btn_submit_register" class="btn btn-poli" disabled>Criar</button>
+                    <button type="submit" @click="createFuncionario" id="btn_submit_register" class="btn btn-poli">Criar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
