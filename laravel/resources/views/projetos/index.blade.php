@@ -57,6 +57,9 @@
                                     <p v-if="projeto.cs_status == 2">
                                         Favor
                                     </p>                                                                         
+                                    <p v-if="projeto.cs_status == 3">
+                                        Permanente
+                                    </p>                                                                    
                                 </td>
                                 <td>@{{ projeto.tx_grupo }}</td>
                                 <td>@{{ projeto.created_at }}</td>
