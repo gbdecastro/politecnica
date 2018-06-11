@@ -47,7 +47,20 @@
                             <tr v-for="funcionario in funcionarios">
                                 <td>@{{ funcionario.tx_name }}</td>
                                 <td>@{{ funcionario.tx_email }}</td>
-                                <td>@{{ funcionario.cs_tipo_contrato }}</td>
+								<td>
+                                    <p v-if="funcionario.cs_tipo_contrato == 0">
+                                        Fixo
+                                    </p> 
+                                    <p v-if="funcionario.cs_tipo_contrato == 1">
+                                        Eventual
+                                    </p> 
+                                    <p v-if="funcionario.cs_tipo_contrato == 2">
+                                        Temporario
+                                    </p>                                                                         
+                                    <p v-if="funcionario.cs_tipo_contrato == 3">
+                                        Estagiario
+                                    </p>                                                                    
+                                </td>
                                 <td>@{{ funcionario.tx_funcao }}</td>
                                 <td>@{{ funcionario.dt_admissao }}</td>
                                 <td>@{{ funcionario.nb_nota }}</td>
