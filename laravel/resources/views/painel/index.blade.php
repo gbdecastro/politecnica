@@ -46,7 +46,7 @@
 						<i class="fa fa-users"></i>
 					</span>
 					<div class="info-box-content">
-						<span class="info-box-text">Funcionários</span>
+						<span class="info-box-text">Colaboradores</span>
 						<span class="info-box-number">{{ $countFuncionarios }}</span>
 					</div>
 				</div>
@@ -76,7 +76,7 @@
     					<table class="table no-margin">
     						<thead>
     							<tr>
-    								<th>Funcionário</th>
+    								<th>Colaborador</th>
     								<th>Últimos 3 Meses</th>
 									<th>Mês Anterior</th>
 									<th>Mês Atual</th>
@@ -102,7 +102,7 @@
 			<div class="box box-danger">
 				<div class="box-header with-border">
 	    			<h3 class="box-title">
-	    				Maiores Gastos com Funcionários
+	    				Maiores Gastos com Colaboradores
 	    			</h3>
 	    			<div class="box-tools pull-right">
 	    				<button class="btn btn-box-toll" type="button" data-widget="collapse">

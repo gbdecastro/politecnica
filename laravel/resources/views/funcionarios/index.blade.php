@@ -9,10 +9,10 @@
 @section('content_header')
     <h1>
         <i class="fa fa-object-group"></i>
-        Funcionários
+        Colaboradores
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-object-group"></i> Funcionários</a></li>
+        <li><a href="#"><i class="fa fa-object-group"></i> Colaboradores</a></li>
       </ol>    
 @endsection
 
@@ -22,7 +22,7 @@
         <div class="box box-poli">
             <div class="panel-body">
                 <button type="button" class="btn btn-poli" data-toggle="modal" data-target="#modal_create">
-                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Novo Funcionário
+                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Novo Colaborador
                 </button>
                 <div class="text-center">
                     <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>

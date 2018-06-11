@@ -52,7 +52,7 @@
                                         Investimento
                                     </p> 
                                     <p v-if="projeto.cs_status == 1">
-                                        Contrato
+                                        Contratado
                                     </p> 
                                     <p v-if="projeto.cs_status == 2">
                                         Favor
