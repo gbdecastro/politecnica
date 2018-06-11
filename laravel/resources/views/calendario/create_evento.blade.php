@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
               <label for="create_evento_nb_horas" class="control-label obrigatorio">Horas Trabalhadas: </label>
-              <input type="text" class="form-control" name="create_evento_nb_horas" id="create_evento_nb_horas" value="2">
+              <input type="number" class="form-control" name="create_evento_nb_horas" id="create_evento_nb_horas" value="1">
             </div>
 
             <div class="form-group">

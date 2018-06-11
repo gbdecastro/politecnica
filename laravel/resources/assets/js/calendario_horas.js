@@ -357,6 +357,7 @@ $('#show_evento').bootstrapValidator({
 }).on('error.field.bv', function(e, data){
   $('#btn_editar_evento').prop('disabled',true);
 });
+
 /*editar evento:*/
 $('#btn_editar_evento').click(function(){
   $.ajax({

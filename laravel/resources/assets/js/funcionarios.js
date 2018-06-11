@@ -1,20 +1,3 @@
-//config TOASTR
-toastr.options = {
-  "closeButton": true,
-  "debug": false,
-  "newestOnTop": false,
-  "progressBar": true,
-  "preventDuplicates": false,
-  "onclick": null,
-  "showDuration": "300",
-  "hideDuration": "300",
-  "extendedTimeOut": "100",
-  "timeOut": "2000",
-  "showEasing": "swing",
-  "hideEasing": "linear",
-  "showMethod": "fadeIn",
-  "hideMethod": "fadeOut"
-};
 new Vue({
   el: '#funcionario',
   created: function () {
