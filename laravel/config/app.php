@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://polipht.16mb.com'),
+    'url' => env('APP_URL', 'http://polipht.890mb.com'),
 
     /*
     |--------------------------------------------------------------------------

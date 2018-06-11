@@ -6,7 +6,7 @@
                     <button type="button" class="close" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
-                    <h4 class="modal-title">Novo Funcionário</h4>
+                    <h4 class="modal-title">Novo Colaborador</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -28,7 +28,17 @@
                         <label for="nb_nota" class="control-label">Nota</label>
                         <input id="nb_nota" type="text" value=0 class="form-control" name="nb_nota" v-model="new_funcionario.nb_nota" required>
                     </div>                    
-
+					
+					<div class="form-group">
+                        <label for="cs_tipo_contrato" class="control-label obrigatorio">Tipo de Contrato</label>
+                        <select class="form-control select2-native" id="new_funcionario_contrato" name="cs_tipo_contrato" required>
+                            <option value="0">Fixo</option>
+                            <option value="1">Eventual</option>
+							<option value="2">Temporario</option>
+                            <option value="3">Estagiario</option>
+                        </select>
+                    </div>
+					
                     <div class="form-group">
                         <label for="nb_category_user" class="control-label obrigatorio">Tipo de Usuario</label>
                         <select class="form-control select2-native" id="new_funcionario_categoria" name="nb_category_user" required>

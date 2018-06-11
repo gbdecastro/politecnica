@@ -28,7 +28,17 @@
                         <label for="nb_nota" class="control-label">Nota</label>
                         <input id="nb_nota" type="text" class="form-control" name="nb_nota" v-model="edit_funcionario.nb_nota" required>
                     </div>                        
-
+					
+					<div class="form-group">
+                        <label for="cs_tipo_contrato" class="control-label obrigatorio">Tipo de Contrato</label>
+                        <select class="form-control select2-native" id="edit_funcionario_contrato" name="cs_tipo_contrato" required>
+                            <option value="0">Fixo</option>
+                            <option value="1">Eventual</option>
+							<option value="2">Temporario</option>
+                            <option value="3">Estagiario</option>
+                        </select>
+                    </div>
+					
                     <div class="form-group">
                         <label for="nb_category_user" class="control-label obrigatorio">Tipo de Usuario</label>
                         <select class="form-control select2-native" id="edit_funcionario_categoria" name="nb_category_user" required>

@@ -5,7 +5,7 @@
                 <button type="button" class="close" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
-                <h4 class="modal-title">Projetos do Funcionário</h4>
+                <h4 class="modal-title">Projetos do Colaborador</h4>
             </div>
             <div class="modal-body">                    
                 <button type="button" v-on:click.prevent="getProjetosNotFuncionario()" class="btn btn-poli" data-toggle="modal" data-target="#modal_add_projeto">

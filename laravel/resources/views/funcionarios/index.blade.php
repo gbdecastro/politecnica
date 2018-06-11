@@ -34,10 +34,11 @@
                             <tr>
                                 <th>Nome</th>
                                 <th>E-mail</th>
-                                <th>Categoria</th>
+                                <th>Contrato</th>
                                 <th>Função</th>
                                 <th>Data de Admissão</th>
                                 <th>Nota</th>
+								<th>Categoria</th>
                                 <th>Projetos</th>
                                 <th>Editar</th>
                             </tr>
@@ -46,10 +47,11 @@
                             <tr v-for="funcionario in funcionarios">
                                 <td>@{{ funcionario.tx_name }}</td>
                                 <td>@{{ funcionario.tx_email }}</td>
-                                <td>@{{ funcionario.nb_category_user }}</td>
+                                <td>@{{ funcionario.cs_tipo_contrato }}</td>
                                 <td>@{{ funcionario.tx_funcao }}</td>
                                 <td>@{{ funcionario.dt_admissao }}</td>
                                 <td>@{{ funcionario.nb_nota }}</td>
+								<td>@{{ funcionario.nb_category_user }}</td>
                                 <td>
                                     <button class="btn btn-block btn-social btn-default" data-toogle="modal" data-target="#modal_projetos" v-on:click.prevent="getProjetosFuncionario(funcionario.id_usuario)" title="Projetos do Funcionário">
                                         <i class="fa fa-object-group"></i> Projetos

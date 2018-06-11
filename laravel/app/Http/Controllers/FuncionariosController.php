@@ -50,6 +50,7 @@ class FuncionariosController extends Controller
               'dt_admissao' => $request->input('dt_admissao'),
               'tx_funcao' => $request->input('tx_funcao'),
               'tx_password' => bcrypt($request->input('tx_password')),
+			  'cs_tipo_contrato' => $request->input('cs_tipo_contrato'),
               'nb_category_user' => $request->input('nb_category_user'),
               'nb_nota' => $request->input('nb_nota')
           ]
@@ -78,6 +79,7 @@ class FuncionariosController extends Controller
                   'tx_email' => $request->input('tx_email'),
                   'dt_admissao' => $request->input('dt_admissao'),
                   'tx_funcao' => $request->input('tx_funcao'),
+				  'cs_tipo_contrato' => $request->input('cs_tipo_contrato'),
                   'nb_category_user' => $request->input('nb_category_user'),
                   'nb_nota' => $request->input('nb_nota')
 

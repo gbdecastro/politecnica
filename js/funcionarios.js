@@ -91,6 +91,7 @@ new Vue({
       tx_password_confirmation: '',
       nb_category_user: '',
       nb_nota: '',
+	  cs_tipo_contrato: '',
     },
     edit_funcionario: {
       id_usuario: '',
@@ -102,6 +103,7 @@ new Vue({
       tx_password_confirmation: '',
       nb_category_user: '',
       nb_nota: '',
+	  cs_tipo_contrato: '',
     },
     projetos_funcionario: [],
     add_projeto_funcionario: {
@@ -155,6 +157,8 @@ new Vue({
       var funcionario = this.new_funcionario;
 
       funcionario.nb_category_user = $('#new_funcionario_categoria').val();
+	  
+	  funcionario.cs_tipo_contrato = $('#new_funcionario_contrato').val();
 
       funcionario.tx_name = funcionario.tx_name.toUpperCase();
 
@@ -199,13 +203,16 @@ new Vue({
       this.edit_funcionario.nb_nota = funcionario.nb_nota;
 
       this.edit_funcionario.nb_category_user = funcionario.nb_category_user == 'Administrador' ? 1 : 0;
-
+	  
+	  this.edit_funcionario.cs_tipo_contrato = funcionario.cs_tipo_contrato;  
+	  
       if(funcionario.tx_name == '' || funcionario.tx_email == '' || funcionario.dt_admissao == ''){
         toastr.error("Preencher Campos Obrigatórios");
         return false;
       }     
 
       $('#edit_funcionario_categoria').val(this.edit_funcionario.nb_category_user).trigger('change');
+	  $('#edit_funcionario_contrato').val(this.edit_funcionario.cs_tipo_contrato).trigger('change');
     },
 
     updateFuncionario: function updateFuncionario(funcionario) {
@@ -218,6 +225,8 @@ new Vue({
       btnSpinAjax($('#btn_submit_edit'),$('#btn_submit_edit').html());
 
       funcionario.nb_category_user = $('#edit_funcionario_categoria').val();
+	  
+	  funcionario.cs_tipo_contrato = $('#edit_funcionario_contrato').val();
 
       funcionario.tx_name = funcionario.tx_name.toUpperCase();
 

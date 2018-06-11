@@ -177,7 +177,7 @@ return [
             'permission'  => 'no',
         ],
         [
-            'text'        => 'Funcionários',
+            'text'        => 'Colaboradores',
             'url'         => '/funcionarios',
             'icon'        => 'users',
             'active'      => ['funcionarios', 'funcionarios', 'funcionarios/*'],
