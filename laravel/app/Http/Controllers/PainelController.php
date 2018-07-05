@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Storage;
 
 use DB;
 use App\User;
@@ -236,11 +237,12 @@ class PainelController extends Controller
             }
             $color += 1;
         }
-		//Query END , create DOCUMENT
+        //Query END , create DOCUMENT
+        $storagePath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
 		$periodo = str_replace('/','-',$dt_resumo);
-        $writer->writeToFile(public_path().'./relatorio_mensal_'.$periodo.'.xlsx');
+        $writer->writeToFile($storagePath.'/relatorio_mensal_'.$periodo.'.xlsx');
         
-        return response()->download(public_path().'./relatorio_mensal_'.$periodo.'.xlsx');
+        return response()->download($storagePath.'./relatorio_mensal_'.$periodo.'.xlsx');
 
     }
 }
