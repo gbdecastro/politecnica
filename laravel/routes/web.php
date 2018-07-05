@@ -44,13 +44,19 @@ Route::get('painel/resumo/projetos', 'PainelController@resumoProjetos');
 Route::get('painel/resumo/projetos/ano','PainelController@carregarAno');
 Route::get('painel/resumo/projetos/empresas','PainelController@carregarEmpresas');
 
+//TEORICAMENTE MORREU!
 //ROTAS DE GET(DADOS) DO PAINEL (ADMIN)
 	//GRUPOS
 	Route::get('painel/resumo/despesas_grupos','PainelController@despesas_grupos');
 	Route::get('painel/resumo/horas_grupos','PainelController@horas_grupos');
 	//PROJETOS
 	Route::get('painel/resumo/projetos/despesas_projetos/{ano}/{mes}','PainelController@despesas_projetos');
-	Route::get('painel/resumo/projetos/horas_projetos/{ano}/{mes}','PainelController@horas_projetos');
+	Route::get('painel/relatorio/projetos/horas_projetos/{ano}/{mes}','PainelController@horas_projetos');
+
+//ROTAS PARA O NOVO RELATÓRIO
+//view
+Route::get('painel/relatorios','PainelController@relatorioView');
+Route::get('painel/relatorio','PainelController@gerarRelatorio');
 
 /*ROTAS DE CALENDARIO EM PAINEL*/
 /*PARA USAR BASTA TER AUTH*/

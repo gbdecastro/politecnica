@@ -138,26 +138,14 @@ return [
                     'icon'        => 'dashboard',
                     'active'      => ['/painel'],
                     'permission'  => 'yes',
-                ],                
-                [
-                    'text'      =>   'Resumo',
-                    'url'       =>   '/painel/resumo',
-                    'icon'      =>   'money',
-                    'active'      => ['/painel/resumo','/painel/resumo','/painel/resumo/*'],
-                    'permission'  => 'no',
-                    'submenu'   =>[
-                        [
-                            'text'  =>  'Grupos',
-                            'url'   =>  '/painel/resumo/grupos',
-                            'icon'  =>  'tags',
-                        ],                         
-                        [
-                            'text'  =>  'Projetos',
-                            'url'   =>  '/painel/resumo/projetos',
-                            'icon'  =>  'object-group',
-                        ],                       
-                    ],
-                ],                
+                ],
+                [                
+                    'text'      =>   'Relatórios',
+                    'url'       =>   '/painel/relatorios',
+                    'icon'      =>   'line-chart',
+                    'active'      => ['/painel/relatorios','/painel/relatorios/*'],
+                    'permission'  => 'yes'               
+                ],
             ],
 
         ],        
