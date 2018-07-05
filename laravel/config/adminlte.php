@@ -129,7 +129,7 @@ return [
             'text'        => 'Painel',
             'url'         => '/painel',
             'icon'        => 'dashboard',
-            'active'      => ['/painel','/painel/resumo/*'],
+            'active'      => ['/painel','/painel/*'],
             'permission'  => 'no',
             'submenu'     =>[
                 [
@@ -142,7 +142,7 @@ return [
                 [                
                     'text'      =>   'Relatórios',
                     'url'       =>   '/painel/relatorios',
-                    'icon'      =>   'line-chart',
+                    'icon'      =>   'file-excel-o',
                     'active'      => ['/painel/relatorios','/painel/relatorios/*'],
                     'permission'  => 'yes'               
                 ],

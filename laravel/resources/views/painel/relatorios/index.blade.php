@@ -1,6 +1,6 @@
 @extends('adminlte::page') @section('content_header')
 <h1>
-    <i class="fa fa-object-group"></i>Relatório
+    <i class="fa fa-file-excel-o"></i> Relatório
     <small>Painel > Relatório</small>
 </h1>
 <ol class="breadcrumb">
@@ -10,7 +10,7 @@
     </li>
     <li>
         <a href="#">
-            <i class="fa fa-line-chart"></i>Relatório</a>
+            <i class="fa fa-file-excel-o"></i>Relatório</a>
     </li>
 </ol>
 @endsection @section('content')
