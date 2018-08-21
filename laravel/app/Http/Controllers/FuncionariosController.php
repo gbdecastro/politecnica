@@ -50,9 +50,10 @@ class FuncionariosController extends Controller
               'dt_admissao' => $request->input('dt_admissao'),
               'tx_funcao' => $request->input('tx_funcao'),
               'tx_password' => bcrypt($request->input('tx_password')),
-			  'cs_tipo_contrato' => $request->input('cs_tipo_contrato'),
+			        'cs_tipo_contrato' => $request->input('cs_tipo_contrato'),
               'nb_category_user' => $request->input('nb_category_user'),
-              'nb_nota' => $request->input('nb_nota')
+              'nb_nota' => $request->input('nb_nota'),
+              'nb_custo_hora' => $request->input('nb_custo_hora')
           ]
 
           ]);
@@ -79,9 +80,10 @@ class FuncionariosController extends Controller
                   'tx_email' => $request->input('tx_email'),
                   'dt_admissao' => $request->input('dt_admissao'),
                   'tx_funcao' => $request->input('tx_funcao'),
-				  'cs_tipo_contrato' => $request->input('cs_tipo_contrato'),
+				          'cs_tipo_contrato' => $request->input('cs_tipo_contrato'),
                   'nb_category_user' => $request->input('nb_category_user'),
-                  'nb_nota' => $request->input('nb_nota')
+                  'nb_nota' => $request->input('nb_nota'),
+                  'nb_custo_hora' => $request->input('nb_custo_hora')                  
 
           ]);
         }else{
@@ -182,5 +184,14 @@ class FuncionariosController extends Controller
         ]
 
         ]);
+    }
+    
+    public function mudarCustoHora(request $request)
+    {
+      DB::table('users')
+      ->where('id_usuario', $request->input('id_usuario'))
+      ->update([
+          'nb_custo_hora' => $request->input('nb_custo_hora')
+      ]);
     }
 }

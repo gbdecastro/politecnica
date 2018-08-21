@@ -27,7 +27,13 @@
                     <div class="form-group">
                         <label for="nb_nota" class="control-label">Nota</label>
                         <input id="nb_nota" type="text" class="form-control" name="nb_nota" v-model="edit_funcionario.nb_nota" required>
-                    </div>                        
+                    </div>        
+
+                    
+                    <div class="form-group">
+                        <label for="nb_custo_hora" class="control-label">Custo/Hora</label>
+                        <input id="nb_custo_hora" type="text" class="form-control" name="nb_custo_hora" v-model="edit_funcionario.nb_custo_hora" required>
+                    </div>                                         
 					
 					<div class="form-group">
                         <label for="cs_tipo_contrato" class="control-label obrigatorio">Tipo de Contrato</label>

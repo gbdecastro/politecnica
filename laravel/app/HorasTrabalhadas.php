@@ -17,6 +17,7 @@ class HorasTrabalhadas extends Model
     	'dt_trabalho',
     	'nb_horas_trabalho',
 		'nb_despesa',
-		'cs_status'
+		'cs_status',
+		'nb_custo_hora'
     ];
 }

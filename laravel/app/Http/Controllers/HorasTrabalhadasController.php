@@ -133,7 +133,8 @@ class HorasTrabalhadasController extends Controller
             'dt_trabalho' => $request->input('dt_trabalho'),
             'id_funcionario' => Auth::user()->id_usuario,
             'nb_horas_trabalho' => $request->input('nb_horas_trabalho'),
-            'nb_despesa' => $request->input('nb_despesa')
+            'nb_despesa' => $request->input('nb_despesa'),
+            'nb_custo_hora' => Auth::user()->nb_custo_hora
         ]);
 
         $response = array(
@@ -175,7 +176,8 @@ class HorasTrabalhadasController extends Controller
                             'id_projeto' => $request->input('id_projeto'),
                             'dt_trabalho' => $request->input('dt_trabalho'),
                             'nb_horas_trabalho' => $request->input('nb_horas_trabalho'),
-                            'nb_despesa' => $request->input('nb_despesa')
+                            'nb_despesa' => $request->input('nb_despesa'),
+                            'nb_custo_hora' => Auth::user()->nb_custo_hora
                         ]);
 
         $response = array(

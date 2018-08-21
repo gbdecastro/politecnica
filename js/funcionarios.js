@@ -82,6 +82,7 @@ new Vue({
   },
   data: {
     funcionarios: [],
+    new_custo_hora: [],
     new_funcionario: {
       tx_name: '',
       tx_email: '',
@@ -91,7 +92,8 @@ new Vue({
       tx_password_confirmation: '',
       nb_category_user: '',
       nb_nota: '',
-	  cs_tipo_contrato: '',
+      nb_custo_hora: '',
+	    cs_tipo_contrato: '',
     },
     edit_funcionario: {
       id_usuario: '',
@@ -103,7 +105,8 @@ new Vue({
       tx_password_confirmation: '',
       nb_category_user: '',
       nb_nota: '',
-	  cs_tipo_contrato: '',
+      nb_custo_hora: '',
+	    cs_tipo_contrato: '',
     },
     projetos_funcionario: [],
     add_projeto_funcionario: {
@@ -201,10 +204,11 @@ new Vue({
       this.edit_funcionario.tx_funcao = funcionario.tx_funcao;
       this.edit_funcionario.dt_admissao = funcionario.dt_admissao;
       this.edit_funcionario.nb_nota = funcionario.nb_nota;
+      this.edit_funcionario.nb_custo_hora = funcionario.nb_custo_hora;
 
       this.edit_funcionario.nb_category_user = funcionario.nb_category_user == 'Administrador' ? 1 : 0;
 	  
-	  this.edit_funcionario.cs_tipo_contrato = funcionario.cs_tipo_contrato;  
+	    this.edit_funcionario.cs_tipo_contrato = funcionario.cs_tipo_contrato;  
 	  
       if(funcionario.tx_name == '' || funcionario.tx_email == '' || funcionario.dt_admissao == ''){
         toastr.error("Preencher Campos Obrigatórios");
@@ -383,7 +387,23 @@ new Vue({
         toastr.success('Projeto Vinculado com Sucesso');
         $('#modal_add_projeto').modal('hide');
       });
-    }
+    },
+
+    mudarCustoHora: function mudarCustoHora(funcionario,key){
+      var _this9 = this;
+
+      var url = 'funcionario/mudarCustoHora';
+
+      btnSpinAjax($('#mudarCusto'),$('#mudarCusto').html());
+
+      axios.post(url,{
+        id_usuario: funcionario,
+        nb_custo_hora: this.new_custo_hora[key]
+      }).then(function(response){
+        toastr.success('Custo/Hora Atualizado');
+        _this9.getFuncionarios();
+      })
+    }    
 
   }
 

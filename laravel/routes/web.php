@@ -82,6 +82,7 @@ Route::group(['middleware' => 'admin'], function(){
 	Route::post('funcionario/projeto','FuncionariosController@adicionarProjetos');
 	Route::delete('funcionario/projeto/{id_projeto}/{id_grupo}/{id_funcionario}','FuncionariosController@destroy');
 	Route::get('funcionario/{id_funcionario}/not/projetos','FuncionariosController@getProjetosNotFuncionario');
+	Route::post('funcionario/mudarCustoHora','FuncionariosController@mudarCustoHora');
 });
 
 //COMUM A TODOS
