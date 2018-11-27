@@ -77,7 +77,9 @@
     						<thead>
     							<tr>
     								<th>Colaborador</th>
-    								<th>Últimos 3 Meses</th>
+									<th>Últimos 12 Meses</th>
+    								<th>Últimos 6 Meses</th>
+									<th>Últimos 3 Meses</th>
 									<th>Mês Anterior</th>
 									<th>Mês Atual</th>
     							</tr>
@@ -86,6 +88,8 @@
     							@foreach($vMediaHorasFuncionarios as $vMediaHorasFuncionarios)
     							<tr>
     								<td>{{ $vMediaHorasFuncionarios->tx_name }}</td>
+									<td>{{ $vMediaHorasFuncionarios->meses12 }}</td>
+									<td>{{ $vMediaHorasFuncionarios->meses6 }}</td>
     								<td>{{ $vMediaHorasFuncionarios->meses }}</td>
 									<td>{{ $vMediaHorasFuncionarios->anterior }}</td>
 									<td>{{ $vMediaHorasFuncionarios->atual }}</td>

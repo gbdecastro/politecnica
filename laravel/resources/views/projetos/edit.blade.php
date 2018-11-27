@@ -28,10 +28,9 @@
 					<div class="form-group">
 						<label for="cs_status_edit" class="label-control obrigatorio">Status: </label>
 						<select name="" id="cs_status_edit" class="form-control obrigatorio select2-native">
-							<option value="0">Investimento</option>
-							<option value="1">Contratado</option>
-							<option value="2">Favor</option>
-							<option value="3">Permanente</option>
+							<option value="0">Contrato</option>
+							<option value="1">Perene</option>
+							<option value="2">Particular</option>
 						</select>
 					</div>					
 

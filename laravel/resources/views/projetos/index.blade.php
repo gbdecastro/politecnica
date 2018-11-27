@@ -49,17 +49,14 @@
                                 <td>@{{ projeto.tx_projeto }}</td>
                                 <td>
                                     <p v-if="projeto.cs_status == 0">
-                                        Investimento
+                                        Contrato
                                     </p> 
                                     <p v-if="projeto.cs_status == 1">
-                                        Contratado
+                                        Perene
                                     </p> 
                                     <p v-if="projeto.cs_status == 2">
-                                        Favor
-                                    </p>                                                                         
-                                    <p v-if="projeto.cs_status == 3">
-                                        Permanente
-                                    </p>                                                                    
+                                        Particular
+                                    </p>                                                                  
                                 </td>
                                 <td>@{{ projeto.tx_grupo }}</td>
                                 <td>@{{ projeto.created_at }}</td>
