@@ -79,6 +79,7 @@ new Vue({
   el: '#funcionario',
   created: function created() {
     this.getFuncionarios();
+    this.loadSelectsForms();
   },
   data: {
     funcionarios: [],
@@ -120,6 +121,21 @@ new Vue({
     errors: []
   },
   methods: {
+
+    loadSelectsForms: function loadSelectsForms(){
+      $.ajax({
+        type:'GET',
+        url:'lotacoes',
+        dataType: "json",
+      }).done(function(data){
+  
+          $.each(data,function(i, entry){
+            var option = '<option value='+entry.id_lotacao+'>'+entry.tx_lotacao+'</option>';
+            $('#new_funcionario_id_lotacao').append(option);
+            $('#edit_funcionario_id_lotacao').append(option);
+          });
+      });
+    },
 
     getFuncionarios: function getFuncionarios() {
       var _this = this;
@@ -165,9 +181,11 @@ new Vue({
 
       funcionario.nb_category_user = $('#new_funcionario_categoria').val();
 	  
-	  funcionario.cs_tipo_contrato = $('#new_funcionario_contrato').val();
+	    funcionario.cs_tipo_contrato = $('#new_funcionario_contrato').val();
 
       funcionario.tx_name = funcionario.tx_name.toUpperCase();
+
+      funcionario.id_lotacao = $('#new_funcionario_id_lotacao').val();
 
       if(funcionario.tx_name == '' || funcionario.tx_email == '' ||  funcionario.tx_password == '' || funcionario.tx_password_confirmation == ''){
         toastr.error("Preencher Campos Obrigatórios");
@@ -209,6 +227,8 @@ new Vue({
       this.edit_funcionario.dt_admissao = funcionario.dt_admissao;
       this.edit_funcionario.nb_nota = funcionario.nb_nota;
       this.edit_funcionario.nb_custo_hora = funcionario.nb_custo_hora;
+      this.edit_funcionario.tx_telefone = funcionario.tx_telefone;
+      this.edit_funcionario.id_lotacao = funcionario.id_lotacao;
 
       this.edit_funcionario.nb_category_user = funcionario.nb_category_user == 'Administrador' ? 1 : 0;
 	  
@@ -220,7 +240,8 @@ new Vue({
       }     
 
       $('#edit_funcionario_categoria').val(this.edit_funcionario.nb_category_user).trigger('change');
-	  $('#edit_funcionario_contrato').val(this.edit_funcionario.cs_tipo_contrato).trigger('change');
+      $('#edit_funcionario_contrato').val(this.edit_funcionario.cs_tipo_contrato).trigger('change');
+      $('#edit_funcionario_id_lotacao').val(this.edit_funcionario.id_lotacao).trigger('change');
     },
 
     updateFuncionario: function updateFuncionario(funcionario) {
@@ -234,7 +255,9 @@ new Vue({
 
       funcionario.nb_category_user = $('#edit_funcionario_categoria').val();
 	  
-	  funcionario.cs_tipo_contrato = $('#edit_funcionario_contrato').val();
+      funcionario.cs_tipo_contrato = $('#edit_funcionario_contrato').val();
+      
+      funcionario.id_lotacao = $('#edit_funcionario_id_lotacao').val();
 
       funcionario.tx_name = funcionario.tx_name.toUpperCase();
 

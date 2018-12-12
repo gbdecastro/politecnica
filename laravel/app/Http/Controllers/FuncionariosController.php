@@ -49,7 +49,9 @@ class FuncionariosController extends Controller
 			        'cs_tipo_contrato' => $request->input('cs_tipo_contrato'),
               'nb_category_user' => $request->input('nb_category_user'),
               'nb_nota' => $request->input('nb_nota'),
-              'nb_custo_hora' => $request->input('nb_custo_hora')
+              'nb_custo_hora' => $request->input('nb_custo_hora'),
+              'id_lotacao' => $request->input('id_lotacao'),
+              'tx_telefone' => $request->input('tx_telefone')
           ]
 
           ]);
@@ -79,7 +81,9 @@ class FuncionariosController extends Controller
 				          'cs_tipo_contrato' => $request->input('cs_tipo_contrato'),
                   'nb_category_user' => $request->input('nb_category_user'),
                   'nb_nota' => $request->input('nb_nota'),
-                  'nb_custo_hora' => $request->input('nb_custo_hora')                  
+                  'nb_custo_hora' => $request->input('nb_custo_hora'),
+                  'id_lotacao' => $request->input('id_lotacao'),
+                  'tx_telefone' => $request->input('tx_telefone')                                    
 
           ]);
         }else{
@@ -101,6 +105,10 @@ class FuncionariosController extends Controller
         }else{
           return "Funcionário Registrou Horas Nesse Projeto";
         }
+    }
+
+    public function getLotacoes(){
+      return DB::table('lotacao')->get()->toJson();
     }
 
     public function getProjetosFuncionario($id_funcionario){

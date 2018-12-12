@@ -74,6 +74,7 @@ Route::get('vue_funcionarios','FuncionariosController@getFuncionarios');
 Route::post('funcionarios','FuncionariosController@store');
 Route::get('funcionarios','FuncionariosController@index');
 Route::put('funcionarios','FuncionariosController@update');
+Route::get('lotacoes','FuncionariosController@getLotacoes');
 
 //SOMENTE ADMIN
 Route::group(['middleware' => 'admin'], function(){

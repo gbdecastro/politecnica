@@ -25,9 +25,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="nb_nota" class="control-label">Nota</label>
-                        <input id="nb_nota" type="text" value=0 class="form-control" name="nb_nota" v-model="new_funcionario.nb_nota" required>
+                        <label for="tx_telefone" class="control-label">Telefone</label>
+                        <input id="tx_telefone" type="text" value=0 class="form-control" name="tx_telefone" v-model="new_funcionario.tx_telefone" required>
                     </div>    
+
+					<div class="form-group">
+                        <label for="id_lotacao" class="control-label obrigatorio">Lotado em</label>
+                        <select class="form-control select2-native" id="new_funcionario_id_lotacao" name="id_lotacao" required></select>
+                    </div>                     
 
                     <div class="form-group">
                         <label for="nb_custo_hora" class="control-label">Custo/Hora</label>
@@ -41,6 +46,8 @@
                             <option value="1">Eventual</option>
 							<option value="2">Temporario</option>
                             <option value="3">Estagiario</option>
+                            <option value="4">Home Office</option>
+                            <option value="5">Inativo</option>
                         </select>
                     </div>
 					
