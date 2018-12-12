@@ -31,7 +31,8 @@
                                 <th>Contrato</th>
                                 <th>Função</th>
                                 <th>Data de Admissão</th>
-                                <th>Nota</th>
+                                <th>Telefone</th>
+                                <th>Lotação</th>
                                 <th>Custo/Hora</th>
                                 <th>Categoria</th>
                                 <th>Projetos</th>
@@ -42,23 +43,11 @@
                             <tr v-for="(funcionario,key) in funcionarios">
                                 <td>@{{ funcionario.tx_name }}</td>
                                 <td>@{{ funcionario.tx_email }}</td>
-                                <td>
-                                    <p v-if="funcionario.cs_tipo_contrato == 0">
-                                        Fixo
-                                    </p>
-                                    <p v-if="funcionario.cs_tipo_contrato == 1">
-                                        Eventual
-                                    </p>
-                                    <p v-if="funcionario.cs_tipo_contrato == 2">
-                                        Temporario
-                                    </p>
-                                    <p v-if="funcionario.cs_tipo_contrato == 3">
-                                        Estagiario
-                                    </p>
-                                </td>
+                                <td>@{{ funcionario.tx_contrato }}</td>
                                 <td>@{{ funcionario.tx_funcao }}</td>
                                 <td>@{{ funcionario.dt_admissao }}</td>
-                                <td>@{{ funcionario.nb_nota }}</td>
+                                <td>@{{ funcionario.tx_telefone }}</td>
+                                <td>@{{ funcionario.tx_lotacao }}</td>
                                 <td>
                                     <p v-show="funcionario.nb_custo_hora">
                                         R$ @{{ funcionario.nb_custo_hora }}

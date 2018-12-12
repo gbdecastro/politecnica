@@ -9,17 +9,13 @@ use Auth;
 
 class FuncionariosController extends Controller
 {
-  //USO DO CONTROLLER DEFINIDO NAS ROTAS.
-  public function getFuncionarios(){
-        $user = User::orderBy('created_at','DESC')->get();
-        for($i=0;$i<count($user);$i++){
-          if($user[$i]->nb_category_user == '0'){
-            $user[$i]->nb_category_user = 'Comum';
-          }else{
-            $user[$i]->nb_category_user = 'Administrador';
-          }
-        }
-        return $user;        
+    //USO DO CONTROLLER DEFINIDO NAS ROTAS.
+    public function getFuncionarios(){
+      return DB::table('v_funcionario')
+              ->OrderBy('tx_name','ASC')
+              ->OrderBy('tx_contrato','ASC')
+              ->OrderBy('tx_lotacao','ASC')
+              ->get();
     }
 
     public function index(){

@@ -19,23 +19,23 @@
                 
                 <img class="foto_perfil profile-user-img img-responsive img-circle" onerror="this.src='{{ asset('img/user.png')}}'" src="{{ asset('img/user/') }}/{{ hash('sha256',Auth::user()->id_usuario) }}.png" alt="{{ ucwords(strtolower(Auth::user()->tx_name)) }}">
 
-                <h3 class="profile-username text-center">{{ ucwords(strtolower(Auth::user()->tx_name)) }}</h3>
+                <h3 class="profile-username text-center">{{ ucwords(strtolower($usuario->tx_name)) }}</h3>
                 
-                <p class="text-muted text-center">{{ ucwords(strtolower(Auth::user()->tx_funcao)) }}</p>
+                <p class="text-muted text-center">{{ ucwords(strtolower($usuario->tx_funcao)) }}</p>
 
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
-                      <b>E-mail</b> <a class="pull-right">{{ Auth::user()->tx_email }}</a>
+                      <b>E-mail</b> <a class="pull-right">{{ $usuario->tx_email }}</a>
                     </li>
                     <li class="list-group-item">
-                      <b>Data de Admissão</b> <a class="pull-right">{{ date_format(date_create_from_format("Y-m-d",Auth::user()->dt_admissao),"d/m/Y") }}</a>
+                      <b>Data de Admissão</b> <a class="pull-right">{{ date_format(date_create_from_format("Y-m-d",$usuario->dt_admissao),"d/m/Y") }}</a>
                     </li>                   
-                    @if(Auth::user()->nb_category_user == 1)
-                        <li class="list-group-item">
-                                <b>Nota</b> <a class="pull-right">{{ Auth::user()->nb_nota }}</a>
-                        </li>                    
-                    @endif
-                    
+                    <li class="list-group-item">
+                            <b>Lotado em</b> <a class="pull-right">{{ $usuario->tx_lotacao }}</a>
+                    </li>                    
+                    <li class="list-group-item">
+                            <b>Telefone</b> <a class="pull-right">{{ $usuario->tx_telefone }}</a>
+                    </li>                                        
                 </ul>
 
             </div>
