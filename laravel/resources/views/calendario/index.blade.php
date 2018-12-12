@@ -57,7 +57,12 @@
                     </button>                   
                 </div>                
             </div>              
-            <div class="box-body">         
+            <div class="box-body">
+                <div class="alert alert-info alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-info"></i> Saldo de Horas do Mês Anterior: {{ $saldoHoras }} hs</h4>
+                    Atenção Todo o Dia 5 de Cada Mês é contabilizado o Saldo de Horas.
+                </div>                     
                 <div class="info-box bg-yellow" id="corBox">
                     <span class="info-box-icon"><i class="fa fa-object-group"></i></span>
                     <div class="info-box-content">
@@ -71,7 +76,7 @@
                                 
                         </span>
                     </div>
-                </div>             
+                </div>                             
                 <div id="resumo"></div>
             </div>                    
         </div>

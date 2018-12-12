@@ -68,6 +68,7 @@ class HorasTrabalhadasController extends Controller
         // return $projetos->toJson();
         return DB::table('projetos')->select('id_projeto','tx_projeto')->get()->toJson();
     }
+    
     public function getHorasTrabalhadas($ano,$mes,$projeto){
       //todos os projetos
       if($projeto == 0){
@@ -189,6 +190,20 @@ class HorasTrabalhadasController extends Controller
     }
     public function calendario()
     {
-        return view('calendario.index');
+        $mes = (int) Date('m');
+        $mes--;
+        $result = DB::table('banco_horas')
+        ->select('nb_saldo')
+        ->where('id_funcionario','=',Auth::user()->id_usuario)
+        ->where('nb_ano','=',''.Date('Y').'')
+        ->where('nb_mes','=',''.$mes.'')
+        ->get();
+
+        if(count($result) > 0)
+            $saldoHoras = $result[0]->nb_saldo;
+        else
+            $saldoHoras = 'Não Contabilizado';
+
+        return view('calendario.index', compact(['saldoHoras']));
     }    
 }

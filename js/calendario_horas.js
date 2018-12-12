@@ -260,8 +260,8 @@ $('#create_evento').bootstrapValidator({
               },
               between: {
                   min: 1,
-                  max: 20,
-                  message: 'Mínimo de 1 Hora e Máximo de 20 Horas'
+                  max: 24,
+                  message: 'Mínimo de 1 Hora e Máximo de 24 Horas'
               },
               regexp: {
                   regexp: /^[0-9_]+$/,
@@ -358,8 +358,8 @@ $('#show_evento').bootstrapValidator({
               },
               between: {
                   min: 1,
-                  max: 20,
-                  message: 'Mínimo de 1 Hora e Máximo de 20 Horas'
+                  max: 24,
+                  message: 'Mínimo de 1 Hora e Máximo de 24 Horas'
               },
               regexp: {
                   regexp: /^[0-9_]+$/,
