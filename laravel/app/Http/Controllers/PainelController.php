@@ -66,6 +66,7 @@ class PainelController extends Controller
         return DB::table('empresas')->orderBy('tx_empresa','ASC')->get();
 
     }
+
     public function carregarAno(){
         $min = DB::table('horas_projetos_funcionarios')
                    ->orderBy('dt_trabalho','ASC')
@@ -130,6 +131,7 @@ class PainelController extends Controller
 
         return $result;
     }
+
     public function horas_projetos($ano, $mes){
         $result =  DB::table('horas_projetos_funcionarios')
             ->join('projetos','horas_projetos_funcionarios.id_projeto','=','projetos.id_projeto')
@@ -148,6 +150,7 @@ class PainelController extends Controller
 
         return $result;
     }
+
     public function gerarRelatorio(Request $request){
         
         $dt_resumo = $request->input('mes').'/'.$request->input('ano');
@@ -244,5 +247,58 @@ class PainelController extends Controller
         
         return response()->download($storagePath.'./relatorio_mensal_'.$periodo.'.xlsx');
 
+    }
+
+    //Banco de Horas
+    public function bancoHoras(){
+
+        $mesAtual = Date('m');
+        $anoAtual = Date('Y');
+
+        $mesAnterior1 = $mesAtual - 1;
+        $mesAnterior2 = $mesAtual - 2;
+        $mesAnterior3 = $mesAtual - 3;
+
+        $anoAnterior1 = $anoAtual;
+        $anoAnterior2 = $anoAtual;
+        $anoAnterior3 = $anoAtual;
+
+        if($mesAnterior1 <=0){
+            $mesAnterior1 = 12 + $mesAnterior1;
+            $anoAnterior1--;
+        }
+
+        if($mesAnterior2 <=0){
+            $mesAnterior2 = 12 + $mesAnterior2;
+            $anoAnterior2--;
+        }
+        
+        if($mesAnterior3 <=0){
+            $mesAnterior3 = 12 + $mesAnterior3;
+            $anoAnterior3--;
+        }
+
+        $bancoHoras = DB::select(
+            "SELECT 
+                tx_name,
+                IFNULL((SELECT nb_saldo FROM banco_horas bh2 WHERE id_funcionario = u.id_usuario AND nb_mes = :v_mes1 AND nb_ano = :v_ano1),0) AS mes1,
+                IFNULL((SELECT nb_saldo FROM banco_horas bh2 WHERE id_funcionario = u.id_usuario AND nb_mes = :v_mes2 AND nb_ano = :v_ano2),0) AS mes2,
+                IFNULL((SELECT nb_saldo FROM banco_horas bh2 WHERE id_funcionario = u.id_usuario AND nb_mes = :v_mes3 AND nb_ano = :v_ano3),0) AS mes3,
+                (IFNULL((SELECT SUM(nb_horas_trabalho) FROM horas_projetos_funcionarios where id_funcionario = u.id_usuario  AND MONTH(dt_trabalho) = :v_mesAtual AND YEAR(dt_trabalho) = :v_anoAtual),0)-168) AS mes_atual
+             FROM users u
+             ",
+             [
+                'v_mes1' => (int) $mesAnterior1,
+                'v_mes2' => (int) $mesAnterior2,
+                'v_mes3' => (int) $mesAnterior3,
+                'v_mesAtual' => (int) $mesAtual,
+                'v_ano1' => (int) $anoAnterior1,
+                'v_ano2' => (int) $anoAnterior2,
+                'v_ano3' => (int) $anoAnterior3,
+                'v_anoAtual' => (int) $anoAtual
+             ]
+        );       
+
+        return view('painel.bancohoras.index',compact(['mesAnterior1','mesAnterior2','mesAnterior3','anoAnterior1','anoAnterior2','anoAnterior3','bancoHoras']));
     }
 }

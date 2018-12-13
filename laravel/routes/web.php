@@ -57,6 +57,7 @@ Route::get('painel/resumo/projetos/empresas','PainelController@carregarEmpresas'
 //view
 Route::get('painel/relatorios','PainelController@relatorioView');
 Route::get('painel/relatorio','PainelController@gerarRelatorio');
+Route::get('painel/bancohoras','PainelController@bancoHoras');
 
 /*ROTAS DE CALENDARIO EM PAINEL*/
 /*PARA USAR BASTA TER AUTH*/

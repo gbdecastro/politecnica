@@ -139,6 +139,13 @@ return [
                     'active'      => ['/painel'],
                     'permission'  => 'yes',
                 ],
+                [
+                    'text'        => 'Banco de Horas',
+                    'url'         => '/painel/bancohoras',
+                    'icon'        => 'database',
+                    'active'      => ['/painel/bancohoras','/painel/bancohoras/*'],
+                    'permission'  => 'yes',                    
+                ],
                 [                
                     'text'      =>   'Relatórios',
                     'url'       =>   '/painel/relatorios',
