@@ -36,10 +36,10 @@ class PainelController extends Controller
         $countFuncionarios = User::count();
         $countProjetos = Projetos::count();
         $countGrupos = Grupos::count();
-        $funcionariosGastos = DB::table('v_funcionarios_gastos')->limit(3)->get();
-        $projetosGastos = DB::table('v_projetos_gastos')->limit(3)->get();
+        //$funcionariosGastos = DB::table('v_funcionarios_gastos')->limit(3)->get();
+        //$projetosGastos = DB::table('v_projetos_gastos')->limit(3)->get();
         $vMediaHorasFuncionarios = DB::table('v_media_horas_funcionarios')->get();
-        return view('painel.index',compact(['vMediaHorasFuncionarios','countFuncionarios','countProjetos','countGrupos','funcionariosGastos','projetosGastos']));
+        return view('painel.index',compact(['vMediaHorasFuncionarios','countFuncionarios','countProjetos','countGrupos']));
     }
 
     //Retorno de Views
