@@ -190,13 +190,13 @@ class HorasTrabalhadasController extends Controller
     }
     public function calendario()
     {
-        $mes = (int) Date('m');
-        $mes--;
+        //$mes = (int) Date('m');
+        //$mes--;
         $result = DB::table('banco_horas')
-        ->select('nb_saldo')
+        ->select(DB::raw('SUM(nb_saldo) as nb_saldo'))
         ->where('id_funcionario','=',Auth::user()->id_usuario)
-        ->where('nb_ano','=',''.Date('Y').'')
-        ->where('nb_mes','=',''.$mes.'')
+        //->where('nb_ano','=',''.Date('Y').'')
+        //->where('nb_mes','=',''.$mes.'')
         ->get();
 
         if(count($result) > 0)

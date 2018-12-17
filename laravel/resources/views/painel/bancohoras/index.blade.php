@@ -30,7 +30,7 @@
     			</div>
     			<div class="box-body">
     				<div class="table-responsive">
-    					<table class="table no-margin">
+    					<table id="tableBancoHoras" class="table no-margin">
     						<thead>
     							<tr>
     								<th>Colaborador</th>
@@ -83,4 +83,17 @@
     		</div>
     	</div>
     </div>
+@endsection
+@section('js')
+<script>
+	$(function(){
+		$("#tableBancoHoras").DataTable({
+			"order": [],
+			"autoWidth": true,
+			"oLanguage": {
+				"sUrl": "js/datatables_ptbr.json"
+			}						
+		})
+	})
+</script>
 @endsection
