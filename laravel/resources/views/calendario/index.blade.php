@@ -61,8 +61,8 @@
                 @if(Auth::user()->cs_tipo_contrato != 1)
                     <div class="alert alert-info alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-info"></i> Saldo de Horas: {{ $saldoHoras }} hs</h4>
-                        Atenção Todo o Dia 5 de Cada Mês é contabilizado o Saldo de Horas.
+                        <h4><i class="icon fa fa-info"></i>- Banco de Horas - Saldo: {{ $saldoHoras }} hs</h4>
+                        Atenção! Todo o dia primeiro de cada mês é contabilizado o Saldo de Horas.
                     </div>
                 @endif                     
                 <div class="info-box bg-yellow" id="corBox">

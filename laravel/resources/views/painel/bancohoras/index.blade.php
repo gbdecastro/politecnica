@@ -37,7 +37,7 @@
 									<th>{{ $mesAnterior3 }}/{{ $anoAnterior3 }}</th>
                                     <th>{{ $mesAnterior2 }}/{{ $anoAnterior2 }}</th>
                                     <th>{{ $mesAnterior1 }}/{{ $anoAnterior1 }}</th>
-									<th>Mês Atual</th>
+									<th>Saldo Atual</th>
     							</tr>
     						</thead>
     						<tbody>
@@ -69,11 +69,10 @@
     								        {{ $bancoHoras->mes1 }}
                                         </td>
 
-                                    @if($bancoHoras->mes_atual > 0)
+                                    
 									    <td>{{ $bancoHoras->mes_atual }}</td>
-                                    @else
-                                        <td>0</td>
-                                    @endif
+                                    
+                                    
     							</tr>    							
     							@endforeach
     						</tbody>

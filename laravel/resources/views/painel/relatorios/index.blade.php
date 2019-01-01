@@ -19,7 +19,7 @@
         <div class="box box-poli" id="box_form">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                    Filtro de Pesquisa
+                    Relatório de Status Mensal
                 </h3>
                 <div class="box-tools pull-right">
                     <button class="btn btn-box-toll" type="button" data-widget="collapse">
