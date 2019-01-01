@@ -22,7 +22,7 @@ class ProjetosController extends Controller
          ->join('grupos','projetos.id_grupo','=','grupos.id_grupo')
          ->join('empresas','projetos.id_empresa','=','empresas.id_empresa')
          ->selectRaw('projetos.*, empresas.*, grupos.tx_grupo, grupos.tx_color')
-         ->orderBy('projetos.tx_projeto','ASC')
+         ->orderBy('projetos.id_projeto','ASC')
          ->get();
 
         for($i=0;$i<count($projetos);$i++){

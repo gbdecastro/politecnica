@@ -27,47 +27,43 @@
                         <thead>
                             <tr>
                                 <th>Nome</th>
+								<th>Lotação</th>
                                 <th>E-mail</th>
                                 <th>Contrato</th>
                                 <th>Função</th>
-                                <th>Data de Admissão</th>
                                 <th>Telefone</th>
-                                <th>Lotação</th>
-                                <th>Custo/Hora</th>
                                 <th>Categoria</th>
-                                <th>Projetos</th>
+								<th>Data de Admissão</th>
                                 <th>Editar</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(funcionario,key) in funcionarios">
                                 <td>@{{ funcionario.tx_name }}</td>
+								<td>@{{ funcionario.tx_lotacao }}</td>
                                 <td>@{{ funcionario.tx_email }}</td>
                                 <td>@{{ funcionario.tx_contrato }}</td>
+								<td>
+                                    <p v-if="funcionario.tx_contrato == 0">
+                                        Fixo
+                                    </p> 
+                                    <p v-if="funcionario.tx_contrato == 1">
+                                        Eventual / Home Office
+                                    </p> 
+                                    <p v-if="funcionario.tx_contrato == 2">
+                                        Temporário
+                                    </p>   
+									<p v-if="funcionario.tx_contrato == 3">
+                                        Estagiário
+                                    </p> 
+									<p v-if="funcionario.tx_contrato == 4">
+                                        Inativo
+                                    </p>  									
+                                </td>
                                 <td>@{{ funcionario.tx_funcao }}</td>
-                                <td>@{{ funcionario.dt_admissao }}</td>
-                                <td>@{{ funcionario.tx_telefone }}</td>
-                                <td>@{{ funcionario.tx_lotacao }}</td>
-                                <td>
-                                    <p v-show="funcionario.nb_custo_hora">
-                                        R$ @{{ funcionario.nb_custo_hora }}
-                                    </p>
-                                    <div class="col-lg-12" v-if="funcionario.nb_custo_hora == null">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Custo/Hora"  v-model="new_custo_hora[key]">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-sm btn-poli" v-on:click.prevent="mudarCustoHora(funcionario.id_usuario,key)" type="button"><i class="fa fa-check"></i></button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
+								<td>@{{ funcionario.tx_telefone }}</td>
                                 <td>@{{ funcionario.nb_category_user }}</td>
-                                <td>
-                                    <button class="btn btn-block btn-social btn-default" data-toogle="modal" data-target="#modal_projetos" v-on:click.prevent="getProjetosFuncionario(funcionario.id_usuario)"
-                                        title="Projetos do Funcionário">
-                                        <i class="fa fa-object-group"></i> Projetos
-                                    </button>
-                                </td>
+								<td>@{{ funcionario.dt_admissao }}</td>
                                 <td>
                                     <button class="btn btn-block btn-social btn-info" data-toggle="modal" data-target="#modal_edit" v-on:click.prevent="editFuncionario(funcionario)">
                                         <i class="fa fa-edit"></i> Editar
