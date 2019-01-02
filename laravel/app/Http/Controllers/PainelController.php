@@ -280,12 +280,14 @@ class PainelController extends Controller
 
         $bancoHoras = DB::select(
             "SELECT 
-                u.tx_name,
+                tx_name,
                 IFNULL((SELECT nb_saldo FROM banco_horas bh2 WHERE id_funcionario = u.id_usuario AND nb_mes = :v_mes1 AND nb_ano = :v_ano1),0) AS mes1,
                 IFNULL((SELECT nb_saldo FROM banco_horas bh2 WHERE id_funcionario = u.id_usuario AND nb_mes = :v_mes2 AND nb_ano = :v_ano2),0) AS mes2,
                 IFNULL((SELECT nb_saldo FROM banco_horas bh2 WHERE id_funcionario = u.id_usuario AND nb_mes = :v_mes3 AND nb_ano = :v_ano3),0) AS mes3,
                 IFNULL((SELECT saldo FROM v_saldo_banco_horas WHERE id_funcionario = u.id_usuario),0) AS mes_atual
              FROM users u
+			 GROUP BY banco_horas.tx_funcionario
+			 ORDER BY u.id_lotacao
              ",
              [
                 'v_mes1' => (int) $mesAnterior1,
