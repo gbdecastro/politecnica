@@ -43,23 +43,6 @@
 								<td>@{{ funcionario.tx_lotacao }}</td>
                                 <td>@{{ funcionario.tx_email }}</td>
                                 <td>@{{ funcionario.tx_contrato }}</td>
-								<td>
-                                    <p v-if="funcionario.tx_contrato == 0">
-                                        Fixo
-                                    </p> 
-                                    <p v-if="funcionario.tx_contrato == 1">
-                                        Eventual / Home Office
-                                    </p> 
-                                    <p v-if="funcionario.tx_contrato == 2">
-                                        Temporário
-                                    </p>   
-									<p v-if="funcionario.tx_contrato == 3">
-                                        Estagiário
-                                    </p> 
-									<p v-if="funcionario.tx_contrato == 4">
-                                        Inativo
-                                    </p>  									
-                                </td>
                                 <td>@{{ funcionario.tx_funcao }}</td>
 								<td>@{{ funcionario.tx_telefone }}</td>
                                 <td>@{{ funcionario.nb_category_user }}</td>

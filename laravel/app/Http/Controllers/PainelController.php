@@ -280,7 +280,7 @@ class PainelController extends Controller
 
         $bancoHoras = DB::select(
             "SELECT 
-                tx_name,
+                u.tx_name,
                 IFNULL((SELECT nb_saldo FROM banco_horas bh2 WHERE id_funcionario = u.id_usuario AND nb_mes = :v_mes1 AND nb_ano = :v_ano1),0) AS mes1,
                 IFNULL((SELECT nb_saldo FROM banco_horas bh2 WHERE id_funcionario = u.id_usuario AND nb_mes = :v_mes2 AND nb_ano = :v_ano2),0) AS mes2,
                 IFNULL((SELECT nb_saldo FROM banco_horas bh2 WHERE id_funcionario = u.id_usuario AND nb_mes = :v_mes3 AND nb_ano = :v_ano3),0) AS mes3,
