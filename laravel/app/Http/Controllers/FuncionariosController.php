@@ -12,9 +12,9 @@ class FuncionariosController extends Controller
     //USO DO CONTROLLER DEFINIDO NAS ROTAS.
     public function getFuncionarios(){
       return DB::table('v_funcionario')
+			  ->OrderBy('tx_contrato','ASC')
+			  ->OrderBy('tx_lotacao','ASC')			  
               ->OrderBy('tx_name','ASC')
-              ->OrderBy('tx_contrato','ASC')
-              ->OrderBy('tx_lotacao','ASC')
               ->get();
     }
 

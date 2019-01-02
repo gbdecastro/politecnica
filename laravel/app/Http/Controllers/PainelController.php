@@ -291,11 +291,11 @@ class PainelController extends Controller
                 'v_mes1' => (int) $mesAnterior1,
                 'v_mes2' => (int) $mesAnterior2,
                 'v_mes3' => (int) $mesAnterior3,
-                'v_mesAtual' => (int) $mesAtual,
+                
                 'v_ano1' => (int) $anoAnterior1,
                 'v_ano2' => (int) $anoAnterior2,
                 'v_ano3' => (int) $anoAnterior3,
-                'v_anoAtual' => (int) $anoAtual
+                
              ]
         );       
 
