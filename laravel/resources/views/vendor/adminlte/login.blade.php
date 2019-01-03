@@ -8,7 +8,7 @@
 
 @section('body_class', 'login-page')
 
-@section('content_header')
+@section('body')
 <div class="header" style="display: flex; flex-wrap:wrap; align-items:center; border-bottom: 2px solid black;margin: 0 15vh 0 15vh">
 			<h5>
             <span>PMHT - Planilha Mensal de Horas Trabalhadas</span>
@@ -16,10 +16,7 @@
 			<img alt="Politecnica" src="./img/logo_laravel.png" width="48" height="48">
 			</a>
             </h5>
-		</div>
-@endsection
-
-@section('body')
+</div>
     <div class="login-box">
         <div class="login-logo">
             
