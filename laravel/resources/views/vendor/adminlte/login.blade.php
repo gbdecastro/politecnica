@@ -8,18 +8,26 @@
 
 @section('body_class', 'login-page')
 
+@section('content_header')
+<div class="header" style="display: flex; flex-wrap:wrap; align-items:center; border-bottom: 2px solid black;margin: 0 15vh 0 15vh">
+			<h5>
+            <span>PMHT - Planilha Mensal de Horas Trabalhadas</span>
+			<a href="http://www.politecnica-eng.com.br/" style="margin-left: auto">©2018-2019 Politecnica Engenharia LTDA
+			<img alt="Politecnica" src="./img/logo_laravel.png" width="48" height="48">
+			</a>
+            </h5>
+		</div>
+@endsection
+
 @section('body')
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}">
-
-                {{ config('adminlte.logo') }}
-
-            </a>
+            
+            
         </div>
         <!-- /.login-logo -->
 
-        <div class="login-box-body">
+        <div class="login-box-body" style="margin: 25vh 0 0 0">
             <p class="login-box-msg">{{ trans('adminlte::adminlte.login_message') }}</p>
 
             <form action="{{ url(config('adminlte.login_url', 'login')) }}" method="post">
