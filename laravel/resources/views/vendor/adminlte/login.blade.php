@@ -10,10 +10,12 @@
 
 @section('body')
 <div class="header" style="display: flex; flex-wrap:wrap; align-items:center; border-bottom: 2px solid black;margin: 0 15vh 0 15vh">
-			<h5>
+			<h4>
             <span>PMHT - Planilha Mensal de Horas Trabalhadas</span>
-			<a href="http://www.politecnica-eng.com.br/" style="margin-left: auto">©2018-2019 Politecnica Engenharia LTDA
-			<img alt="Politecnica" src="./img/logo_laravel.png" width="48" height="48">
+            </h4>
+            <h5 style="margin-left: auto">
+			<a href="http://www.politecnica-eng.com.br/">©2018-2019 Politecnica Engenharia LTDA
+			<img alt="Politecnica" src="./img/logo_laravel.png" width="40" height="40">
 			</a>
             </h5>
 </div>
