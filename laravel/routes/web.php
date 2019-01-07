@@ -107,3 +107,10 @@ Route::post('projetos/mudarSituacao', 'ProjetosController@mudarSituacao');
 
 /*ROTAS DE EMPREASS*/
 Route::get('empresas','EmpresasController@getEmpresas');
+
+
+/**
+ * Rotas Banco de Horas
+ */
+
+Route::get('banco_horas/dias_uteis/{mes}/{ano}','BancoHorasController@dias_uteis');

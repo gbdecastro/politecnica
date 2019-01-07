@@ -188,6 +188,7 @@ class HorasTrabalhadasController extends Controller
 
         return $response;                        
     }
+    
     public function calendario()
     {
         
