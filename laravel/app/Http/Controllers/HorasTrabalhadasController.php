@@ -191,7 +191,7 @@ class HorasTrabalhadasController extends Controller
     public function calendario()
     {
         
-        $mes = (int) Date('F');
+        $mes = (int) Date('m');
         $ano = (int) Date('Y');
 
         $result = DB::table('banco_horas')
@@ -213,7 +213,7 @@ class HorasTrabalhadasController extends Controller
         //->where('nb_mes','=',''.$mes.'')
         ->get();
 
-        $cargaData = $mes.'/'.$ano;
+        $cargaData = Date('F').'/'.$ano;
         $cargaHoras = ($resultA[0]->nb_dias)*8;
 
         return view('calendario.index', compact(['saldoHoras','cargaData','cargaHoras']));
