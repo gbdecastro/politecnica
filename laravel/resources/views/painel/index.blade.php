@@ -73,7 +73,7 @@
     			</div>
     			<div class="box-body">
     				<div class="table-responsive">
-    					<table class="table no-margin">
+    					<table class="table table-striped no-margin">
     						<thead>
     							<tr>
     								<th>Colaborador</th>

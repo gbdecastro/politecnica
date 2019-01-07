@@ -30,7 +30,7 @@
     			</div>
     			<div class="box-body">
     				<div class="table-responsive">
-    					<table id="tableBancoHoras" class="table no-margin">
+    					<table id="tableBancoHoras" class="table table-striped no-margin">
     						<thead>
     							<tr>
     								<th>Colaborador</th>

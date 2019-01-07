@@ -190,8 +190,10 @@ class HorasTrabalhadasController extends Controller
     }
     public function calendario()
     {
-        //$mes = (int) Date('m');
-        //$mes--;
+        
+        $mes = (int) Date('m');
+        $ano = (int) Date('Y');
+
         $result = DB::table('banco_horas')
         ->select(DB::raw('SUM(nb_saldo) as nb_saldo'))
         ->where('id_funcionario','=',Auth::user()->id_usuario)
@@ -203,7 +205,17 @@ class HorasTrabalhadasController extends Controller
             $saldoHoras = $result[0]->nb_saldo;
         else
             $saldoHoras = 'Não Contabilizado';
+        //busca dias
+        $resultA = DB::table('dias_uteis')
+        ->select(DB::raw('nb_dias'))
+        ->where('nb_mes','=',$mes)
+        //->where('nb_ano','=',''.Date('Y').'')
+        //->where('nb_mes','=',''.$mes.'')
+        ->get();
 
-        return view('calendario.index', compact(['saldoHoras']));
+        $cargaData = $mes.'/'.$ano;
+        $cargaHoras = ($resultA->nb_dias)*8;
+
+        return view('calendario.index', compact(['saldoHoras','cargaData','cargaHoras']));
     }    
 }
