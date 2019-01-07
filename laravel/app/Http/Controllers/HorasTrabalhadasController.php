@@ -214,7 +214,7 @@ class HorasTrabalhadasController extends Controller
         ->get();
 
         $cargaData = $mes.'/'.$ano;
-        $cargaHoras = ($resultA->nb_dias)*8;
+        $cargaHoras = ($resultA[0]->nb_dias)*8;
 
         return view('calendario.index', compact(['saldoHoras','cargaData','cargaHoras']));
     }    
