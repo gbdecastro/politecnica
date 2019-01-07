@@ -62,6 +62,7 @@
                     <div class="alert alert-info">
                         <h4><i class="icon fa fa-info"></i>- Banco de Horas - Saldo: {{ $saldoHoras }} hs</h4>
                         <h5>Carga Horária Obrigatória para {{ $cargaData }}: {{ $cargaHoras }} hs</h5>
+                        <input id="cargaHoras" type="hidden" value="{{ $cargaHoras }}">
                         <cite>Atenção! Todo o dia primeiro de cada mês é contabilizado o Saldo de Horas.</cite>
                     </div>
                 @endif                     

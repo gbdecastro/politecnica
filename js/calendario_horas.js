@@ -222,9 +222,12 @@ function getResumo(id_projeto){
             '</div>'+                     
         '</div>');        
     });
-    var porc = ((horas*100)/168);
+
+    var cargaHoras = $('#cargaHoras').val()
+
+    var porc = ((horas*100)/cargaHoras);
     porc = porc.toPrecision(4);
-    if(horas < 168){
+    if(horas < cargaHoras){
       $('#corBox').addClass("bg-yellow");
     }else{
       $('#corBox').addClass("bg-poli");        

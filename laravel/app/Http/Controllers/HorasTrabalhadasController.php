@@ -191,7 +191,7 @@ class HorasTrabalhadasController extends Controller
     public function calendario()
     {
         
-        $mes = (int) Date('m');
+        $mes = (int) Date('F');
         $ano = (int) Date('Y');
 
         $result = DB::table('banco_horas')
