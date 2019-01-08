@@ -12,7 +12,7 @@ class HorasTrabalhadasController extends Controller
 
     //Precisa estar logado
     public function __construct()
-    {
+    {        
         $this->middleware('auth');
     }
 

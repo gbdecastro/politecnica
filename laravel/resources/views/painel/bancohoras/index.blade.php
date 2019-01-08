@@ -103,13 +103,11 @@
     			<div class="box-body">
     				<div class="table-responsive">
     					<table id="tableDiasUteis" class="table no-margin">
-    						
     						<tbody>
-    							
     							<tr>
     								<td>Janeiro: 
 									<div class="form-group">
-									<select class="form-control select2-native" id="edit_dias_jan" name="dias_uteis" required>
+									<select class="form-control select2-native slc-dias-uteis" data="01" required>
 										<option value="18.5">18.5</option>
 										<option value="19">19</option>
 										<option value="19.5">19.5</option>
@@ -127,7 +125,7 @@
 
                                     <td>Fevereiro: 
 									<div class="form-group">
-									<select class="form-control select2-native" id="edit_dias_jan" name="dias_uteis" required>
+									<select class="form-control select2-native slc-dias-uteis" data="02" required>
 										<option value="18.5">18.5</option>
 										<option value="19">19</option>
 										<option value="19.5" selected>19.5</option>
@@ -143,7 +141,7 @@
 
                                     <td>Março: 
 									<div class="form-group">
-									<select class="form-control select2-native" id="edit_dias_jan" name="dias_uteis" required>
+									<select class="form-control select2-native slc-dias-uteis" data="03" required>
 										<option value="18.5">18.5</option>
 										<option value="19">19</option>
 										<option value="19.5">19.5</option>
@@ -159,7 +157,7 @@
 
                                     <td>Abril: 
 									<div class="form-group">
-									<select class="form-control select2-native" id="edit_dias_jan" name="dias_uteis" required>
+									<select class="form-control select2-native slc-dias-uteis" data="04" required>
 										<option value="18.5">18.5</option>
 										<option value="19">19</option>
 										<option value="19.5">19.5</option>
@@ -175,7 +173,7 @@
                                     
 									<td>Maio: 
 									<div class="form-group">
-									<select class="form-control select2-native" id="edit_dias_jan" name="dias_uteis" required>
+									<select class="form-control select2-native slc-dias-uteis" data="05" required>
 										<option value="18.5">18.5</option>
 										<option value="19">19</option>
 										<option value="19.5">19.5</option>
@@ -191,7 +189,7 @@
 
                                     <td>Junho: 
 									<div class="form-group">
-									<select class="form-control select2-native" id="edit_dias_jan" name="dias_uteis" required>
+									<select class="form-control select2-native slc-dias-uteis" data="06" required>
 										<option value="18.5">18.5</option>
 										<option value="19">19</option>
 										<option value="19.5">19.5</option>
@@ -208,7 +206,7 @@
     							<tr>
 									<td>Julho: 
 									<div class="form-group">
-									<select class="form-control select2-native" id="edit_dias_jan" name="dias_uteis" required>
+									<select class="form-control select2-native slc-dias-uteis" data="07" required>
 										<option value="18.5">18.5</option>
 										<option value="19">19</option>
 										<option value="19.5">19.5</option>
@@ -223,7 +221,7 @@
 									<div></td>
 
 									<td>Agosto:<div class="form-group">
-									<select class="form-control select2-native" id="edit_dias_jan" name="dias_uteis" required>
+									<select class="form-control select2-native slc-dias-uteis" data="08" required>
 										<option value="18.5">18.5</option>
 										<option value="19">19</option>
 										<option value="19.5">19.5</option>
@@ -238,7 +236,7 @@
 									<div> </td>                              
 
 									<td>Setembro: <div class="form-group">
-									<select class="form-control select2-native" id="edit_dias_jan" name="dias_uteis" required>
+									<select class="form-control select2-native slc-dias-uteis" data="09" required>
 										<option value="18.5">18.5</option>
 										<option value="19">19</option>
 										<option value="19.5">19.5</option>
@@ -253,7 +251,7 @@
 									<div></td>    
 
 									<td>Outubro: <div class="form-group">
-									<select class="form-control select2-native" id="edit_dias_jan" name="dias_uteis" required>
+									<select class="form-control select2-native slc-dias-uteis" data="10" required>
 										<option value="18.5">18.5</option>
 										<option value="19">19</option>
 										<option value="19.5">19.5</option>
@@ -268,7 +266,7 @@
 									<div></td>                              
 
 									<td>Novembro:<div class="form-group">
-									<select class="form-control select2-native" id="edit_dias_jan" name="dias_uteis" required>
+									<select class="form-control select2-native slc-dias-uteis" data="11" required>
 										<option value="18.5">18.5</option>
 										<option value="19">19</option>
 										<option value="19.5">19.5</option>
@@ -283,7 +281,7 @@
 									<div> </td>
 
 									<td>Dezembro: <div class="form-group">
-									<select class="form-control select2-native" id="edit_dias_jan" name="dias_uteis" required>
+									<select class="form-control select2-native slc-dias-uteis" data="12" required>
 										<option value="18.5">18.5</option>
 										<option value="19">19</option>
 										<option value="19.5">19.5</option>
@@ -309,15 +307,5 @@
 @endsection
 
 @section('js')
-<script>
-	$(function(){
-		$("#tableBancoHoras").DataTable({
-			"order": [],
-			"autoWidth": true,
-			"oLanguage": {
-				"sUrl": "js/datatables_ptbr.json"
-			}						
-		})
-	})
-</script>
+<script src="{{ asset('js/banco_horas.js') }}"></script>
 @endsection

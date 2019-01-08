@@ -223,19 +223,28 @@ function getResumo(id_projeto){
         '</div>');        
     });
 
-    var cargaHoras = $('#cargaHoras').val()
+    $.ajax({
+      type:'get',
+      url: '../banco_horas/dias_uteis/'+mes+'/'+ano,
+      dataType: 'text'
+    }).done(function (response){
 
-    var porc = ((horas*100)/cargaHoras);
-    porc = porc.toPrecision(4);
-    if(horas < cargaHoras){
-      $('#corBox').addClass("bg-yellow");
-    }else{
-      $('#corBox').addClass("bg-poli");        
-    }
-    $('#horasAcumuladas').html(horas);
+      $('.cargaHoras').empty('')
+      $('.cargaHoras').html(response)
 
-    $('#progressoHoras').css("width",(porc+"%"));
-    $('.progress-description').html(porc+"%");    
+      var porc = ((horas*100)/response);
+      porc = porc.toPrecision(4);
+
+      if(horas < response){
+        $('#corBox').addClass("bg-yellow");
+      }else{
+        $('#corBox').addClass("bg-poli");        
+      }
+      $('#horasAcumuladas').html(horas);
+  
+      $('#progressoHoras').css("width",(porc+"%"));
+      $('.progress-description').html(porc+"%");  
+    })  
   });
 }
 

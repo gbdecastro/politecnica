@@ -114,3 +114,5 @@ Route::get('empresas','EmpresasController@getEmpresas');
  */
 
 Route::get('banco_horas/dias_uteis/{mes}/{ano}','BancoHorasController@dias_uteis');
+Route::post('banco_horas/mudar_dias_uteis','BancoHorasController@mudar_dias_uteis');
+Route::get('banco_horas/dias_uteis','BancoHorasController@index');
