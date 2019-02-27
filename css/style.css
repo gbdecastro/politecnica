@@ -144,3 +144,16 @@ label{
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
 }
+
+.modal-fullscren {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .modal-content-fullscren {
+    height: auto;
+    min-height: 100%;
+    border-radius: 0;
+  }

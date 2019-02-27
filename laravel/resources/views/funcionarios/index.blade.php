@@ -1,5 +1,11 @@
-@extends('adminlte::page') @section('title', 'Funcionários') @section('css')
-<link rel="stylesheet" href="{{ asset('vendor/adminlte/plugins/iCheck/square/blue.css') }}"> @endsection @section('content_header')
+@extends('adminlte::page') 
+@section('title', 'Funcionários') 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte/plugins/iCheck/square/blue.css') }}"> 
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/fullcalendar.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/fullcalendar_bootstrap.css') }}">    
+@endsection 
+@section('content_header')
 <h1>
     <i class="fa fa-object-group"></i>
     Colaboradores
@@ -10,7 +16,8 @@
             <i class="fa fa-object-group"></i> Colaboradores</a>
     </li>
 </ol>
-@endsection @section('content')
+@endsection 
+@section('content')
 <div class="row" id="funcionario">
     <div class="col-md-12">
         <div class="box box-poli">
@@ -35,6 +42,7 @@
                                 <th>Categoria</th>
 								<th>Data de Admissão</th>
                                 <th>Editar</th>
+                                <th>Calendário</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,6 +60,11 @@
                                         <i class="fa fa-edit"></i> Editar
                                     </button>
                                 </td>
+                                <td>
+                                    <button class="btn btn-default" data-toggle="modal" v-bind:data-id_funcionario="funcionario.id_usuario" data-target="#modal_calendario">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -59,10 +72,14 @@
             </div>
         </div>
         @include('funcionarios.show_projetos') @include('funcionarios.register') @include('funcionarios.edit') @include('funcionarios.add_projeto')
+        @include('funcionarios.calendario')
     </div>
 </div>
 @endsection @section('js')
 <script src="{{ asset('js/funcionarios.js') }}"></script>
+<script src="{{ asset('js/fullcalendar.js') }}"></script>
+<script src="{{ asset('js/fullcalendar_lang.js') }}"></script>
+<script src="{{ asset('js/calendario-funcionario.js') }}"></script>
 {{--
 <script type="text/javascript">
     //validacao do formulario create_funcionario
@@ -201,4 +218,6 @@
     }).on('success.field.bv', function (e, data) {
         data.bv.disableSubmitButtons(false);
     });
-</script> --}} @endsection
+</script> 
+
+--}} @endsection
