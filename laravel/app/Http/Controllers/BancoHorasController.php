@@ -42,4 +42,25 @@ class BancoHorasController extends Controller
         ]);                
 
     }
+
+    public function mudarBancoHoras(Request $request)
+    {
+        DB::table('banco_horas')
+        ->where('id_funcionario', $request->input('id_funcionario'))
+        ->where('nb_mes', $request->input('nb_mes1'))
+        ->where('nb_ano', $request->input('nb_ano1'))
+        ->update(['nb_saldo' => $request->input('nb_saldo1')]);
+
+        DB::table('banco_horas')
+        ->where('id_funcionario', $request->input('id_funcionario'))
+        ->where('nb_mes', $request->input('nb_mes2'))
+        ->where('nb_ano', $request->input('nb_ano2'))
+        ->update(['nb_saldo' => $request->input('nb_saldo2')]);
+
+        DB::table('banco_horas')
+        ->where('id_funcionario', $request->input('id_funcionario'))
+        ->where('nb_mes', $request->input('nb_mes3'))
+        ->where('nb_ano', $request->input('nb_ano3'))
+        ->update(['nb_saldo' => $request->input('nb_saldo3')]);
+    }
 }

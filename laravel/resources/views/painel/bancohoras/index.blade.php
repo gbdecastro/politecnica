@@ -38,6 +38,7 @@
                                     <th>{{ $mesAnterior2 }}/{{ $anoAnterior2 }}</th>
                                     <th>{{ $mesAnterior1 }}/{{ $anoAnterior1 }}</th>
 									<th>Saldo Atual</th>
+									<th></th>
     							</tr>
     						</thead>
     						<tbody>
@@ -71,8 +72,23 @@
 
                                     
 									    <td>{{ $bancoHoras->mes_atual }}</td>
-                                    
-                                    
+										<td>
+											<button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modal_edit_banco_horas"
+												data-id-funcionario="{{$bancoHoras->id_usuario}}"
+												data-tx-name="{{$bancoHoras->tx_name}}"
+												data-mes3="{{$bancoHoras->mes3}}"
+												data-mes2="{{$bancoHoras->mes2}}"
+												data-mes1="{{$bancoHoras->mes1}}"
+												data-mes-anterior-3="{{$mesAnterior3}}"
+												data-mes-anterior-2="{{$mesAnterior2}}"
+												data-mes-anterior-1="{{$mesAnterior1}}"
+												data-ano-anterior-3="{{$anoAnterior3}}"
+												data-ano-anterior-2="{{$anoAnterior2}}"
+												data-ano-anterior-1="{{$anoAnterior1}}">
+
+                                        		<i class="fa fa-edit"></i>
+                                    		</button>										
+										</td>
     							</tr>    							
     							@endforeach
     						</tbody>
@@ -304,6 +320,8 @@
     		</div>
     	</div>
     </div>
+
+	@include('painel.bancohoras.edit')
 @endsection
 
 @section('js')
