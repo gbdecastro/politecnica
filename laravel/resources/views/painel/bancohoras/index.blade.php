@@ -66,7 +66,7 @@
                                     @else
                                         <td>
                                     @endif
-											<button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modal_edit_banco_horas"
+											<button type="button" class="btn btn-sm btn-app btn-default" data-toggle="modal" data-target="#modal_edit_banco_horas"
 												data-id-funcionario="{{$bancoHoras->id_usuario}}"
 												data-tx-name="{{$bancoHoras->tx_name}}"
 												data-mes3="{{$bancoHoras->mes3}}"
@@ -79,9 +79,8 @@
 												data-ano-anterior-2="{{$anoAnterior2}}"
 												data-ano-anterior-1="{{$anoAnterior1}}">
 
-                                        		<i class="fa fa-edit"></i>
-                                    		</button>	
-    								        {{ $bancoHoras->mes1 }}
+                                        		{{ $bancoHoras->mes1 }}
+                                    		</button>												
                                         </td>
 
                                     
