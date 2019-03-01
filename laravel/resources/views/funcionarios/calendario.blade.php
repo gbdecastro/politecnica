@@ -55,7 +55,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id="btn_submit_add" @click="addProjeto" class="btn btn-poli">Vincular</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                 </div>
             </div>

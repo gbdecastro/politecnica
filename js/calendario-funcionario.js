@@ -16,9 +16,10 @@ function getCurrentDateForFormSeach() {
 
 //Variavel Utilizadas nao Funcao get Calendario 
 var eventos;
+var id_funcionario;
 
 //Funcao Geradora do Calendario
-function getCalendario(id_funcionario) {
+function getCalendario() {
 
     toastr.info("Procurando dados");
 
@@ -79,7 +80,7 @@ function getCalendario(id_funcionario) {
 }
 
 //anos Trabalhados
-function init(id_funcionario){
+function init(){
     $.ajax({
         type: 'GET',
         url: 'funcionarios/calendario/projetos/ano/trabalhados/'+id_funcionario,
@@ -118,8 +119,8 @@ function init(id_funcionario){
 //No Done fica a inicializacao do Calendario
 $('#modal_calendario').on('show.bs.modal', function (event) {
     var el = $(event.relatedTarget)
-    var id_funcionario = el.data('id_funcionario')
-    init(id_funcionario);
+    id_funcionario = el.data('id_funcionario')
+    init();
 });
 
 //Botao Procurar da Box Formulario de Pesquisa
