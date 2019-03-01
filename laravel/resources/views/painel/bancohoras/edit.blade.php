@@ -20,7 +20,7 @@
                         <input type="hidden" id="data_anoAnterior2">
                         <input type="hidden" id="data_anoAnterior1">
                         
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="mes3" class="control-label mes3 obrigatorio"></label>
                             <input id="mes3" type="text" class="form-control" name="mes3" required>
                         </div>
@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <label for="mes2" class="control-label mes2 obrigatorio"></label>
                             <input id="mes2" type="text" class="form-control" name="mes2" required>
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <label for="mes1" class="control-label mes1 obrigatorio"></label>

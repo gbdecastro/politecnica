@@ -38,7 +38,6 @@
                                     <th>{{ $mesAnterior2 }}/{{ $anoAnterior2 }}</th>
                                     <th>{{ $mesAnterior1 }}/{{ $anoAnterior1 }}</th>
 									<th>Saldo Atual</th>
-									<th></th>
     							</tr>
     						</thead>
     						<tbody>
@@ -66,13 +65,7 @@
 									    <td class="text-danger">
                                     @else
                                         <td>
-                                    @endif                                    
-    								        {{ $bancoHoras->mes1 }}
-                                        </td>
-
-                                    
-									    <td>{{ $bancoHoras->mes_atual }}</td>
-										<td>
+                                    @endif
 											<button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modal_edit_banco_horas"
 												data-id-funcionario="{{$bancoHoras->id_usuario}}"
 												data-tx-name="{{$bancoHoras->tx_name}}"
@@ -87,8 +80,12 @@
 												data-ano-anterior-1="{{$anoAnterior1}}">
 
                                         		<i class="fa fa-edit"></i>
-                                    		</button>										
-										</td>
+                                    		</button>	
+    								        {{ $bancoHoras->mes1 }}
+                                        </td>
+
+                                    
+									    <td>{{ $bancoHoras->mes_atual }}</td>
     							</tr>    							
     							@endforeach
     						</tbody>
