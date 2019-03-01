@@ -53,7 +53,7 @@ $(function(){
                 nb_saldo1: $('input#mes1').val()
             }
         }).done(function (response){
-            location.reload()
+            location.reload(true)
         })         
     });
 
