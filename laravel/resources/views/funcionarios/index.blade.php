@@ -34,35 +34,33 @@
                         <thead>
                             <tr>
                                 <th>Nome</th>
+                                <th>Calendário</th>
 								<th>Lotação</th>
                                 <th>E-mail</th>
                                 <th>Contrato</th>
                                 <th>Função</th>
-                                <th>Telefone</th>
-                                <th>Categoria</th>
+                                <th>Telefone</th> 
 								<th>Data de Admissão</th>
                                 <th>Editar</th>
-                                <th>Calendário</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(funcionario,key) in funcionarios">
                                 <td>@{{ funcionario.tx_name }}</td>
+                                <td>
+                                    <button class="btn btn-default" data-toggle="modal" v-bind:data-id_funcionario="funcionario.id_usuario" data-target="#modal_calendario">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </td>
 								<td>@{{ funcionario.tx_lotacao }}</td>
                                 <td>@{{ funcionario.tx_email }}</td>
                                 <td>@{{ funcionario.tx_contrato }}</td>
                                 <td>@{{ funcionario.tx_funcao }}</td>
 								<td>@{{ funcionario.tx_telefone }}</td>
-                                <td>@{{ funcionario.nb_category_user }}</td>
 								<td>@{{ funcionario.dt_admissao }}</td>
                                 <td>
                                     <button class="btn btn-block btn-social btn-info" data-toggle="modal" data-target="#modal_edit" v-on:click.prevent="editFuncionario(funcionario)">
                                         <i class="fa fa-edit"></i> Editar
-                                    </button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-default" data-toggle="modal" v-bind:data-id_funcionario="funcionario.id_usuario" data-target="#modal_calendario">
-                                        <i class="fa fa-calendar"></i>
                                     </button>
                                 </td>
                             </tr>
