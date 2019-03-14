@@ -48,7 +48,7 @@
                             <tr v-for="(funcionario,key) in funcionarios">
                                 <td>@{{ funcionario.tx_name }}</td>
                                 <td>
-                                    <button class="btn btn-default" data-toggle="modal" v-bind:data-id_funcionario="funcionario.id_usuario" data-target="#modal_calendario">
+                                    <button class="btn btn-default" data-toggle="modal" v-bind:[data-id_funcionario="funcionario.id_usuario",data-tx_name="funcionario.tx_name"] data-target="#modal_calendario">
                                         <i class="fa fa-calendar"></i>
                                     </button>
                                 </td>
