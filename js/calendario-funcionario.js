@@ -79,6 +79,82 @@ function getCalendario() {
     toastr.remove();
 }
 
+//FUNCAO DO RESUMO
+function getResumo(id_projeto){
+    var mes = $("#dt_mes").val();
+    var ano = $("#dt_ano").val();
+    $.ajax({
+      type:'get',
+      url:'funcionarios/calendario/resumoMensal/'+ano+'/'+mes+'/'+id_projeto+'/'+id_funcionario,
+      dataType: 'json',
+    }).done(function(response){
+      toastr.remove();
+      resumo = [];
+      $('#resumo').html('');
+  
+      $('#corBox').removeClass("bg-poli");
+      $('#corBox').removeClass("bg-yellow");
+  
+      horas = 0;
+  
+      $.each(response, function(i, entry){
+  
+        horas =  horas + parseInt(entry.nb_horas);
+  
+        $('#resumo').append(
+          '<div class="box-body">'+
+              '<div class="info-box">'+
+                  '<span class="info-box-icon" style="background-color:'+entry.tx_color+'">'+
+                    '   <i class="fa fa-object-group" style="color:#FFF"></i>'+
+                  '</span>'+
+                  '<div class="info-box-content">'+
+                      '<span class="info-box-text">'+entry.id_projeto+'-'+entry.tx_projeto+'</span>'+
+                      '<span class="info-box-number">'+entry.nb_horas+'hs</span>'+
+                      '<span class="info-box-number">R$ '+entry.nb_despesas+'</span>'+
+                  '</div>'+
+              '</div>'+                     
+          '</div>');        
+      });
+  
+      $.ajax({
+        type:'get',
+        url: 'banco_horas/dias_uteis/'+mes+'/'+ano,
+        dataType: 'text'
+      }).done(function (response){
+  
+        $('.cargaHoras').empty('')
+        $('.cargaHoras').html(response)
+  
+        var porc = ((horas*100)/response);
+        porc = porc.toPrecision(4);
+  
+        if(horas < response){
+          $('#corBox').addClass("bg-yellow");
+        }else{
+          $('#corBox').addClass("bg-poli");        
+        }
+        $('#horasAcumuladas').html(horas);
+    
+        $('#progressoHoras').css("width",(porc+"%"));
+        $('.progress-description').html(porc+"%");  
+      })  
+    });
+}
+
+//FUNCAO DO INFO DO ACUMULADO
+
+function getInfoAcumulado(id_funcionario){
+    $.ajax({
+        type:'get',
+        url:'funcionarios/calendario/acumuladoMensal/'+id_funcionario,
+        dataType: 'json',
+      }).done(function(response){
+          $('#cargaData').html(response.cargaData)
+          $('#saldoHoras').html(response.saldoHoras)
+          $('#cargaHoras').html(response.cargaHoras)
+      });    
+}
+
 //anos Trabalhados
 function init(){
     $.ajax({
@@ -110,7 +186,8 @@ function init(){
 
         getCurrentDateForFormSeach(id_funcionario);
         getCalendario(id_funcionario);
-        //getResumo($('#form_search_projeto').val());
+        getResumo($('#form_search_projeto').val());
+        getInfoAcumulado(id_funcionario);
     });
         
 }

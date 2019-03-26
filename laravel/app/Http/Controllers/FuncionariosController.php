@@ -239,6 +239,7 @@ class FuncionariosController extends Controller
       // return $projetos->toJson();
       return DB::table('projetos')->select('id_projeto','tx_projeto')->get()->toJson();
   }
+
   public function getHorasTrabalhadas($ano,$mes,$projeto,$id_funcionario)
   {
     //todos os projetos
@@ -262,5 +263,58 @@ class FuncionariosController extends Controller
         ->get();
     }
     return $horas;
+  }
+  
+  public function getResumoMensal($ano,$mes,$projeto,$id_funcionario)
+  {
+    if($projeto != "0"){
+        return DB::table('v_resumo_mensal')
+        ->where('id_funcionario','=', $id_funcionario)
+        ->where('dt_resumo','like',$mes.'/'.$ano)
+        ->where('id_projeto','=',$projeto)
+        ->get();
+    }else{
+        return DB::table('v_resumo_mensal')
+        ->where('id_funcionario','=', $id_funcionario)
+        ->where('dt_resumo','like',$mes.'/'.$ano)
+        ->get();            
+    }
   }  
+
+  public function getAcumuladoMensal($id_funcionario)
+  {
+      
+      $mes = (int) Date('m');
+      $ano = (int) Date('Y');
+
+      $result = DB::table('banco_horas')
+      ->select(DB::raw('SUM(nb_saldo) as nb_saldo'))
+      ->where('id_funcionario','=',$id_funcionario)
+      //->where('nb_ano','=',''.Date('Y').'')
+      //->where('nb_mes','=',''.$mes.'')
+      ->get();
+
+      if(count($result) > 0)
+          $saldoHoras = $result[0]->nb_saldo;
+      else
+          $saldoHoras = 'Não Contabilizado';
+      if($saldoHoras == null)
+        $saldoHoras = 'Não Contabilizado';
+      //busca dias
+      $resultA = DB::table('dias_uteis')
+      ->select(DB::raw('nb_dias'))
+      ->where('nb_mes','=',$mes)
+      //->where('nb_ano','=',''.Date('Y').'')
+      //->where('nb_mes','=',''.$mes.'')
+      ->get();
+
+      $cargaData = Date('F').'/'.$ano;
+      $cargaHoras = ($resultA[0]->nb_dias)*8;
+
+      return json_encode([
+        'cargaData' => $cargaData,
+        'saldoHoras' => $saldoHoras,
+        'cargaHoras' => $cargaHoras
+      ]);
+  }   
 }

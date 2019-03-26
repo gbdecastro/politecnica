@@ -82,6 +82,9 @@ Route::get('lotacoes','FuncionariosController@getLotacoes');
 Route::get('funcionarios/calendario/projetos/ano/trabalhados/{funcionario}','FuncionariosController@getAnos');
 Route::get('funcionarios/calendario/projetos/{funcionario}','FuncionariosController@getProjetos');
 Route::get('funcionarios/calendario/{ano}/{mes}/{projeto}/{funcionario}','FuncionariosController@getHorasTrabalhadas');
+Route::get('funcionarios/calendario/resumoMensal/{ano}/{mes}/{projeto}/{funcionario}','FuncionariosController@getResumoMensal');
+Route::get('funcionarios/calendario/acumuladoMensal/{funcionario}','FuncionariosController@getAcumuladoMensal');
+
 
 //SOMENTE ADMIN
 Route::group(['middleware' => 'admin'], function(){

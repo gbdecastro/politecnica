@@ -164,7 +164,8 @@ new Vue({
           "autoWidth": true,
           "oLanguage": {
             "sUrl": "js/datatables_ptbr.json"
-          }
+          },
+          autoFill: false
         });
         $('.fa-spinner').hide();
         $('#show_projetos_callout').hide();
