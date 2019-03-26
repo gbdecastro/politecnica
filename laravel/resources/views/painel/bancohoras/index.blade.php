@@ -84,8 +84,12 @@
                                     		</button>												
                                         </td>
 
-                                    
-									    <td>{{ $bancoHoras->mes_atual }}</td>
+										@if($bancoHoras->mes_atual < 0)
+									    <td class="text-danger">
+                                   		 @else
+                                        <td>
+                                   		 @endif
+									    {{ $bancoHoras->mes_atual }}</td>
     							</tr>    							
     							@endforeach
     						</tbody>

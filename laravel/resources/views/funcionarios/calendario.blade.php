@@ -20,9 +20,6 @@
                                         <button class="btn btn-box-toll" type="button" data-widget="collapse">
                                             <i class="fa fa-minus"></i>
                                         </button>
-                                        <button class="btn btn-box-toll" type="button" data-widget="remove">
-                                            <i class="fa fa-times"></i>
-                                        </button>
                                     </div>
                                 </div>
                                 <div class="box-body">
@@ -80,9 +77,6 @@
                                         <div class="box-tools pull-right">
                                             <button class="btn btn-box-toll" type="button" data-widget="collapse">
                                                 <i class="fa fa-minus"></i>
-                                            </button>
-                                            <button class="btn btn-box-toll" type="button" data-widget="remove">
-                                                <i class="fa fa-times"></i>
                                             </button>
                                         </div>
                                     </div>

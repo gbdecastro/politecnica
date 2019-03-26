@@ -287,7 +287,7 @@ class PainelController extends Controller
                 IFNULL((SELECT nb_saldo FROM banco_horas WHERE id_funcionario = u.id_usuario AND nb_mes = :v_mes3 AND nb_ano = :v_ano3),0) AS mes3,
                 IFNULL((SELECT SUM(nb_saldo) FROM banco_horas WHERE id_funcionario = u.id_usuario GROUP BY id_funcionario),0) AS mes_atual
              FROM users u 
-             WHERE u.cs_tipo_contrato <> 4
+             WHERE u.cs_tipo_contrato IN (0,2,3)
 			 ORDER BY u.id_lotacao
              ",
              [
