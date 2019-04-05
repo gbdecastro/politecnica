@@ -197,6 +197,8 @@ function init(){
 $('#modal_calendario').on('show.bs.modal', function (event) {
     var el = $(event.relatedTarget)
     id_funcionario = el.data('id_funcionario')
+    $('.modalt-tile').html('Calendário: '+el.data('tx_funcionario'))
+
     init();
 });
 
