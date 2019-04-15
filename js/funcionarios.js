@@ -238,9 +238,9 @@ new Vue({
       if(funcionario.tx_name == '' || funcionario.tx_email == '' || funcionario.dt_admissao == ''){
         toastr.error("Preencher Campos Obrigatórios");
         return false;
-      }     
+      }
 
-      $('#edit_funcionario_categoria').val(this.edit_funcionario.nb_category_user).trigger('change');
+      $('#edit_funcionario_categoria').val(funcionario.nb_category_user).trigger('change');
       $('#edit_funcionario_contrato').val(this.edit_funcionario.cs_tipo_contrato).trigger('change');
       $('#edit_funcionario_id_lotacao').val(this.edit_funcionario.id_lotacao).trigger('change');
     },

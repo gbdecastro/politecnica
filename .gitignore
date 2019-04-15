@@ -12,3 +12,4 @@ laravel/.env
 img/user/*
 localhost.sql
 mix-manifest.json
+*.sql
