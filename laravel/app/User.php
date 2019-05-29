@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -37,5 +38,21 @@ class User extends Authenticatable
     public function getEmailForPasswordReset()
     {
         return $this->tx_email;
-    }  
+    }
+    
+    public function bancoHoras ()
+    {
+        $ano = (int) Date('Y');
+        $mes = (int) Date('m');
+
+        $resultA = DB::table('banco_horas')
+        ->select(DB::raw('count(*) as ct'))
+        ->where('nb_mes','=',$mes)
+        ->where('nb_ano','=',$ano)
+        ->get();
+
+        if ($resultA[0]->ct == '0'){
+            DB::statement(DB::raw("call sp_banco_horas()"));
+        }
+    }
 }

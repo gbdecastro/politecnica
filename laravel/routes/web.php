@@ -14,6 +14,7 @@
 //ROTA PRINCIPAL
 Route::get('/', function () {
     if(Auth::check()){
+		Auth::user()->bancoHoras();
     	if(Auth::user()->nb_category_user == 0)
     		return redirect('painel/calendario');
     	else
