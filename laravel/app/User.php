@@ -43,7 +43,7 @@ class User extends Authenticatable
     public function bancoHoras ()
     {
         $ano = (int) Date('Y');
-        $mes = (int) Date('m');
+        $mes = (int) Date('m')-1;
 
         $resultA = DB::table('banco_horas')
         ->select(DB::raw('count(*) as ct'))
