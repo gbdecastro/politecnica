@@ -223,6 +223,7 @@ function getResumo(id_projeto){
         '</div>');        
     });
 
+    
     $.ajax({
       type:'get',
       url: '../banco_horas/dias_uteis/'+mes+'/'+ano,
