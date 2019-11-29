@@ -307,9 +307,10 @@ class FuncionariosController extends Controller
       //->where('nb_ano','=',''.Date('Y').'')
       //->where('nb_mes','=',''.$mes.'')
       ->get();
+      
       // Get local do usuario para definir a carga de horas
       $resultB = DB::table('users')
-      ->select(DB:raw('id_lotacao'))
+      ->select(DB::raw('id_lotacao'))
       ->where('id_usuario','=',$id_funcionario)
       ->get();
 
@@ -319,7 +320,7 @@ class FuncionariosController extends Controller
           $cargaHoras = ($resultA[0]->nb_dias)*8;
 
       $cargaData = Date('F').'/'.$ano;
-      
+
       return json_encode([
         'cargaData' => $cargaData,
         'saldoHoras' => $saldoHoras,
