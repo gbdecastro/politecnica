@@ -203,9 +203,11 @@ class HorasTrabalhadasController extends Controller
         ->get();
 
         if(count($result) > 0)
-            $saldoHoras = $result[0]->nb_saldo;
+            $saldoHoras = $result[0]->nb_saldo.' hs';
         else
             $saldoHoras = 'Não Contabilizado';
+        if($saldoHoras == null)
+        $saldoHoras = 'Não Contabilizado';
         //busca dias
         $resultA = DB::table('dias_uteis')
         ->select(DB::raw('nb_dias'))
@@ -213,9 +215,19 @@ class HorasTrabalhadasController extends Controller
         //->where('nb_ano','=',''.Date('Y').'')
         //->where('nb_mes','=',''.$mes.'')
         ->get();
-
-        $cargaData = Date('F').'/'.$ano;
-        $cargaHoras = ($resultA[0]->nb_dias)*8;
+        // get lotacao para calcular a hora certa
+        $resultB = DB::table('users')
+        ->select(DB::raw('id_lotacao'))
+        ->where('id_usuario','=',Auth::user()->id_usuario)
+        ->get();
+  
+        if(($resultB[0]->id_lotacao) == 2)
+            $cargaHoras = ($resultA[0]->nb_dias)*9; 
+        else
+            $cargaHoras = ($resultA[0]->nb_dias)*8;
+            
+          $cargaData = $mes.'/'.$ano;
+         
 
         return view('calendario.index', compact(['saldoHoras','cargaData','cargaHoras']));
     }    

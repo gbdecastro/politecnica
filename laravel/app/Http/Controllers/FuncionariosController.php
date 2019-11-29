@@ -295,7 +295,7 @@ class FuncionariosController extends Controller
       ->get();
 
       if(count($result) > 0)
-          $saldoHoras = $result[0]->nb_saldo;
+          $saldoHoras = $result[0]->nb_saldo.' hs';
       else
           $saldoHoras = 'Não Contabilizado';
       if($saldoHoras == null)
@@ -314,12 +314,15 @@ class FuncionariosController extends Controller
       ->where('id_usuario','=',$id_funcionario)
       ->get();
 
+      if(($resultB[0]->id_lotacao) == 4)
+        $saldoHoras = 'Colaborador Inativo';
+
       if(($resultB[0]->id_lotacao) == 2)
           $cargaHoras = ($resultA[0]->nb_dias)*9;
       else
           $cargaHoras = ($resultA[0]->nb_dias)*8;
 
-      $cargaData = Date('F').'/'.$ano;
+      $cargaData = $mes.'/'.$ano;
 
       return json_encode([
         'cargaData' => $cargaData,

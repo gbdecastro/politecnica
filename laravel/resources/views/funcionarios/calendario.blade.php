@@ -44,7 +44,7 @@
                                     <div class="alert alert-info">
                                         <h4><i class="icon fa fa-info"></i>- Banco de Horas - Saldo: <b id="saldoHoras"></b>
                                             hs</h4>
-                                        <h5>Carga Horária Obrigatória para <b id="cargaData"></b> : <b class="cargaHoras"></b>
+                                        <h5>Carga Horária Obrigatória para <b id="cargaData"></b> : <b id="cargaHoras"></b>
                                             hs</h5>
                                         <cite>Atenção! Todo o dia primeiro de cada mês é contabilizado o Saldo de
                                             Horas.</cite>
