@@ -19,7 +19,7 @@ class BancoHorasController extends Controller
         $ano = (int) Date('Y');
 
         return DB::table('dias_uteis')
-                ->where('ano','=',$ano)
+                ->where('nb_ano','=',$ano)
                 ->get();
     }
     
