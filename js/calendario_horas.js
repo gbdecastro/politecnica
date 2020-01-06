@@ -35,9 +35,8 @@ $.ajax({
 
 //Setando o Mes e Ano Atual nos Selects do Formulario de Pesquisa
 function getCurrentDateForFormSeach(){
-  var date = new Date();
-  month = date.getMonth();
-  year = date.getFullYear();
+  month = $('#mesBack').val()
+  year = $('#anoBack').val()
 
   month++;
   //preciso formatar para o fullcalendar

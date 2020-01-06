@@ -229,6 +229,6 @@ class HorasTrabalhadasController extends Controller
           $cargaData = $mes.'/'.$ano;
          
 
-        return view('calendario.index', compact(['saldoHoras','cargaData','cargaHoras']));
+        return view('calendario.index', compact(['saldoHoras','cargaData','cargaHoras','mesBack','anoBack']));
     }    
 }

@@ -20,6 +20,8 @@
 
 
 @section('content')
+<input type="hidden" id="mesBack" value="{{ $mesBack }}">
+<input type="hidden" id="anoBack" value="{{ $anoBack }}">
 <div class="row">
     <div class="col-md-4">
         
