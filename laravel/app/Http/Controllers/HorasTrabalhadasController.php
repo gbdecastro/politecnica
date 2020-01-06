@@ -195,6 +195,9 @@ class HorasTrabalhadasController extends Controller
         $mes = (int) Date('m');
         $ano = (int) Date('Y');
 
+        $mesBack = $mes;
+        $anoBack = $ano;        
+
         $result = DB::table('banco_horas')
         ->select(DB::raw('SUM(nb_saldo) as nb_saldo'))
         ->where('id_funcionario','=',Auth::user()->id_usuario)
