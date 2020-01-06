@@ -21,13 +21,22 @@ class BancoHorasController extends Controller
     //dias_uteis
     public function dias_uteis($mes,$ano)
     {
+        
+        $resultB = DB::table('users')
+        ->select(DB::raw('id_lotacao'))
+        ->where('id_usuario','=',Auth::user()->id_usuario)
+        ->get();
+        
         $resultA = DB::table('dias_uteis')
-        ->select(DB::raw('(nb_dias*8) as nb_dias'))
+        ->select(DB::raw('(nb_dias) as nb_dias'))
         ->where('nb_mes','=',$mes)
         ->where('nb_ano','=',$ano)
         ->get();
-
-        return ($resultA[0]->nb_dias);
+        if(($resultB[0]->id_lotacao) == 2)
+            return ($resultA[0]->nb_dias)*9;
+        else
+            return ($resultA[0]->nb_dias)*8;
+        
     }
 
     public function mudar_dias_uteis(Request $request)

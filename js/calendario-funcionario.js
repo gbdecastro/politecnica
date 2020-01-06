@@ -118,17 +118,17 @@ function getResumo(id_projeto){
   
       $.ajax({
         type:'get',
-        url: 'banco_horas/dias_uteis/'+mes+'/'+ano,
-        dataType: 'text'
+        url:'funcionarios/calendario/acumuladoMensal/'+id_funcionario,
+        dataType: 'json'
       }).done(function (response){
   
-        $('.cargaHoras').empty('')
-        $('.cargaHoras').html(response)
+        $('.cargaHoras').empty('');
+        $('.cargaHoras').html(response.cargaHoras);
   
-        var porc = ((horas*100)/response);
+        var porc = ((horas*100)/response.cargaHoras);
         porc = porc.toPrecision(4);
   
-        if(horas < response){
+        if(horas < response.cargaHoras){
           $('#corBox').addClass("bg-yellow");
         }else{
           $('#corBox').addClass("bg-poli");        
@@ -147,7 +147,7 @@ function getInfoAcumulado(id_funcionario){
     $.ajax({
         type:'get',
         url:'funcionarios/calendario/acumuladoMensal/'+id_funcionario,
-        dataType: 'json',
+        dataType: 'json'
       }).done(function(response){
           $('#cargaData').html(response.cargaData)
           $('#saldoHoras').html(response.saldoHoras)
