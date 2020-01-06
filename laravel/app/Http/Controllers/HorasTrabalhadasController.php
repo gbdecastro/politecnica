@@ -31,7 +31,9 @@ class HorasTrabalhadasController extends Controller
         //            ->limit(1)
         //            ->get();
 
-        $max['dt_trabalho'] = (int) Date('Y');
+        $max = [];
+
+        $max[0]['dt_trabalho'] = (int) Date('Y');
         //Caso tenha registros                   
         if(count($min)>0){
           return array($min[0]->dt_trabalho,$max[0]->dt_trabalho);
