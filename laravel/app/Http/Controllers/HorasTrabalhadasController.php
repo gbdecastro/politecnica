@@ -24,12 +24,14 @@ class HorasTrabalhadasController extends Controller
                    ->limit(1)
                    ->get();
 
-        $max = DB::table('horas_projetos_funcionarios')
-                   ->where('id_funcionario','=',Auth::user()->id_usuario)
-                   ->orderBy('dt_trabalho','DESC')
-                   ->selectRaw('date_format(dt_trabalho,"%Y") as dt_trabalho')
-                   ->limit(1)
-                   ->get();
+        // $max = DB::table('horas_projetos_funcionarios')
+        //            ->where('id_funcionario','=',Auth::user()->id_usuario)
+        //            ->orderBy('dt_trabalho','DESC')
+        //            ->selectRaw('date_format(dt_trabalho,"%Y") as dt_trabalho')
+        //            ->limit(1)
+        //            ->get();
+
+        $max = (int) Date('Y');
         //Caso tenha registros                   
         if(count($min)>0){
           return array($min[0]->dt_trabalho,$max[0]->dt_trabalho);
