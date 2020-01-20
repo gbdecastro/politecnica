@@ -16,7 +16,11 @@ class BancoHorasController extends Controller
 
     public function index()
     {
-        return DB::table('dias_uteis')->get();
+        $ano = (int) Date('Y');
+
+        return DB::table('dias_uteis')
+                ->where('nb_ano','=',$ano)
+                ->get();
     }
     
     //dias_uteis
