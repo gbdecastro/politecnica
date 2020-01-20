@@ -39,7 +39,7 @@ function getCurrentDateForFormSeach(){
   month = date.getMonth();
   year = date.getFullYear();
 
-  month++;
+  //month++;
   //preciso formatar para o fullcalendar
   if(month <= 9)
     month = "0"+month;
@@ -230,8 +230,8 @@ function getResumo(id_projeto){
       dataType: 'text'
     }).done(function (response){
 
-      $('.cargaHoras').empty('')
-      $('.cargaHoras').html(response)
+      $('.cargaHoras').empty('');
+      $('.cargaHoras').html(response);
 
       var porc = ((horas*100)/response);
       porc = porc.toPrecision(4);
@@ -245,7 +245,7 @@ function getResumo(id_projeto){
   
       $('#progressoHoras').css("width",(porc+"%"));
       $('.progress-description').html(porc+"%");  
-    })  
+    });  
   });
 }
 

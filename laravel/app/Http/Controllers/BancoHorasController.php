@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class BancoHorasController extends Controller
 {
@@ -32,6 +33,7 @@ class BancoHorasController extends Controller
         ->where('nb_mes','=',$mes)
         ->where('nb_ano','=',$ano)
         ->get();
+
         if(($resultB[0]->id_lotacao) == 2)
             return ($resultA[0]->nb_dias)*9;
         else

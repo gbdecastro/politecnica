@@ -24,15 +24,17 @@ class HorasTrabalhadasController extends Controller
                    ->limit(1)
                    ->get();
 
-        $max = DB::table('horas_projetos_funcionarios')
-                   ->where('id_funcionario','=',Auth::user()->id_usuario)
-                   ->orderBy('dt_trabalho','DESC')
-                   ->selectRaw('date_format(dt_trabalho,"%Y") as dt_trabalho')
-                   ->limit(1)
-                   ->get();
+        // $max = DB::table('horas_projetos_funcionarios')
+        //            ->where('id_funcionario','=',Auth::user()->id_usuario)
+        //            ->orderBy('dt_trabalho','DESC')
+        //            ->selectRaw('date_format(dt_trabalho,"%Y") as dt_trabalho')
+        //            ->limit(1)
+        //            ->get();
+
+        $max = (int) Date('Y');
         //Caso tenha registros                   
         if(count($min)>0){
-          return array($min[0]->dt_trabalho,$max[0]->dt_trabalho);
+          return array($min[0]->dt_trabalho,$max);
         }else{
           //caso nao
           return array(Date('Y'),Date('Y'));
@@ -195,6 +197,9 @@ class HorasTrabalhadasController extends Controller
         $mes = (int) Date('m');
         $ano = (int) Date('Y');
 
+        $mesBack = $mes;
+        $anoBack = $ano;        
+
         $result = DB::table('banco_horas')
         ->select(DB::raw('SUM(nb_saldo) as nb_saldo'))
         ->where('id_funcionario','=',Auth::user()->id_usuario)
@@ -211,8 +216,8 @@ class HorasTrabalhadasController extends Controller
         //busca dias
         $resultA = DB::table('dias_uteis')
         ->select(DB::raw('nb_dias'))
+        ->where('nb_ano','=',$ano)
         ->where('nb_mes','=',$mes)
-        //->where('nb_ano','=',''.Date('Y').'')
         //->where('nb_mes','=',''.$mes.'')
         ->get();
         // get lotacao para calcular a hora certa
@@ -225,10 +230,49 @@ class HorasTrabalhadasController extends Controller
             $cargaHoras = ($resultA[0]->nb_dias)*9; 
         else
             $cargaHoras = ($resultA[0]->nb_dias)*8;
-            
-          $cargaData = $mes.'/'.$ano;
-         
+        
+        switch ($mes) {
+        case 1:
+            $cargaData = 'Janeiro/'.$ano;
+        break;      
+        case 2:
+            $cargaData = 'Fevereiro/'.$ano;
+        break; 
+        case 3:
+            $cargaData = 'Março/'.$ano;
+        break; 
+        case 4:
+            $cargaData = 'Abril/'.$ano;
+        break; 
+        case 5:
+            $cargaData = 'Maio/'.$ano;
+        break; 
+        case 6:
+            $cargaData = 'Junho/'.$ano;
+        break; 
+        case 7:
+            $cargaData = 'Julho/'.$ano;
+        break; 
+        case 8:
+            $cargaData = 'Agosto/'.$ano;
+        break; 
+        case 9:
+            $cargaData = 'Setembro/'.$ano;
+        break; 
+        case 10:
+            $cargaData = 'Outubro/'.$ano;
+        break; 
+        case 11:
+            $cargaData = 'Novembro/'.$ano;
+        break; 
+        case 12:
+            $cargaData = 'Dezembro/'.$ano;
+        break; 
+        default:
+            $cargaData = 'Mês Atual';
+        break; 
+        } 
 
-        return view('calendario.index', compact(['saldoHoras','cargaData','cargaHoras']));
+        return view('calendario.index', compact(['saldoHoras','cargaData','cargaHoras','mesBack','anoBack']));
     }    
 }

@@ -44,6 +44,11 @@ class User extends Authenticatable
     {
         $ano = (int) Date('Y');
         $mes = (int) Date('m')-1;
+        
+        if($mes == 0){
+            $mes = 12;
+            $ano = (int) Date('Y')-1;
+        }
 
         $resultA = DB::table('banco_horas')
         ->select(DB::raw('count(*) as ct'))

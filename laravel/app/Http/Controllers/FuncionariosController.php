@@ -304,6 +304,7 @@ class FuncionariosController extends Controller
       $resultA = DB::table('dias_uteis')
       ->select(DB::raw('nb_dias'))
       ->where('nb_mes','=',$mes)
+      ->where('nb_mes','=',$mes)
       //->where('nb_ano','=',''.Date('Y').'')
       //->where('nb_mes','=',''.$mes.'')
       ->get();
@@ -322,7 +323,47 @@ class FuncionariosController extends Controller
       else
           $cargaHoras = ($resultA[0]->nb_dias)*8;
 
-      $cargaData = $mes.'/'.$ano;
+          switch ($mes) {
+            case 1:
+                $cargaData = 'Janeiro/'.$ano;
+            break;      
+            case 2:
+                $cargaData = 'Fevereiro/'.$ano;
+            break; 
+            case 3:
+                $cargaData = 'Março/'.$ano;
+            break; 
+            case 4:
+                $cargaData = 'Abril/'.$ano;
+            break; 
+            case 5:
+                $cargaData = 'Maio/'.$ano;
+            break; 
+            case 6:
+                $cargaData = 'Junho/'.$ano;
+            break; 
+            case 7:
+                $cargaData = 'Julho/'.$ano;
+            break; 
+            case 8:
+                $cargaData = 'Agosto/'.$ano;
+            break; 
+            case 9:
+                $cargaData = 'Setembro/'.$ano;
+            break; 
+            case 10:
+                $cargaData = 'Outubro/'.$ano;
+            break; 
+            case 11:
+                $cargaData = 'Novembro/'.$ano;
+            break; 
+            case 12:
+                $cargaData = 'Dezembro/'.$ano;
+            break; 
+            default:
+                $cargaData = 'Mês Atual';
+            break; 
+            } 
 
       return json_encode([
         'cargaData' => $cargaData,
