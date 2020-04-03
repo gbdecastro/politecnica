@@ -54,11 +54,13 @@ Route::get('painel/resumo/projetos/empresas','PainelController@carregarEmpresas'
 	Route::get('painel/resumo/projetos/despesas_projetos/{ano}/{mes}','PainelController@despesas_projetos');
 	Route::get('painel/relatorio/projetos/horas_projetos/{ano}/{mes}','PainelController@horas_projetos');
 
-//ROTAS PARA O NOVO RELATÓRIO
+//ROTAS PARA VIEWS DO PAINEL
 //view
 Route::get('painel/relatorios','PainelController@relatorioView');
 Route::get('painel/relatorio','PainelController@gerarRelatorio');
 Route::get('painel/bancohoras','PainelController@bancoHoras');
+Route::get('painel/lotacao','PainelController@lotacao');
+
 
 /*ROTAS DE CALENDARIO EM PAINEL*/
 /*PARA USAR BASTA TER AUTH*/
@@ -118,12 +120,19 @@ Route::post('projetos/mudarSituacao', 'ProjetosController@mudarSituacao');
 /*ROTAS DE EMPREASS*/
 Route::get('empresas','EmpresasController@getEmpresas');
 
-
 /**
  * Rotas Banco de Horas
  */
 
 Route::get('banco_horas/dias_uteis/{mes}/{ano}','BancoHorasController@dias_uteis');
-Route::post('banco_horas/mudar_dias_uteis','BancoHorasController@mudar_dias_uteis');
-Route::get('banco_horas/dias_uteis','BancoHorasController@index');
 Route::post('banco_horas/mudarBancoHoras','BancoHorasController@mudarBancoHoras');
+
+/**
+ * Rotas Lotacao
+ */
+
+Route::post('lotacao/mudarHoras','LotacaoController@mudarHoras'); 
+Route::post('lotacao/mudarCalendario','LotacaoController@mudarCalendario');
+Route::get('lotacao/dias_uteis/{mes}/{ano}','LotacaoController@dias_uteis');
+Route::post('lotacao/mudar_dias_uteis','LotacaoController@mudar_dias_uteis');
+Route::get('lotacao/dias_uteis','LotacaoController@index');

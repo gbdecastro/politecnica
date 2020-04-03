@@ -304,4 +304,18 @@ class PainelController extends Controller
 
         return view('painel.bancohoras.index',compact(['mesAnterior1','mesAnterior2','mesAnterior3','anoAnterior1','anoAnterior2','anoAnterior3','bancoHoras']));
     }
+
+
+//Lotacao
+public function lotacao(){
+    
+    $lotacao = DB::select(
+        "SELECT * 
+        FROM lotacao
+        ORDER BY id_lotacao ASC"
+    );
+
+    return view('painel.lotacao.index',compact(['lotacao']));
+    }
+
 }

@@ -56,8 +56,18 @@ class User extends Authenticatable
         ->where('nb_ano','=',$ano)
         ->get();
 
+        $resultB = DB::table('dias_uteis')
+        ->select(DB::raw('count(*) as ct'))
+        ->where('nb_ano','=',$ano)
+        ->get();
+
+        if ($resultB[0]->ct == '0'){
+            DB::statement(DB::raw("call sp_dias_uteis()"));
+        }
+
         if ($resultA[0]->ct == '0'){
             DB::statement(DB::raw("call sp_banco_horas()"));
         }
+        
     }
 }

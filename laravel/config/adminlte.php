@@ -146,6 +146,13 @@ return [
                     'active'      => ['/painel/bancohoras','/painel/bancohoras/*'],
                     'permission'  => 'yes',                    
                 ],
+                [
+                    'text'        => 'Lotação',
+                    'url'         => '/painel/lotacao',
+                    'icon'        => 'map',
+                    'active'      => ['/painel/lotacao','/painel/lotacao/*'],
+                    'permission'  => 'yes',                    
+                ],
                 [                
                     'text'      =>   'Relatórios',
                     'url'       =>   '/painel/relatorios',
