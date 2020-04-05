@@ -3,10 +3,20 @@
 @section('title', 'Lotação')
 
 @section('content_header')
-  <h1><i class="fa fa-dashboard"></i> Painel</h1>
-  <ol class="breadcrumb">
-    <li class="active"><a href="#"><i class="fa fa-database"></i> Lotação</a></li>
-  </ol>     
+<h1>
+  	<i class="fa fa-map"></i> Lotação
+    <small>Painel > Lotação</small>
+</h1>
+<ol class="breadcrumb">
+    <li>
+        <a href="#">
+            <i class="fa fa-dashboard"></i> Painel</a>
+    </li>
+    <li>
+        <a href="#">
+		<i class="fa fa-map"></i> Lotação</a>
+    </li>
+</ol>    
 @endsection
 
 @section('content')

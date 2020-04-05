@@ -280,14 +280,18 @@ class PainelController extends Controller
 
         $bancoHoras = DB::select(
             "SELECT
-                id_usuario, 
+                id_usuario,
+                u.id_lotacao, 
+                l.tx_lotacao,
+                l.nb_horas,
                 tx_name,
                 IFNULL((SELECT nb_saldo FROM banco_horas WHERE id_funcionario = u.id_usuario AND nb_mes = :v_mes1 AND nb_ano = :v_ano1),0) AS mes1,
                 IFNULL((SELECT nb_saldo FROM banco_horas WHERE id_funcionario = u.id_usuario AND nb_mes = :v_mes2 AND nb_ano = :v_ano2),0) AS mes2,
                 IFNULL((SELECT nb_saldo FROM banco_horas WHERE id_funcionario = u.id_usuario AND nb_mes = :v_mes3 AND nb_ano = :v_ano3),0) AS mes3,
                 IFNULL((SELECT SUM(nb_saldo) FROM banco_horas WHERE id_funcionario = u.id_usuario GROUP BY id_funcionario),0) AS mes_atual
              FROM users u 
-             WHERE u.cs_tipo_contrato IN (0,2,3)
+             INNER JOIN lotacao l ON u.id_lotacao = l.id_lotacao
+             WHERE u.cs_tipo_contrato IN (0,2,3,4)
 			 ORDER BY u.id_lotacao
              ",
              [
@@ -301,8 +305,14 @@ class PainelController extends Controller
                 
              ]
         );       
+        
+        $lotacao = DB::select(
+            "SELECT * 
+            FROM lotacao
+            ORDER BY id_lotacao ASC"
+        );
 
-        return view('painel.bancohoras.index',compact(['mesAnterior1','mesAnterior2','mesAnterior3','anoAnterior1','anoAnterior2','anoAnterior3','bancoHoras']));
+        return view('painel.bancohoras.index',compact(['mesAnterior1','mesAnterior2','mesAnterior3','anoAnterior1','anoAnterior2','anoAnterior3','bancoHoras','lotacao']));
     }
 
 

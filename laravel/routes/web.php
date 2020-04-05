@@ -126,6 +126,12 @@ Route::get('empresas','EmpresasController@getEmpresas');
 
 Route::get('banco_horas/dias_uteis/{mes}/{ano}','BancoHorasController@dias_uteis');
 Route::post('banco_horas/mudarBancoHoras','BancoHorasController@mudarBancoHoras');
+Route::get('painel/funcionarios/calendario/projetos/ano/trabalhados/{funcionario}','FuncionariosController@getAnos');
+Route::get('painel/funcionarios/calendario/projetos/{funcionario}','FuncionariosController@getProjetos');
+Route::get('painel/funcionarios/calendario/{ano}/{mes}/{projeto}/{funcionario}','FuncionariosController@getHorasTrabalhadas');
+Route::get('painel/funcionarios/calendario/resumoMensal/{ano}/{mes}/{projeto}/{funcionario}','FuncionariosController@getResumoMensal');
+Route::get('painel/funcionarios/calendario/acumuladoMensal/{funcionario}','FuncionariosController@getAcumuladoMensal');
+
 
 /**
  * Rotas Lotacao

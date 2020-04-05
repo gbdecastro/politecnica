@@ -1,14 +1,13 @@
 $(function(){
 
-    
-
-    $("#tableBancoHoras").DataTable({
+    $('table.table').DataTable({
         "order": [],
         "autoWidth": true,
         "oLanguage": {
-            "sUrl": "../js/datatables_ptbr.json"
-        }						
-    })
+          "sUrl": "../js/datatables_ptbr.json"
+        },
+        autoFill: false
+    });
 
     $('#btn_submit_edit').on('click', function(){
         $.ajax({
