@@ -290,8 +290,6 @@ class FuncionariosController extends Controller
       $result = DB::table('banco_horas')
       ->select(DB::raw('SUM(nb_saldo) as nb_saldo'))
       ->where('id_funcionario','=',$id_funcionario)
-      //->where('nb_ano','=',''.Date('Y').'')
-      //->where('nb_mes','=',''.$mes.'')
       ->get();
 
       if(count($result) > 0)
@@ -300,28 +298,28 @@ class FuncionariosController extends Controller
           $saldoHoras = 'Não Contabilizado';
       if($saldoHoras == null)
         $saldoHoras = 'Não Contabilizado';
-      //busca dias
-      $resultA = DB::table('dias_uteis')
-      ->select(DB::raw('nb_dias'))
-      ->where('nb_mes','=',$mes)
-      ->where('nb_mes','=',$mes)
-      //->where('nb_ano','=',''.Date('Y').'')
-      //->where('nb_mes','=',''.$mes.'')
-      ->get();
-      
       // Get local do usuario para definir a carga de horas
       $resultB = DB::table('users')
-      ->select(DB::raw('id_lotacao'))
-      ->where('id_usuario','=',$id_funcionario)
-      ->get();
+        ->select(DB::raw('id_lotacao'))
+        ->where('id_usuario',$id_funcionario)
+        ->get();
+
+        $resultC = DB::table('lotacao')
+        ->select('nb_horas','id_diasuteis')
+        ->where('id_lotacao',$resultB[0]->id_lotacao)
+        ->get();
+      //busca dias
+        $resultA = DB::table('dias_uteis')
+        ->select('nb_dias')
+        ->where('nb_mes','=',$mes)
+        ->where('nb_ano','=',$ano)
+        ->where('id_diasuteis',$resultC[0]->id_diasuteis)
+        ->get();
+
+        $cargaHoras = ($resultA[0]->nb_dias)*($resultC[0]->nb_horas);
 
       if(($resultB[0]->id_lotacao) == 4)
         $saldoHoras = 'Colaborador Inativo';
-
-      if(($resultB[0]->id_lotacao) == 2)
-          $cargaHoras = ($resultA[0]->nb_dias)*9;
-      else
-          $cargaHoras = ($resultA[0]->nb_dias)*8;
 
           switch ($mes) {
             case 1:

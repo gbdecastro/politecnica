@@ -121,10 +121,12 @@ function getResumo(id_projeto){
         url:'funcionarios/calendario/acumuladoMensal/'+id_funcionario,
         dataType: 'json'
       }).done(function (response){
-  
+        $('#cargaData').html(response.cargaData);
+        $('#saldoHoras').html(response.saldoHoras);
+        $('#cargaHoras').html(response.cargaHoras);
         $('.cargaHoras').empty('');
         $('.cargaHoras').html(response.cargaHoras);
-  
+        
         var porc = ((horas*100)/response.cargaHoras);
         porc = porc.toPrecision(4);
   
@@ -142,7 +144,7 @@ function getResumo(id_projeto){
 }
 
 //FUNCAO DO INFO DO ACUMULADO
-
+/** 
 function getInfoAcumulado(id_funcionario){
     $.ajax({
         type:'get',
@@ -154,7 +156,7 @@ function getInfoAcumulado(id_funcionario){
           $('#cargaHoras').html(response.cargaHoras)
       });    
 }
-
+**/
 //anos Trabalhados
 function init(){
     $.ajax({
