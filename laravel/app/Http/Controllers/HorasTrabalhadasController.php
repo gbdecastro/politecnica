@@ -213,23 +213,26 @@ class HorasTrabalhadasController extends Controller
             $saldoHoras = 'Não Contabilizado';
         if($saldoHoras == null)
         $saldoHoras = 'Não Contabilizado';
-        //busca dias
-        $resultA = DB::table('dias_uteis')
-        ->select(DB::raw('nb_dias'))
-        ->where('nb_ano','=',$ano)
-        ->where('nb_mes','=',$mes)
-        //->where('nb_mes','=',''.$mes.'')
-        ->get();
-        // get lotacao para calcular a hora certa
-        $resultB = DB::table('users')
+  
+        // get user para a lotacao certa
+        $resultA = DB::table('users')
         ->select(DB::raw('id_lotacao'))
         ->where('id_usuario','=',Auth::user()->id_usuario)
         ->get();
-  
-        if(($resultB[0]->id_lotacao) == 2)
-            $cargaHoras = ($resultA[0]->nb_dias)*9; 
-        else
-            $cargaHoras = ($resultA[0]->nb_dias)*8;
+        //get dados da lotação
+        $resultB = DB::table('lotacao')
+        ->select('id_diasuteis','nb_horas')
+        ->where('id_lotacao','=',$resultA[0]->id_lotacao)
+        ->get();
+        //busca dias de acordo com a lotacao
+        $resultC = DB::table('dias_uteis')
+        ->select(DB::raw('nb_dias'))
+        ->where('nb_ano','=',$ano)
+        ->where('nb_mes','=',$mes)
+        ->where('id_diasuteis','=',$resultB[0]->id_diasuteis)
+        ->get();
+
+        $cargaHoras =($resultB[0]->nb_horas)*($resultC[0]->nb_dias);
         
         switch ($mes) {
         case 1:

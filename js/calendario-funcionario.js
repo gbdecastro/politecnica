@@ -189,7 +189,7 @@ function init(){
         getCurrentDateForFormSeach(id_funcionario);
         getCalendario(id_funcionario);
         getResumo($('#form_search_projeto').val());
-        getInfoAcumulado(id_funcionario);
+        //getInfoAcumulado(id_funcionario);
     });
         
 }
