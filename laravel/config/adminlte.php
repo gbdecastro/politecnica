@@ -185,7 +185,16 @@ return [
             'active'      => ['funcionarios', 'funcionarios', 'funcionarios/*'],
             'permission'  => 'no', 
         ],
+        'AVALIAÇÃO MENSAL',
+        [
+            'text'        => 'Avaliação',
+            'url'         => '/aval',
+            'icon'        => 'users',
+            'active'      => 'aval', 'aval', 'aval/*'],
+            'permission'  => 'no',
+        ]
     ],
+    
 
     /*
     |--------------------------------------------------------------------------

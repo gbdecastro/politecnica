@@ -142,3 +142,9 @@ Route::post('lotacao/mudarCalendario','LotacaoController@mudarCalendario');
 Route::get('lotacao/dias_uteis/{mes}/{ano}','LotacaoController@dias_uteis');
 Route::post('lotacao/mudar_dias_uteis','LotacaoController@mudar_dias_uteis');
 Route::get('lotacao/dias_uteis','LotacaoController@index');
+
+/**
+ * Rotas Avaliacao
+ */
+Route::get('aval','AvalController@index');
+Route::post('aval/mudarNota','AvalController@mudarNota');
