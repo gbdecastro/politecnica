@@ -147,4 +147,5 @@ Route::get('lotacao/dias_uteis','LotacaoController@index');
  * Rotas Avaliacao
  */
 Route::get('aval','AvalController@index');
+Route::get('aval/situacaoAtual','AvalController@situacaoAtual');
 Route::post('aval/mudarNota','AvalController@mudarNota');

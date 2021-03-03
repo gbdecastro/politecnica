@@ -7,13 +7,13 @@
 @endsection 
 @section('content_header')
 <h1>
-    <i class="fa fa-object-group"></i>
+    <i class="fa fa-fw fa-users"></i>
     Colaboradores
 </h1>
 <ol class="breadcrumb">
     <li>
         <a href="#">
-            <i class="fa fa-object-group"></i> Colaboradores</a>
+            <i class="fa fa-fw fa-users"></i> Colaboradores</a>
     </li>
 </ol>
 @endsection 

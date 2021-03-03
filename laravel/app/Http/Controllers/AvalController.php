@@ -17,14 +17,13 @@ class AvalController extends Controller
     public function index()
     {
         $ano = (int) Date('Y');
-        $mes = Date('F');
+        $mes = Date('n');
        
       //  $usuarios = DB::table('v_funcionario')
         //                ->select('id_usuario','tx_name')
           //              ->where('id_lotacao','=!','4')
             //            ->orderBy('tx_name', 'asc')
               //          ->get();        
-        $arr = array(1,2,3,4);
 
         $usuarios = DB::select(
                             "SELECT id_usuario, tx_name 
@@ -33,13 +32,28 @@ class AvalController extends Controller
                             ORDER BY tx_name ASC"
                         );
 
-        return view('aval.index', compact(['usuarios','ano','mes','arr']));
+        return view('aval.index', compact(['usuarios','ano','mes']));
 
     }
     
     public function mudaNota()
     {
-
+        
     }
    
+    public function situacaoAtual()
+    {
+        $ano = (int) Date('Y');
+        $mes = Date('n');
+
+        return DB::table('aval')
+        ->join('users','aval.id_f2','=','users.id_usuario')
+        ->select('aval.id_f2','aval.nb_nota','users.tx_name')
+        ->where('id_f1',Auth::user()->id_usuario)
+        ->where('nb_mes','=',$mes)
+        ->where('nb_ano','=',$ano)
+        ->get();
+
+
+    }
 }
