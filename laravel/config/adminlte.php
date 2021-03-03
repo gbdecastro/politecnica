@@ -190,9 +190,9 @@ return [
             'text'        => 'Avaliação',
             'url'         => '/aval',
             'icon'        => 'users',
-            'active'      => 'aval', 'aval', 'aval/*'],
+            'active'      => ['aval','aval', 'aval/*'],
             'permission'  => 'no',
-        ]
+        ],
     ],
     
 
