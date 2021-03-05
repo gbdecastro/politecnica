@@ -76,27 +76,44 @@
     						</thead>
     						<tbody>
                             <tr>
-                            @for ($i = 0; $i <  11; $i++)
+                            @for ($i = 1; $i <  11; $i++)
                                 <td> {{$i}}.
                                     
 									<div class="form-group">
 									<select class="form-control select2-native slc-colaborador" data-former="{{$i}}"  required>
                                      <option value="0" >Selecionar Colaborador</option>
-                                     @include('aval.option')
-                                    
+                                     @include('aval.option') 
 								<div>
 								</td>
     					
-                                <td>Nota:
+                                <td>Proatividade:
 									<div class="form-group">
-									<select class="form-control select2-native slc-nb_nota" data-former="{{$i}}"  required>
+									<select class="form-control select2-native slc-nb_proativ" data-former="{{$i}}"  required>
                                         <option value="0">Sem Nota</option>  
-									 	<option value="5">Ótimo</option>
-										<option value="4">Bom</option>
-										<option value="3">Regular</option>
-										<option value="2">Fraco</option>
+									 	<option value="4">Ótimo</option>
+										<option value="3">Bom</option>
+										<option value="2">Regular</option>
 										<option value="1">Ruim</option>
-										 
+								<div>
+								</td>
+								<td>Produtividade:
+									<div class="form-group">
+									<select class="form-control select2-native slc-nb_produtiv" data-former="{{$i}}"  required>
+                                        <option value="0">Sem Nota</option>  
+									 	<option value="4">Ótimo</option>
+										<option value="3">Bom</option>
+										<option value="2">Regular</option>
+										<option value="1">Ruim</option>		 
+								<div>
+								</td>
+								<td>Pontualidade:
+									<div class="form-group">
+									<select class="form-control select2-native slc-nb_pontual" data-former="{{$i}}"  required>
+                                        <option value="0">Sem Nota</option>  
+									 	<option value="4">Ótimo</option>
+										<option value="3">Bom</option>
+										<option value="2">Regular</option>
+										<option value="1">Ruim</option>		 
 								<div>
 								</td>
 							</tr>	 

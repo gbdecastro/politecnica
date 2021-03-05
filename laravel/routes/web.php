@@ -149,3 +149,4 @@ Route::get('lotacao/dias_uteis','LotacaoController@index');
 Route::get('aval','AvalController@index');
 Route::get('aval/situacaoAtual','AvalController@situacaoAtual');
 Route::post('aval/mudarNota','AvalController@mudarNota');
+Route::post('aval/selectColaborador','AvalController@selectColaborador');

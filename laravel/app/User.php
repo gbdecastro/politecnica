@@ -45,6 +45,15 @@ class User extends Authenticatable
         $ano = (int) Date('Y');
         $mes = (int) Date('m')-1;
         
+        $resultB = DB::table('dias_uteis')
+        ->select(DB::raw('count(*) as ct'))
+        ->where('nb_ano','=',$ano)
+        ->get();
+
+        if ($resultB[0]->ct == '0'){
+            DB::statement(DB::raw("call sp_dias_uteis()"));
+        }
+        
         if($mes == 0){
             $mes = 12;
             $ano = (int) Date('Y')-1;
@@ -55,15 +64,6 @@ class User extends Authenticatable
         ->where('nb_mes','=',$mes)
         ->where('nb_ano','=',$ano)
         ->get();
-
-        $resultB = DB::table('dias_uteis')
-        ->select(DB::raw('count(*) as ct'))
-        ->where('nb_ano','=',$ano)
-        ->get();
-
-        if ($resultB[0]->ct == '0'){
-            DB::statement(DB::raw("call sp_dias_uteis()"));
-        }
 
         if ($resultA[0]->ct == '0'){
             DB::statement(DB::raw("call sp_banco_horas()"));

@@ -38,22 +38,60 @@ class AvalController extends Controller
     
     public function mudaNota()
     {
-        
-    }
+    
+     
+    } //public function end 
+   public function selectColaborador(){
    
+   
+   } //public function end 
+
     public function situacaoAtual()
     {
         $ano = (int) Date('Y');
+       // $mes = Date('n');
         $mes = Date('n');
 
-        return DB::table('aval')
-        ->join('users','aval.id_f2','=','users.id_usuario')
-        ->select('aval.id_f2','aval.nb_nota','users.tx_name')
+        $resultA = DB::table('aval')
+        ->select(DB::raw('count(*) as ct'))
         ->where('id_f1',Auth::user()->id_usuario)
         ->where('nb_mes','=',$mes)
         ->where('nb_ano','=',$ano)
         ->get();
 
+        if ($resultA[0]->ct == '0'){
+          
+          if ($mes == 1){
+            $mes = 12;
+            $ano = $ano - 1;
+          }
+          else{
+            $mes = $mes - 1;
+           }
 
-    }
+           $resultB = DB::table('aval')
+              ->select(DB::raw('count(*) as ct'))
+              ->where('id_f1',Auth::user()->id_usuario)
+              ->where('nb_mes','=',$mes)
+              ->where('nb_ano','=',$ano)
+              ->get();
+              if ($resultB[0]->ct == '0')  {
+                  return 0;
+              }
+              
+        }
+        else{  
+        
+        return DB::table('aval')
+        ->join('users','aval.id_f2','=','users.id_usuario')
+        ->select('aval.id_f2','aval.nb_proativ','nb_produtiv','nb_pontual','users.tx_name')
+        ->where('id_f1',Auth::user()->id_usuario)
+        ->where('nb_mes','=',$mes)
+        ->where('nb_ano','=',$ano)
+        ->get();
+
+        } //end else
+   
+    }  //public function end
+  //class end  
 }
