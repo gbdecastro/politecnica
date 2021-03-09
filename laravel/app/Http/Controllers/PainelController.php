@@ -314,6 +314,24 @@ class PainelController extends Controller
 
         return view('painel.bancohoras.index',compact(['mesAnterior1','mesAnterior2','mesAnterior3','anoAnterior1','anoAnterior2','anoAnterior3','bancoHoras','lotacao']));
     }
+//Resumo Avaliacao
+public function resumoAval(){
+
+    $resumoAval = DB::select(
+        "SELECT * 
+          FROM v_user_aval
+          ORDER BY tx_name ASC"
+    );
+
+    $lotacao = DB::select(
+        "SELECT * 
+          FROM lotacao
+          ORDER BY id_lotacao ASC"
+    );
+
+    return view('painel.aval.index',compact(['resumoAval','lotacao']));
+}
+
 
 
 //Lotacao

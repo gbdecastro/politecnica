@@ -60,6 +60,7 @@ Route::get('painel/relatorios','PainelController@relatorioView');
 Route::get('painel/relatorio','PainelController@gerarRelatorio');
 Route::get('painel/bancohoras','PainelController@bancoHoras');
 Route::get('painel/lotacao','PainelController@lotacao');
+Route::get('painel/aval','PainelController@resumoAval');
 
 
 /*ROTAS DE CALENDARIO EM PAINEL*/

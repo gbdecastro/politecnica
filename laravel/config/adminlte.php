@@ -153,6 +153,13 @@ return [
                     'active'      => ['/painel/lotacao','/painel/lotacao/*'],
                     'permission'  => 'yes',                    
                 ],
+                [
+                    'text'        => 'Avaliação',
+                    'url'         => '/painel/aval',
+                    'icon'        => 'users',
+                    'active'      => ['/painel/aval','/painel/aval/*'],
+                    'permission'  => 'yes',                    
+                ],
                 [                
                     'text'      =>   'Relatórios',
                     'url'       =>   '/painel/relatorios',
