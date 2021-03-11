@@ -25,7 +25,7 @@
 @foreach($lotacao as $local)
 @if($local->id_lotacao != 4)
     <div class="row">
-    	<!-- BOX DE Quadro Geral de Saldo de Horas -->
+    	<!-- BOX DE Quadro Geral de Avaliações -->
 		<div class="col-md-12">
     		<div class="box box-poli">
     			<div class="box-header with-border">
@@ -40,14 +40,14 @@
     			</div>
     			<div class="box-body">
     				<div class="table-responsive">
-    					<table id="tableBancoHoras" class="table table-striped no-margin">
+    					<table id="tableAval" class="table table-striped no-margin">
     						<thead>
     							<tr>
     								<th>Colaborador</th>
-									<th>Mapa</th>	
-									<th>Ótimo</th>								
-									<th>Bom</th>
-                                    <th>Regular</th>
+									<th>Resumo</th>	
+									<th class="text-success">Ótimo</th>								
+									<th >Bom</th>
+                                    <th class="text-warning">Regular</th>
                                     <th class="text-danger">Ruim</th>
 									<th>Proatividade</th>
 									<th>Produtividade</th>
@@ -65,18 +65,20 @@
 									<td>
                                     <button class="btn btn-default" data-toggle="modal" data-target="#modal_mapa"
 											data-tx_funcionario="{{ $user->tx_name }}" 
-											data-id_funcionario="{{ $user->id_usuario }}">
+											data-id_funcionario="{{ $user->id_usuario }}"
+											data-mes="{{ $mes }}"
+											data-ano="{{ $ano }}">
                                         <i class="fa fa-vcard-o"></i>
                                     </button>
                                 	</td>
-                                    <td>{{ $user->nb_otimo }} </td>
+                                    <td class="text-success">{{ $user->nb_otimo }} </td>
                                     <td>{{ $user->nb_bom }} </td>
-                                    <td>{{ $user->nb_regular }} </td>
+                                    <td class="text-warning">{{ $user->nb_regular }} </td>
                                     <td class="text-danger">{{ $user->nb_otimo }} </td>
-									<td>{{ $user->md_proativ }} </td>
-									<td>{{ $user->md_produtiv }} </td>
-									<td>{{ $user->md_pontual }} </td>
-									<td>{{ ($user->md_pontual + $user->md_produtiv + $user->md_proativ)/3 }} </td>
+									<td>{{ number_format($user->md_proativ,2) }} </td>
+									<td>{{ number_format($user->md_produtiv,2) }} </td>
+									<td>{{ number_format($user->md_pontual,2) }} </td>
+									<td><b>{{ number_format(($user->md_pontual + $user->md_produtiv + $user->md_proativ)/3,2) }}</b></td>
     							</tr>    							
 								@endif
 								@endforeach
@@ -89,7 +91,7 @@
     </div>
 @endif
 @endforeach
-	
+	@include('painel.aval.mapa')
 @endsection
 
 @section('js')

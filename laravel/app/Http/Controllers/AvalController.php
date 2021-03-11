@@ -62,10 +62,9 @@ class AvalController extends Controller
     public function situacaoAtual()
     {
         $ano = (int) Date('Y');
-       // $mes = Date('n');
         $mes = Date('n');
 
-        $resultA = Aval::where('id_f1',Auth::user()->id_usuario)
+        $resultA = Aval::where('id_f1','=',Auth::user()->id_usuario)
         ->where('nb_mes','=',$mes)
         ->where('nb_ano','=',$ano)
         ->count();
@@ -74,12 +73,15 @@ class AvalController extends Controller
         insertAval($mes,$ano);
         }
         else{  
-        
-        return Aval::select('id_f2','nb_proativ','nb_produtiv','nb_pontual')
-        ->where('id_f1',Auth::user()->id_usuario)
+       // return 'avalok';
+        $resultB =  DB::table('aval')
+        ->select('id_f2','nb_proativ','nb_produtiv','nb_pontual','nb_idx')
+        ->where('id_f1','=',Auth::user()->id_usuario)
         ->where('nb_mes','=',$mes)
         ->where('nb_ano','=',$ano)
         ->get();
+
+          return $resultA;
 
         } //end else
    

@@ -66,7 +66,7 @@
 	    			</div>
     			</div>
     			<div class="box-body">
-    				<div class="table-responsive">
+    				
     					<table id="tableAval" class="table table-striped no-margin">
     						<thead>
     							<tr>
@@ -120,7 +120,7 @@
 							@endfor
     						</tbody>
     					</table>
-    				</div>
+    				
     			</div>
     		</div>
     	</div>
