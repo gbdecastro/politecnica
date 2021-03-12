@@ -314,41 +314,6 @@ class PainelController extends Controller
 
         return view('painel.bancohoras.index',compact(['mesAnterior1','mesAnterior2','mesAnterior3','anoAnterior1','anoAnterior2','anoAnterior3','bancoHoras','lotacao']));
     }
-//Resumo Avaliacao
-public function resumoAval(){
-
-    $resumoAval = DB::select(
-        "SELECT * 
-          FROM v_user_aval
-          ORDER BY tx_name ASC"
-    );
-
-    $lotacao = DB::select(
-        "SELECT * 
-          FROM lotacao
-          ORDER BY id_lotacao ASC"
-    );
-    
-    $ano = (int) Date('Y');
-    $mes = Date('n');
-
-    $meses = array("1"=>"Janeiro",
-                              "2"=>"Fevereiro",
-                              "3"=>"Março",
-                              "4"=>"Abril",
-                              "5"=>"Maio",
-                              "6"=>"Junho",
-                              "7"=>"Julho",
-                              "8"=>"Agosto",
-                              "9"=>"Setembro",
-                              "10"=>"Outubro",
-                              "11"=>"Novembro",
-                              "12"=>"Dezembro"
-);
-
-    return view('painel.aval.index',compact(['resumoAval','lotacao','mes','ano','meses']));
-}
-
 
 
 //Lotacao

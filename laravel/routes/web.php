@@ -60,7 +60,8 @@ Route::get('painel/relatorios','PainelController@relatorioView');
 Route::get('painel/relatorio','PainelController@gerarRelatorio');
 Route::get('painel/bancohoras','PainelController@bancoHoras');
 Route::get('painel/lotacao','PainelController@lotacao');
-Route::get('painel/aval','PainelController@resumoAval');
+Route::get('painel/aval','AvalController@resumoAval');
+Route::get('painel/aval/resumoAnual/{user}/{ano}','AvalController@resumoAnual');
 
 
 /*ROTAS DE CALENDARIO EM PAINEL*/
@@ -149,5 +150,8 @@ Route::get('lotacao/dias_uteis','LotacaoController@index');
  */
 Route::get('aval','AvalController@index');
 Route::get('aval/situacaoAtual','AvalController@situacaoAtual');
+Route::get('aval/copyAval','AvalController@copyAval');
+Route::get('aval/insertAval','AvalController@insertAval');
 Route::post('aval/mudarNota','AvalController@mudarNota');
 Route::post('aval/selectColaborador','AvalController@selectColaborador');
+

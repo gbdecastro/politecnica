@@ -6,9 +6,18 @@
                     <button type="button" class="close" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
-                    <h4 class="modal-title">Resumo Avaliações</h4>
+                    <h4 class="modal-title"></h4>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                        <span class="sr-only">100% Complete</span>
                 </div>
+                </div>
+                </div>
+               
                 <div class="modal-body">
+                
+                <input type="hidden" id="id_usuario">
+                <input type="hidden" id="ano">
                 @for ($i = 1; $i < 13; $i++)
                 @switch($i)
 											@case(1)
@@ -47,25 +56,9 @@
                                                 <th>PT.</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>VINICIUS TAKAHASHI</td>
-                                                <td class="text-success">Ótimo</td>
-                                                <td>Bom</td>
-                                                <td class="text-danger">Ruim</td>
-                                            </tr>    	
-                                            <tr>
-                                                <td>JOAO AVELLAN</td>
-                                                <td class="text-success">Ótimo</td>
-                                                <td>Bom</td>
-                                                <td>Bom</td>
-                                            </tr>    
-                                            <tr>
-                                                <td>PAULINO IKENAGA</td>
-                                                <td class="text-success">Ótimo</td>
-                                                <td class="text-danger">Ruim</td>
-                                                <td class="text-danger">Ruim</td>
-                                            </tr>  						
+                                        <tbody class="{{$i}}" id="entryResumo">
+                                             	
+                                            						
                                         </tbody>
                                     </table>
 				            	</div> 

@@ -64,8 +64,8 @@
     								<td>{{ $user->tx_name }}</td>
 									<td>
                                     <button class="btn btn-default" data-toggle="modal" data-target="#modal_mapa"
-											data-tx_funcionario="{{ $user->tx_name }}" 
-											data-id_funcionario="{{ $user->id_usuario }}"
+											data-tx-name="{{ $user->tx_name }}" 
+											data-id-usuario="{{ $user->id_usuario }}"
 											data-mes="{{ $mes }}"
 											data-ano="{{ $ano }}">
                                         <i class="fa fa-vcard-o"></i>
@@ -95,5 +95,5 @@
 @endsection
 
 @section('js')
-
+<script src="{{ asset('js/resumo_aval.js') }}"></script>
 @endsection
