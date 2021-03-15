@@ -50,7 +50,12 @@ public function resumoAval(){
         FROM lotacao
         ORDER BY id_lotacao ASC"
   );
-  
+  $anos = DB::select(
+    "SELECT DISTINCT nb_ano
+      FROM aval
+      ORDER BY nb_ano DESC"
+  );
+
   $ano = (int) Date('Y');
   $mes = Date('n');
 
@@ -68,7 +73,7 @@ public function resumoAval(){
                             "12"=>"Dezembro"
 );
 
-  return view('painel.aval.index',compact(['resumoAval','lotacao','mes','ano','meses']));
+  return view('painel.aval.index',compact(['resumoAval','lotacao','mes','ano','meses','anos']));
 }
 //PAINEL MODAL Resumo Anual do User Escolhido
 public function resumoAnual($id_usuario,$ano)
@@ -90,28 +95,95 @@ public function resumoAnual($id_usuario,$ano)
      
     } //public function end 
     
-   public function selectColaborador(){
-   
+   public function mudarColaborador(Request $request){
+            $ano = Date('Y');
+            $mes = Date('n');
+            $idx = $request->input('former') - 1;
+
+            DB::table('aval')
+            ->where('id_f1',Auth::user()->id_usuario)
+            ->where('nb_ano',$ano)
+            ->where('nb_mes',$mes)
+            ->where('nb_idx',$idx)
+            ->update([
+              'id_f2'=> $request->input('id_f2')
+            ]);
+            
    } //public function end 
 
-   public function insertAval($mes,$ano){
+   public function mudarProativ(Request $request){
+    $ano = Date('Y');
+    $mes = Date('n');
+    $idx = $request->input('former') - 1;
 
-     for($i = 1; $i < 11; $i++){
-          $aval = new Aval;
-          $aval->id_f1 = Auth::user()->id_usuario;
-          $aval->id_f2 = 0;
-          $aval->nb_mes = $mes;
-          $aval->nb_ano = $ano;
-          $aval->nb_idx = $i;
-          $aval->save();
+    DB::table('aval')
+    ->where('id_f1',Auth::user()->id_usuario)
+    ->where('nb_ano',$ano)
+    ->where('nb_mes',$mes)
+    ->where('nb_idx',$idx)
+    ->update([
+      'nb_proativ'=> $request->input('nb_proativ')
+    ]);
+    
+} //public function end 
+
+public function mudarProdutiv(Request $request){
+  $ano = Date('Y');
+  $mes = Date('n');
+  $idx = $request->input('former') - 1;
+
+  DB::table('aval')
+  ->where('id_f1',Auth::user()->id_usuario)
+  ->where('nb_ano',$ano)
+  ->where('nb_mes',$mes)
+  ->where('nb_idx',$idx)
+  ->update([
+    'nb_produtiv'=> $request->input('nb_produtiv')
+  ]);
+  
+} //public function end 
+
+public function mudarPontual(Request $request){
+  $ano = Date('Y');
+  $mes = Date('n');
+  $idx = $request->input('former') - 1;
+
+  DB::table('aval')
+  ->where('id_f1',Auth::user()->id_usuario)
+  ->where('nb_ano',$ano)
+  ->where('nb_mes',$mes)
+  ->where('nb_idx',$idx)
+  ->update([
+    'nb_pontual'=> $request->input('nb_pontual')
+  ]);
+  
+} //public function end 
+
+   public function initAval($mes,$ano){
+    $data = array();
+    $entry = array();
+
+     for($i = 0; $i < 10; $i++){
+
+         $entry['id_f1'] = Auth::user()->id_usuario;
+         $entry['id_f2'] = 0;
+         $entry['nb_mes'] = $mes;
+         $entry['nb_ano'] = $ano;
+         $entry['nb_proativ'] = 0;
+         $entry['nb_produtiv'] = 0;
+         $entry['nb_pontual'] = 0;
+         $entry['nb_idx'] = $i;
+         $data[$i] = $entry;
      }
+
+     DB::table('aval')->insert($data);
 
    }
    
    public function copyAval($mesant,$anoant){
 
     $table = DB::table('aval')
-           ->select('id_f2','nb_proativ','nb_produtiv','nb_pontual','nb_idx')
+           ->select('id_f2','nb_idx')
            ->where('id_f1','=',Auth::user()->id_usuario)
            ->where('nb_mes','=',$mesant)
            ->where('nb_ano','=',$anoant)
@@ -125,57 +197,60 @@ public function resumoAnual($id_usuario,$ano)
     }
 
     foreach($table as $entry){
-            $aval = new Aval;
-            $aval->id_f1 = Auth::user()->id_usuario;
-            $aval->id_f2 =  $entry->id_f2;
-            $aval->nb_mes = $mes;
-            $aval->nb_ano = $ano;
-            $aval->nb_idx =  $entry->nb_idx;
-            $aval->save();
+            DB::table('aval')
+            ->where('id_f1','=',Auth::user()->id_usuario)
+            ->where('nb_mes','=',$mes)
+            ->where('nb_ano','=',$ano)
+            ->where('nb_idx','=',$entry->nb_idx)
+            ->update(array('id_f2'=>$entry->id_f2));
     }
+  
+  }//public function end 
 
+  public function trimAval($mesant,$anoant)  {
+    DB::table('aval')
+                 ->where('id_f1','=',Auth::user()->id_usuario)
+                 ->where('nb_mes','=',$mesant)
+                 ->where('nb_ano','=',$anoant)
+                 ->where('id_f2','=',0)
+                 ->delete();
   }//public function end 
 
     public function situacaoAtual()
     {
         $ano = (int) Date('Y');
-        $mes = Date('n');
+        $mes = (int) Date('n');
         $anoant = $ano;
         $mesant = $mes - 1;
-        if($mesant == 0){
-          $mesant = 12;
-          $anoant = $anoant - 1;
-        }
+            if($mesant == 0){
+              $mesant = 12;
+              $anoant = $anoant - 1;
+              }
         //verifica entradas atuais
         $atual = Aval::where('id_f1','=',Auth::user()->id_usuario)
         ->where('nb_mes','=',$mes)
         ->where('nb_ano','=',$ano)
         ->count();
-        
-       if ($atual == '0'){
+
+       if ($atual == 0){
+         //inicia com inserts para o usuario atual no mes atual 
+       Self::initAval($mes, $ano);
+       
          //verifica entradas mes passado
         $passado = Aval::where('id_f1','=',Auth::user()->id_usuario)
         ->where('nb_mes','=',$mesant)
         ->where('nb_ano','=',$anoant)
         ->count();
 
-         if($passado == '0'){
-           //cria entradas no banco 
-           insertAval($mes,$ano);
-           return 0;
-         }
-          //copia mes passado
-           copyAval($mesant,$anoant);
-
-           return  DB::table('aval')
-           ->select('id_f2','nb_proativ','nb_produtiv','nb_pontual','nb_idx')
-           ->where('id_f1','=',Auth::user()->id_usuario)
-           ->where('nb_mes','=',$mes)
-           ->where('nb_ano','=',$ano)
-           ->get();
+         if($passado != 0){
+           //limpa o mes passado
+             Self::trimAval($mesant,$anoant);
+            //faz updates com os nomes dos usuarios já mencionados
+             Self::copyAval($mesant,$anoant);
+             }   
 
         }
-        else{  
+    
        // return 'avalok';
        return  DB::table('aval')
         ->select('id_f2','nb_proativ','nb_produtiv','nb_pontual','nb_idx')
@@ -184,9 +259,6 @@ public function resumoAnual($id_usuario,$ano)
         ->where('nb_ano','=',$ano)
         ->get();
 
-
-        } //end else
-   
     }  //public function end
   //class end  
 }

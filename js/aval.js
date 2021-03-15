@@ -1,5 +1,6 @@
 function situacaoAtual(){
-
+        //$('#tableAval').hide();
+        $('.progress').show();
     $.ajax({
         type:'get',
         url: './aval/situacaoAtual'
@@ -16,6 +17,8 @@ function situacaoAtual(){
             e.val(entry.nb_pontual).trigger("change")
 
         })
+        $('.progress').hide();
+       // $('#tableAval').show();
     })  
 }
 
@@ -23,20 +26,56 @@ $(function(){
 
     situacaoAtual();
 
-    $('#modal_mapa').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget)
+    $('.select2-native.slc-colaborador').on('select2:select', function (e) {
+        $.ajax({
+            type:'post',
+            url: './aval/mudarColaborador',
+            data:{
+                former: $(this).attr("data-former"),
+                id_f2: $(this).val()
+            }
+        }).done(function(){
+            situacaoAtual();
+        })
+    }); 
 
-        var id_usuario = button.data('id-usuario')
-        var tx_name = button.data('tx-name')
-        var nb_ano = button.data('ano')
+    $('.select2-native.slc-nb_proativ').on('select2:select', function (e) {
+        $.ajax({
+            type:'post',
+            url: './aval/mudarProativ',
+            data:{
+                former: $(this).attr("data-former"),
+                nb_proativ: $(this).val()
+            }
+        }).done(function(){
+            situacaoAtual();
+        })
+    }); 
 
-        var modal = $(this)
-        
-        modal.find('input#nb_horas').val(id_usuario)
-        modal.find('input#id_lotacao').val(nb_ano)
+    $('.select2-native.slc-nb_produtiv').on('select2:select', function (e) {
+        $.ajax({
+            type:'post',
+            url: './aval/mudarProdutiv',
+            data:{
+                former: $(this).attr("data-former"),
+                nb_produtiv: $(this).val()
+            }
+        }).done(function(){
+            situacaoAtual();
+        })
+    }); 
 
-        modal.find('h4.modal-title').text('Resumo das Avaliações de '+tx_name)
-
-      });
+    $('.select2-native.slc-nb_pontual').on('select2:select', function (e) {
+        $.ajax({
+            type:'post',
+            url: './aval/mudarPontual',
+            data:{
+                former: $(this).attr("data-former"),
+                nb_pontual: $(this).val()
+            }
+        }).done(function(){
+            situacaoAtual();
+        })
+    }); 
 
 });

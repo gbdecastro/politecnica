@@ -38,7 +38,8 @@ $(function(){
         
         modal.find('input#id_usuario').val(id_usuario)
         modal.find('input#ano').val(nb_ano)
-
+        var e = $('.slc-anos')
+        e.val(nb_ano).trigger("change")
         modal.find('h4.modal-title').text('Resumo Anual de '+ tx_name)
 
         resumoAnual(id_usuario,nb_ano);
@@ -53,6 +54,19 @@ $(function(){
                     }
          });
 
-        
+         $('.select2-native.slc-anos').on('select2:select', function (event) {
+            $('.modal-body').hide();
+            $('.progress').show();
+            var i;
+            for (i = 1; i < 13; i++) {
+                $('tbody#entryResumo.'+i).empty();
+                        }
+
+            var modal =  $('#modal_mapa')
+            var id_usuario = modal.find('input#id_usuario').val()
+            var nb_ano = $(this).val()
+            resumoAnual(id_usuario,nb_ano);
+            
+        }); 
 
 });

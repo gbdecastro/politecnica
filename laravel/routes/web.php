@@ -150,8 +150,8 @@ Route::get('lotacao/dias_uteis','LotacaoController@index');
  */
 Route::get('aval','AvalController@index');
 Route::get('aval/situacaoAtual','AvalController@situacaoAtual');
-Route::get('aval/copyAval','AvalController@copyAval');
-Route::get('aval/insertAval','AvalController@insertAval');
-Route::post('aval/mudarNota','AvalController@mudarNota');
-Route::post('aval/selectColaborador','AvalController@selectColaborador');
+Route::post('aval/mudarProativ','AvalController@mudarProativ');
+Route::post('aval/mudarProdutiv','AvalController@mudarProdutiv');
+Route::post('aval/mudarPontual','AvalController@mudarPontual');
+Route::post('aval/mudarColaborador','AvalController@mudarColaborador');
 
