@@ -154,4 +154,10 @@ Route::post('aval/mudarProativ','AvalController@mudarProativ');
 Route::post('aval/mudarProdutiv','AvalController@mudarProdutiv');
 Route::post('aval/mudarPontual','AvalController@mudarPontual');
 Route::post('aval/mudarColaborador','AvalController@mudarColaborador');
-
+/**
+ * Rotas Organograma
+ */
+Route::get('painel/ranking','RankingController@resumoRanking');
+Route::get('painel/ranking/situacaoAtual','RankingController@situacaoAtual');
+Route::post('painel/ranking/mudarDepartamento','RankingController@mudarDepartamento');
+Route::post('painel/ranking/mudarRanking','RankingController@mudarRanking');

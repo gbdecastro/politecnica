@@ -59,6 +59,7 @@
 											@endswitch
 										 / {{ $ano }}
 	    			</h3>
+					<p>As notas de avaliação do mês atual podem ser alteradas livremente a qualquer momento, após a virada do mês essas notas não poderão mais ser revisadas.</p>
 	    			<div class="box-tools pull-right">
 	    				<button class="btn btn-box-toll" type="button" data-widget="collapse">
 	    					<i class="fa fa-minus"></i>
@@ -125,7 +126,7 @@
 							@endfor
     						</tbody>
     					</table>
-    				
+						<p><i>Limite máximo de 10 colaboradores avaliados por mês.</i></p>
     			</div>
     		</div>
     	</div>

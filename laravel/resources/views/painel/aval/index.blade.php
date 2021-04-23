@@ -74,11 +74,11 @@
                                     <td class="text-success">{{ $user->nb_otimo }} </td>
                                     <td>{{ $user->nb_bom }} </td>
                                     <td class="text-warning">{{ $user->nb_regular }} </td>
-                                    <td class="text-danger">{{ $user->nb_otimo }} </td>
+                                    <td class="text-danger">{{ $user->nb_ruim }} </td>
 									<td>{{ number_format($user->md_proativ,2) }} </td>
 									<td>{{ number_format($user->md_produtiv,2) }} </td>
 									<td>{{ number_format($user->md_pontual,2) }} </td>
-									<td><b>{{ number_format(($user->md_pontual + $user->md_produtiv + $user->md_proativ)/3,2) }}</b></td>
+									<td><b>{{ number_format((($user->md_pontual*2) + ($user->md_produtiv*5) + ($user->md_proativ)*3)/10,2) }}</b></td>
     							</tr>    							
 								@endif
 								@endforeach

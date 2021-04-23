@@ -160,6 +160,13 @@ return [
                     'active'      => ['/painel/aval','/painel/aval/*'],
                     'permission'  => 'yes',                    
                 ],
+                [
+                    'text'        => 'Organograma',
+                    'url'         => '/painel/ranking',
+                    'icon'        => 'users',
+                    'active'      => ['/painel/ranking','/painel/ranking/*'],
+                    'permission'  => 'yes',                    
+                ],
                 [                
                     'text'      =>   'Relatórios',
                     'url'       =>   '/painel/relatorios',
