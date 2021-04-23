@@ -149,7 +149,7 @@
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 
                     <h4><i class="icon fa fa-warning"></i> Atenção!</h4>
-                        Ao Alterar a Senha, deverá set efetuado novamento o login. 
+                       <b><i> Ao Alterar a Senha, será direcionado para a tela de login. </i></b>
                 </div>
             </div>
         </div>

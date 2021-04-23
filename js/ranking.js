@@ -1,18 +1,20 @@
 function situacaoAtual(){
 
+    $('.progress').show();
 $.ajax({
     type:'get',
     url: './ranking/situacaoAtual'
 }).done(function (response){
     $.each(response, function(i, entry){
 
-        var e = $('#'+entry.id_usuario+'.slc-nb_departamento')
+        var e = $('.slc-dpid'+entry.id_usuario)
         e.val(entry.nb_departamento).trigger("change")
-        var e = $('#'+entry.id_usuario+'.slc-nb_ranking')
+        var e = $('.slc-rkid'+entry.id_usuario)
         e.val(entry.nb_ranking).trigger("change")
 
     })
 
+    $('.progress').hide();
 })  
 }
 
@@ -32,6 +34,7 @@ $('.select2-native.slc-nb_departamento').on('select2:select', function (e) {
         situacaoAtual();
     })
 }); 
+
 
 $('.select2-native.slc-nb_ranking').on('select2:select', function (e) {
     $.ajax({

@@ -20,16 +20,15 @@ class AvalController extends Controller
         $ano = (int) Date('Y');
         $mes = Date('n');
        
-      //  $usuarios = DB::table('v_funcionario')
-        //                ->select('id_usuario','tx_name')
-          //              ->where('id_lotacao','=!','4')
-            //            ->orderBy('tx_name', 'asc')
-              //          ->get();        
-
+        $nb_ranking=Auth::user()->nb_ranking;
+        $id_usuario=Auth::user()->id_usuario;
+        
         $usuarios = DB::select(
                             "SELECT id_usuario, tx_name 
                             FROM v_funcionario
                             WHERE id_lotacao != 4
+                            AND nb_ranking >=  $nb_ranking
+                            AND id_usuario != $id_usuario
                             ORDER BY tx_name ASC"
                         );
 

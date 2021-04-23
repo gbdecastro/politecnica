@@ -4,7 +4,7 @@
 
 @section('content_header')
 <h1>
-  	<i class="fa fa-users"></i>Organograma
+  	<i class="fa fa-sitemap"></i> Organograma
     <small>Painel > Organograma</small>
 </h1>
 <ol class="breadcrumb">
@@ -14,7 +14,7 @@
     </li>
     <li>
         <a href="#">
-		<i class="fa fa-users"></i> Organograma</a>
+		<i class="fa fa-sitemap"></i> Organograma</a>
     </li>
 </ol>
   
@@ -22,9 +22,12 @@
 
 @section('content')
 
+
 @foreach($lotacao as $local)
 @if($local->id_lotacao != 4)
-    <div class="row">
+
+
+	<div class="row">
     	<!-- BOX DE Organograma da Empresa -->
 		<div class="col-md-12">
     		<div class="box box-poli">
@@ -39,13 +42,17 @@
 	    			</div>
     			</div>
     			<div class="box-body">
-    				<div class="table-responsive">
-    					<table id="tableRanking" class="table table-striped no-margin">
+				<div class="progress">
+                      <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                        <span class="sr-only">100% Complete</span>
+                </div>
+				</div>
+    				<table id="tableRanking" class="table table-striped no-margin">
     						<thead>
     							<tr>
-    								<th>Colaborador</th>
-									<th>Departamento</th>	
-									<th>Hierarquia</th>
+    								<th class="col-md-4">Colaborador</th>
+									<th class="col-md-3">Hierarquia</th>
+									<th class="col-md-5">Departamento</th>	
     							</tr>
     							
     						</thead>
@@ -55,24 +62,9 @@
 									
     							<tr>
     								<td>{{ $user->tx_name }}</td>
-									<td>
-									<div class="form-group">
-									<select id="{{$user->id_usuario}}" class="form-control select2-native slc-nb_departamento"  data-id_usuario="{{$user->id_usuario}}" required>
-                                        <option value="0">Sem Departamento</option>  
-									 	<option value="9">Projeto, Gerenciamento e Fiscaliz.</option>
-									 	<option value="8">Outros</option>
-									 	<option value="7">HVAC</option>
-									 	<option value="6">Especialidades</option>
-									 	<option value="5">Civil</option>
-									 	<option value="4">Hidráulica</option>
-										<option value="3">Elétrica</option>
-										<option value="2">Arquitetura</option>
-										<option value="1">Administrativo</option>
-								<div>
-								</td>
 								<td>
 									<div class="form-group">
-									<select id="{{$user->id_usuario}}" class="form-control select2-native slc-nb_ranking"  data-id_usuario="{{$user->id_usuario}}" required>
+										<select class="form-control select2-native slc-nb_ranking slc-rkid{{$user->id_usuario}}"  data-id_usuario="{{$user->id_usuario}}">
                                         <option value="0">Indefinido</option>  
 									 	<option value="9">9. Outros 2</option>
 									 	<option value="8">8. Outros 1</option>
@@ -83,18 +75,35 @@
 										<option value="3">3. Coordenação</option>
 										<option value="2">2. Gerência</option>
 										<option value="1">1. Direção</option>
-								<div>
+										</select>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<select class="form-control select2-native slc-nb_departamento slc-dpid{{$user->id_usuario}}"  data-id_usuario="{{$user->id_usuario}}">
+                                        <option value="0">Sem Departamento</option>  
+									 	<option value="9">Projeto, Gerenciamento e Fiscaliz.</option>
+									 	<option value="8">Outros</option>
+									 	<option value="7">HVAC</option>
+									 	<option value="6">Especialidades</option>
+									 	<option value="5">Civil</option>
+									 	<option value="4">Hidráulica</option>
+										<option value="3">Elétrica</option>
+										<option value="2">Arquitetura</option>
+										<option value="1">Administrativo</option>
+										</select>
+									</div>
 								</td>
     							</tr>    							
 								@endif
 								@endforeach
     						</tbody>
     					</table>
-					</div>
     			</div>
     		</div>
     	</div>
-    </div>
+  </div>  
+	
 @endif
 @endforeach
 @endsection

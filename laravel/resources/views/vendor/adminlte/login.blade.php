@@ -14,7 +14,7 @@
             <span>PMHT - Planilha Mensal de Horas Trabalhadas</span>
             </h4>
             <h5 style="margin-left: auto">
-			<a href="http://www.politecnica-eng.com.br/">©2018-2019 Politecnica Engenharia LTDA
+			<a href="http://www.politecnica-eng.com.br/">©2018-2021 Politecnica Engenharia LTDA
 			<img alt="Politecnica" src="./img/logo_laravel.png" width="40" height="40">
 			</a>
             </h5>
@@ -70,13 +70,6 @@
                     <!-- /.col -->
                 </div>
             </form>
-            <div class="auth-links">
-                <a href="{{ url(config('adminlte.password_reset_url', 'password/reset')) }}"
-                   class="text-center">
-                       Esqueci minha Senha
-                   </a>
-                <br>
-            </div>
         </div>
         <!-- /.login-box-body -->
     </div><!-- /.login-box -->

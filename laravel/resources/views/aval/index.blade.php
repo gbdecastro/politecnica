@@ -3,9 +3,9 @@
 @section('title', 'Avaliação Mensal')
 
 @section('content_header')
-  <h1><i class="fa fa-fw fa-users"></i> Avaliação Mensal</h1>
+  <h1><i class="fa fa-fw fa-thumbs-o-up"></i> Avaliação Mensal</h1>
   <ol class="breadcrumb">
-    <li class="active"><a href="#"><i class="fa fa-fw fa-users"></i>Avaliação Mensal</a></li>
+    <li class="active"><a href="#"><i class="fa fa-fw fa-thumbs-o-up"></i>Avaliação Mensal</a></li>
   </ol>     
 @endsection
 

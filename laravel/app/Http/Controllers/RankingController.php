@@ -14,17 +14,6 @@ class RankingController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
-    {
-        
-        $usuarios = DB::select(
-                            "SELECT id_usuario, tx_name 
-                            FROM v_funcionario
-                            WHERE id_lotacao != 4
-                            ORDER BY tx_name ASC"
-                        );
-
-    }
  //PAINEL Resumo Organograma
 public function resumoRanking(){
 

@@ -4,7 +4,7 @@
 
 @section('content_header')
 <h1>
-  	<i class="fa fa-users"></i> Resumo Avaliação
+  	<i class="fa fa-thumbs-up"></i> Resumo Avaliação
     <small>Painel > Resumo Avaliação</small>
 </h1>
 <ol class="breadcrumb">
@@ -14,7 +14,7 @@
     </li>
     <li>
         <a href="#">
-		<i class="fa fa-users"></i> Resumo Avaliação</a>
+		<i class="fa fa-thumbs-up"></i> Resumo Avaliação</a>
     </li>
 </ol>
   

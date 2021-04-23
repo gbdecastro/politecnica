@@ -156,14 +156,14 @@ return [
                 [
                     'text'        => 'Avaliação',
                     'url'         => '/painel/aval',
-                    'icon'        => 'users',
+                    'icon'        => 'thumbs-up',
                     'active'      => ['/painel/aval','/painel/aval/*'],
                     'permission'  => 'yes',                    
                 ],
                 [
                     'text'        => 'Organograma',
                     'url'         => '/painel/ranking',
-                    'icon'        => 'users',
+                    'icon'        => 'sitemap',
                     'active'      => ['/painel/ranking','/painel/ranking/*'],
                     'permission'  => 'yes',                    
                 ],
@@ -203,7 +203,7 @@ return [
         [
             'text'        => 'Avaliação',
             'url'         => '/aval',
-            'icon'        => 'users',
+            'icon'        => 'thumbs-o-up',
             'active'      => ['aval','aval', 'aval/*'],
             'permission'  => 'no',
         ],
