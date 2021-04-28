@@ -57,7 +57,7 @@
                 </div>                
             </div>              
             <div class="box-body">
-                @if(Auth::user()->cs_tipo_contrato != 1)
+                @if(Auth::user()->cs_tipo_contrato == 0 or Auth::user()->cs_tipo_contrato == 2 or Auth::user()->cs_tipo_contrato == 3  )
                     <div class="alert alert-info">
                         <h4><i class="icon fa fa-info"></i>- Banco de Horas - Saldo: {{ $saldoHoras }}</h4>
                         <h5>Carga Horária Obrigatória para {{ $cargaData }}: <b> {{ $cargaHoras }} </b> hs</h5>

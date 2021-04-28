@@ -291,7 +291,7 @@ class PainelController extends Controller
                 IFNULL((SELECT SUM(nb_saldo) FROM banco_horas WHERE id_funcionario = u.id_usuario GROUP BY id_funcionario),0) AS mes_atual
              FROM users u 
              INNER JOIN lotacao l ON u.id_lotacao = l.id_lotacao
-             WHERE u.cs_tipo_contrato IN (0,2,3,4)
+             WHERE u.cs_tipo_contrato IN (0,2,3)
 			 ORDER BY u.id_lotacao
              ",
              [
@@ -309,7 +309,7 @@ class PainelController extends Controller
         $lotacao = DB::select(
             "SELECT * 
             FROM lotacao
-            ORDER BY id_lotacao ASC"
+            ORDER BY tx_lotacao ASC"
         );
 
         return view('painel.bancohoras.index',compact(['mesAnterior1','mesAnterior2','mesAnterior3','anoAnterior1','anoAnterior2','anoAnterior3','bancoHoras','lotacao']));

@@ -26,7 +26,7 @@
 @section('content')
 
 @foreach($lotacao as $local)
-@if($local->id_lotacao != 4)
+@if($local->id_lotacao != 0)
     <div class="row">
     	<!-- BOX DE Quadro Geral de Saldo de Horas -->
 		<div class="col-md-12">

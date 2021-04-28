@@ -24,7 +24,7 @@
 
 
 @foreach($lotacao as $local)
-@if($local->id_lotacao != 4)
+@if($local->id_lotacao != 0)
 
 
 	<div class="row">
