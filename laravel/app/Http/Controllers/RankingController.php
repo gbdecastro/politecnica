@@ -19,7 +19,8 @@ public function resumoRanking(){
 
   $resumoRanking = DB::select(
       "SELECT id_usuario, id_lotacao, tx_name, nb_departamento, nb_ranking 
-        FROM users
+        FROM users 
+        WHERE cs_tipo_contrato != 5
         ORDER BY tx_name ASC"
   );
 

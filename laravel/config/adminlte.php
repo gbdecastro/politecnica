@@ -167,6 +167,13 @@ return [
                     'active'      => ['/painel/ranking','/painel/ranking/*'],
                     'permission'  => 'yes',                    
                 ],
+                [
+                    'text'        => 'Mensagens',
+                    'url'         => '/painel/chat',
+                    'icon'        => 'envelope-o',
+                    'active'      => ['/painel/chat','/painel/chat/*'],
+                    'permission'  => 'yes',                    
+                ],
                 [                
                     'text'      =>   'Relatórios',
                     'url'       =>   '/painel/relatorios',
@@ -205,6 +212,14 @@ return [
             'url'         => '/aval',
             'icon'        => 'thumbs-o-up',
             'active'      => ['aval','aval', 'aval/*'],
+            'permission'  => 'no',
+        ],
+        'CANAL DE COMUNICAÇÃO',
+        [
+            'text'        => 'Box de Sugestões',
+            'url'         => '/chat',
+            'icon'        => 'comments-o',
+            'active'      => ['chat','chat', 'chat/*'],
             'permission'  => 'no',
         ],
     ],

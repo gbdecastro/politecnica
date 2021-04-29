@@ -161,3 +161,8 @@ Route::get('painel/ranking','RankingController@resumoRanking');
 Route::get('painel/ranking/situacaoAtual','RankingController@situacaoAtual');
 Route::post('painel/ranking/mudarDepartamento','RankingController@mudarDepartamento');
 Route::post('painel/ranking/mudarRanking','RankingController@mudarRanking');
+/**
+ * Rotas CHAT
+ */
+Route::get('chat','ChatController@index');
+Route::post('aval/novaMensagem','ChatController@novaMensagem');
