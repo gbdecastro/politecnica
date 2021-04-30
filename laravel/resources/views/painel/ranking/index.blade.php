@@ -66,14 +66,12 @@
 									<div class="form-group">
 										<select class="form-control select2-native slc-nb_ranking slc-rkid{{$user->id_usuario}}"  data-id_usuario="{{$user->id_usuario}}">
                                         <option value="0">Indefinido</option>  
-									 	<option value="9">9. Outros 2</option>
-									 	<option value="8">8. Outros 1</option>
-									 	<option value="7">7. Estagiário</option>
-									 	<option value="6">6. Assistente</option>
-									 	<option value="5">5. Efetivo</option>
-									 	<option value="4">4. Supervisão</option>
-										<option value="3">3. Coordenação</option>
-										<option value="2">2. Gerência</option>
+									 	<option value="7">7. Estagiários</option>
+									 	<option value="6">6. Técnicos Assistentes</option>
+									 	<option value="5">5. Técnicos</option>
+									 	<option value="4">4. Terceirizados</option>
+										<option value="3">3. Supervisão</option>
+										<option value="2">2. Gerência e Consultoria</option>
 										<option value="1">1. Direção</option>
 										</select>
 									</div>
