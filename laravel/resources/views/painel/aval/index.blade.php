@@ -23,7 +23,7 @@
 @section('content')
 
 @foreach($lotacao as $local)
-@if($local->id_lotacao != 4)
+
     <div class="row">
     	<!-- BOX DE Quadro Geral de Avaliações -->
 		<div class="col-md-12">
@@ -89,7 +89,7 @@
     		</div>
     	</div>
     </div>
-@endif
+
 @endforeach
 	@include('painel.aval.mapa')
 @endsection

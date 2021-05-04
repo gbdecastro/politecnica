@@ -19,10 +19,11 @@ Route::get('/', function () {
     		return redirect('painel/calendario');
     	else
     		return redirect('painel/');
-    }else{
+	 }else{
     	return view('vendor.adminlte.login');
-    }
+  		}
 });
+
 Route::get('/logged',function(){
 	if(Auth::check()){
 		return Auth::user()->id_usuario;
@@ -165,4 +166,5 @@ Route::post('painel/ranking/mudarRanking','RankingController@mudarRanking');
  * Rotas CHAT
  */
 Route::get('chat','ChatController@index');
+Route::get('painel/chat','ChatController@centralChat');
 Route::post('aval/novaMensagem','ChatController@novaMensagem');

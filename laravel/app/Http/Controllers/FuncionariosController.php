@@ -13,8 +13,7 @@ class FuncionariosController extends Controller
   public function getFuncionarios()
   {
     return DB::table('v_funcionario')
-      ->OrderBy('tx_lotacao','ASC')	
-      ->OrderBy('tx_contrato','ASC')		  
+      ->OrderBy('cs_tipo_contrato','ASC')		  
             ->OrderBy('tx_name','ASC')
             ->get();
   }

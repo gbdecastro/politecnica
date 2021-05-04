@@ -32,7 +32,11 @@ class User extends Authenticatable
     ];
 
     public function getAuthPassword() {
-        return $this->tx_password;
+        if($this->cs_tipo_contrato != 5)
+            return $this->tx_password;
+        else      
+            return 0;
+        
     }
 
     public function getEmailForPasswordReset()

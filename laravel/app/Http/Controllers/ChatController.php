@@ -30,7 +30,27 @@ public function index(){
   return view('chat.index',compact(['mensagens','hoje']));
 } //index function end
 
-   public function novaMensagem(Request $request){
+//Retorna Painel de Geral das Mensagens para O ADMIN
+public function centralChat(){
+  $lotacao = DB::select(
+    "SELECT * 
+      FROM lotacao
+      ORDER BY id_lotacao ASC"
+  );
+
+  $mensagens = DB::select(
+    "SELECT ch.* , u.id_lotacao, u.tx_name, l.tx_lotacao
+      FROM chat  ch 
+      INNER JOIN users u ON u.id_usuario = ch.id_usuario
+      INNER JOIN lotacao l ON l.id_lotacao = u.id_lotacao
+      ORDER BY ch.id_msg DESC"
+      );
+
+  return view('painel/chat.index',compact(['lotacao','mensagens']));
+}// centralChat End
+
+//Request de post para Nove mensagem do User
+public function novaMensagem(Request $request){
 
             $id_usuario = $request->input('id_usuario');
 
@@ -42,8 +62,20 @@ public function index(){
             
    } //public function end
 
+   public function apagarMensagem(Request $request){
 
+        DB::table('chat')
+        ->where('id_msg',$id_msg)
+        ->delete();
+   } //public function end
 
-  
+  public function responderMensagem(Request $request){
+
+    DB::table('chat')
+    ->where('id_msg',$id_msg)
+    ->update([
+      'tx_resposta'=>$request->input('tx_resposta')
+      ]);
+  }
   //class end  
 }

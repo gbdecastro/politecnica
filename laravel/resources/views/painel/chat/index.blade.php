@@ -1,22 +1,34 @@
 @extends('adminlte::page')
 
-@section('title', 'Box de Sugestões')
+@section('title', 'Central de Mensagens')
 
 @section('content_header')
-  <h1><i class="fa fa-fw fa-comments-o"></i>Box de Sugestões</h1>
-  <ol class="breadcrumb">
-    <li class="active"><a href="#"><i class="fa fa-fw fa-comments-o"></i>Box de Sugestões</a></li>
-  </ol>     
+<h1>
+  	<i class="fa fa-envelope-o"></i>Central de Mensagens
+    <small>Painel > Central de Mensagens</small>
+</h1>
+<ol class="breadcrumb">
+    <li>
+        <a href="#">
+            <i class="fa fa-dashboard"></i> Painel</a>
+    </li>
+    <li>
+        <a href="#">
+		<i class="fa fa-envelope-o"></i>Central de Mensagens</a>
+    </li>
+</ol>
+  
 @endsection
 
 @section('content')
+@foreach($lotacao as $local)
 <div class="row">
-    	<!-- BOX DE Sugestoes com titulo, pergunta e resposta com datas tambem -->
+    	<!-- BOX DE Mensagens por Lotacao -->
 		<div class="col-md-12">
     		<div class="box box-poli">
     			<div class="box-header with-border">
 	    			<h3 class="box-title">
-	    			Nova Mensagem:
+	    			{{ $local->tx_lotacao }} - Mensagens
 	    			</h3>
 	    			<div class="box-tools pull-right">
 	    				<button class="btn btn-box-toll" type="button" data-widget="collapse">
@@ -25,35 +37,20 @@
 	    			</div>
     			</div>
     			<div class="box-body">
-                    
-                    <div class='form-group'>
-                        <input class='form-control nova-titulo'  required='' placeholder='Título da Mensagem'>
-                    </div>
-                    <div class='form-group'>
-                        <textarea class='form-control nova-msg'  required='' placeholder="Escreva aqui sua sugestão, reclamação ou mesmo elogio para a família Poli."></textarea>
-                    </div>
-                    <div class='box-footer'>
-                        <p class='text-warning'><i>Alerta: As mensagens enviadas são identificadas. Obrigado pela colaboração!</i></p>
-                        <a class="btn-lg btn-poli nova-enviar pull-right">Enviar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
- </div>
-              
 @foreach($mensagens as $chat)
-
-
+@if($chat->id_lotacao == $local->id_lotacao)
 <div class="row">
     	<!-- BOX DE Sugestoes com titulo, pergunta e resposta com datas tambem -->
 		<div class="col-md-12">
     		<div class="box box-poli">
     			<div class="box-header with-border">
 	    			<h3 class="box-title">
-	    			{{ $chat->tx_titulo }}
+	    			{{$chat->tx_name}} - {{ $chat->tx_titulo }} -  {{ $chat->dt_envio }}
 	    			</h3>
                     <div class="box-tools pull-right">
-                       
+                        <button class="btn btn-danger removeMsg" type="button" data-id_msg="{{ $chat->id_msg }}">
+	    					<i class="fa fa-trash"></i>
+	    				</button>    
 	    				<button class="btn btn-box-toll" type="button" data-widget="collapse">
 	    					<i class="fa fa-minus"></i>
 	    				</button>	    				 				
@@ -62,12 +59,9 @@
     			<div class="box-body">
                     <div>
                         <h4>
-                        Mensagem Enviada:
+                        Mensagem:
                         </h4>
-                        <h4 class="pull-right">
-                            Enviada em: {{ $chat->dt_envio }}
-                        </h4>
-                            <h5>
+                        <h5>
                                 <p>
                             {{ $chat->tx_envio }}
                                 <p>
@@ -78,28 +72,36 @@
                         Resposta:
                         </h4>
                     @if($chat->tx_resposta != '')    
-                        <h4 class="pull-right">
+                        <h4 class="pull-right text-success">
                             Respondia em: {{ $chat->dt_resposta }}
+                        </h4>    
                         <h5>
                             <p>
                             {{ $chat->tx_resposta }}
                             </p>
                         </h5>
                     @else
-                    <h5>
-                        <p>
-                        Aguardando Resposta.
-                        </p>
-                    </h5>    
+                    
+                    <div class='form-group'>
+                        <input id='resposta{{$chat->id_msg}}' type='text' class='form-control' required='' placeholder="Aguardando Resposta."></input>
+                    </div>
+                    <button class="btn btn-poli" type="button" data-id_msg="{{ $chat->id_msg }}" data-toggle="modal" data-target="#modal_responder">
+                            <i class="fa fa-reply"><b>  Responder</b></i>
+                    </button> 
                     @endif    
                     </div>    
     			</div>
     		</div>
     	</div>
   </div>  
-	
+@endif	
 @endforeach
-
+                       
+    			</div>
+    		</div>
+    	</div>
+  </div>  
+@endforeach
 @endsection
 
 @section('js')
