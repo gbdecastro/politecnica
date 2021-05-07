@@ -52,7 +52,8 @@
     							<tr>
     								<th class="col-md-4">Colaborador</th>
 									<th class="col-md-3">Hierarquia</th>
-									<th class="col-md-5">Departamento</th>	
+									<th class="col-md-2">Valor Hora</th>
+									<th class="col-md-3">Departamento</th>	
     							</tr>
     							
     						</thead>
@@ -74,6 +75,11 @@
 										<option value="2">2. Gerência e Consultoria</option>
 										<option value="1">1. Direção</option>
 										</select>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+									<input class="form-control valor-hora" data-id_usuario="{{$user->id_usuario}}" value="{{$user->nb_custo_hora}}" >
 									</div>
 								</td>
 								<td>

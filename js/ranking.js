@@ -22,6 +22,21 @@ $(function(){
 
 situacaoAtual();
 
+$('.valor-hora').on('change', function(e){
+
+    $('.progress').show();
+    $.ajax({
+        type:'post',
+        url: './ranking/mudarNbValor',
+        data:{
+            id_usuario: $(this).attr("data-id_usuario"),
+            nb_custo_hora: parseFloat(this.value).toFixed(2)
+        }
+    });
+    $('.progress').hide();
+
+});
+
 $('.select2-native.slc-nb_departamento').on('select2:select', function (e) {
     $.ajax({
         type:'post',

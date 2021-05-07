@@ -18,7 +18,7 @@ class RankingController extends Controller
 public function resumoRanking(){
 
   $resumoRanking = DB::select(
-      "SELECT id_usuario, id_lotacao, tx_name, nb_departamento, nb_ranking 
+      "SELECT id_usuario, id_lotacao, tx_name, nb_departamento, nb_ranking, nb_custo_hora 
         FROM users 
         WHERE cs_tipo_contrato != 5
         ORDER BY tx_name ASC"
@@ -55,6 +55,18 @@ public function resumoRanking(){
       'nb_ranking'=> $request->input('nb_ranking')
     ]);
     
+} //public function end 
+
+public function mudarNbValor(Request $request){
+
+  $id_usuario = $request->input('id_usuario');
+
+  DB::table('users')
+  ->where('id_usuario',$id_usuario)
+  ->update([
+    'nb_custo_hora'=> $request->input('nb_custo_hora')
+  ]);
+  
 } //public function end 
 
   public function situacaoAtual()

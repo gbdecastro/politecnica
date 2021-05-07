@@ -29,7 +29,7 @@
                     <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
                 </div>
                 <div class="table-responsive">
-                    <table id="table_projetos" class="table table-striped">
+                    <table id="table_projetos" class="table table-striped"  data-page-length="25">
                         <thead>
                             <tr>
                                 <th>Código</th>

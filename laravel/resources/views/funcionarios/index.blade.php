@@ -30,7 +30,7 @@
                 </div>
                 <hr>
                 <div class="table-responsive">
-                    <table id="table_funcionarios" class="table table-striped">
+                    <table id="table_funcionarios" class="table table-striped" data-page-length="25">
                         <thead>
                             <tr>
                                 <th>Nome</th>
@@ -40,7 +40,7 @@
                                 <th>Contrato</th>
                                 <th>Função</th>
                                 <th>Telefone</th> 
-								<th>Data de Admissão</th>
+								<th>Custo Hora</th>
                                 <th>Editar</th>
                             </tr>
                         </thead>
@@ -57,7 +57,7 @@
                                 <td>@{{ funcionario.tx_contrato }}</td>
                                 <td>@{{ funcionario.tx_funcao }}</td>
 								<td>@{{ funcionario.tx_telefone }}</td>
-								<td>@{{ funcionario.dt_admissao }}</td>
+								<td>@{{ funcionario.nb_custo_hora }}</td>
                                 <td>
                                     <button class="btn btn-block btn-social btn-info" data-toggle="modal" data-target="#modal_edit" v-on:click.prevent="editFuncionario(funcionario)">
                                         <i class="fa fa-edit"></i> Editar
