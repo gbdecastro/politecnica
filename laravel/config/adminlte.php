@@ -212,15 +212,15 @@ return [
             'url'         => '/aval',
             'icon'        => 'thumbs-o-up',
             'active'      => ['aval','aval', 'aval/*'],
-            'permission'  => 'no',
+            'permission'  => 'yes',
         ],
         'CANAL DE COMUNICAÇÃO',
         [
-            'text'        => 'Box de Sugestões',
+            'text'        => 'Fale com a Diretoria',
             'url'         => '/chat',
             'icon'        => 'comments-o',
             'active'      => ['chat','chat', 'chat/*'],
-            'permission'  => 'no',
+            'permission'  => 'yes',
         ],
     ],
     

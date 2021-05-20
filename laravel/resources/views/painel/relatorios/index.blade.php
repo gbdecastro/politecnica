@@ -1,7 +1,11 @@
-@extends('adminlte::page') @section('content_header')
+@extends('adminlte::page') 
+
+@section('title', 'Relatórios')
+
+@section('content_header')
 <h1>
-    <i class="fa fa-file-excel-o"></i> Relatório
-    <small>Painel > Relatório</small>
+    <i class="fa fa-file-excel-o"></i> Relatórios
+    <small>Painel > Relatórios</small>
 </h1>
 <ol class="breadcrumb">
     <li>
@@ -10,11 +14,13 @@
     </li>
     <li>
         <a href="#">
-            <i class="fa fa-file-excel-o"></i>Relatório</a>
+            <i class="fa fa-file-excel-o"></i>Relatórios</a>
     </li>
 </ol>
 @endsection @section('content')
 <div class="row">
+
+
     <div class="col-md-4">
         <div class="box box-poli" id="box_form">
             <div class="box-header with-border">
@@ -24,9 +30,6 @@
                 <div class="box-tools pull-right">
                     <button class="btn btn-box-toll" type="button" data-widget="collapse">
                         <i class="fa fa-minus"></i>
-                    </button>
-                    <button class="btn btn-box-toll" type="button" data-widget="remove">
-                        <i class="fa fa-times"></i>
                     </button>
                 </div>
             </div>
@@ -68,7 +71,7 @@
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <button id="btn_gerar" type="submit" class="btn btn-poli">
-                                Gerar Relatório
+                            <i class="fa fa-file-excel-o"></i>  Gerar Relatório
                             </button>
                         </div>
                     </div>
@@ -77,6 +80,33 @@
         </div>
     </div>
 </div>
+<div class="row">
+<div class="col-md-4">
+        <div class="box box-poli" id="box_form">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    Relatório de Custos Totais
+                </h3>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-toll" type="button" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body" id="box-body_form">                                
+                    <!-- Submit -->
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                            <button id="btn_gerar_total" type="submit" class="btn btn-poli btn-lg" disabled>
+                            <i class="fa fa-file-excel-o"></i>  Gerar Relatório
+                            </button>
+                       </div>
+                    </div>
+           </div>
+        </div>
+ </div>
+</div>
+
 </div>
 @endsection
 @section('js')

@@ -130,13 +130,19 @@ class HorasTrabalhadasController extends Controller
                 ]
             );
         }
+        $despesa = 0.00;
+
+        if($request->input('nb_despesa') != ''){
+            $despesa = $request->input('nb_despesa');
+        }
+
         HorasTrabalhadas::insert([
             'id_grupo' => $id_grupo,
             'id_projeto' => $request->input('id_projeto'),
             'dt_trabalho' => $request->input('dt_trabalho'),
             'id_funcionario' => Auth::user()->id_usuario,
             'nb_horas_trabalho' => $request->input('nb_horas_trabalho'),
-            'nb_despesa' => $request->input('nb_despesa'),
+            'nb_despesa' => $despesa,
             'nb_custo_hora' => Auth::user()->nb_custo_hora
         ]);
 

@@ -14,7 +14,7 @@
     </li>
     <li>
         <a href="#">
-		<i class="fa fa-envelope-o"></i>Central de Mensagens</a>
+		<i class="fa fa-envelope-o"></i>  Central de Mensagens</a>
     </li>
 </ol>
   
@@ -45,10 +45,15 @@
     		<div class="box box-poli">
     			<div class="box-header with-border">
 	    			<h3 class="box-title">
-	    			{{$chat->tx_name}} - {{ $chat->tx_titulo }} -  {{ $chat->dt_envio }}
+	    			{{ $chat->dt_envio }} / Assunto: {{ $chat->tx_titulo }} - {{$chat->tx_name}}
 	    			</h3>
                     <div class="box-tools pull-right">
-                        <button class="btn btn-danger removeMsg" type="button" data-id_msg="{{ $chat->id_msg }}">
+                    @if($chat->tx_resposta != '')  
+                         <button class="btn btn-warning editMsg" type="button" data-toggle="modal" data-target="#modal_respostaMsg" data-id_msg="{{ $chat->id_msg }}">
+	    					<i class="fa fa-edit"></i>
+	    				</button>
+                    @endif    
+                        <button class="btn btn-danger removeMsg" type="button" data-toggle="modal" data-target="#modal_removeMsg" data-id_msg="{{ $chat->id_msg }}">
 	    					<i class="fa fa-trash"></i>
 	    				</button>    
 	    				<button class="btn btn-box-toll" type="button" data-widget="collapse">
@@ -76,16 +81,16 @@
                             Respondia em: {{ $chat->dt_resposta }}
                         </h4>    
                         <h5>
-                            <p>
+                            <p id='id_resp{{ $chat->id_msg }}'>
                             {{ $chat->tx_resposta }}
                             </p>
                         </h5>
                     @else
-                    
                     <div class='form-group'>
                         <input id='resposta{{$chat->id_msg}}' type='text' class='form-control' required='' placeholder="Aguardando Resposta."></input>
                     </div>
-                    <button class="btn btn-poli" type="button" data-id_msg="{{ $chat->id_msg }}" data-toggle="modal" data-target="#modal_responder">
+                    <p class='text-warning'>Tamanho Máximo da Mensagem: 200 caracteres.</p>
+                    <button class="btn btn-poli btn-lg send-resposta" type="button" data-id_msg="{{ $chat->id_msg }}">
                             <i class="fa fa-reply"><b>  Responder</b></i>
                     </button> 
                     @endif    
@@ -103,8 +108,8 @@
   </div>  
 @endforeach
 @endsection
-
+@include('painel.chat.edit')
 @section('js')
-
+<script src="{{ asset('js/chat.js') }}"></script>
 
 @endsection

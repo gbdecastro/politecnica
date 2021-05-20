@@ -58,7 +58,8 @@ Route::get('painel/resumo/projetos/empresas','PainelController@carregarEmpresas'
 //ROTAS PARA VIEWS DO PAINEL
 //view
 Route::get('painel/relatorios','PainelController@relatorioView');
-Route::get('painel/relatorio','PainelController@gerarRelatorio');
+Route::get('painel/relatorio/mensal','PainelController@gerarRelatorioMensal');
+Route::get('painel/relatorio/total','PainelController@gerarRelatorioTotal');
 Route::get('painel/bancohoras','PainelController@bancoHoras');
 Route::get('painel/lotacao','PainelController@lotacao');
 Route::get('painel/aval','AvalController@resumoAval');
@@ -120,7 +121,7 @@ Route::get('projetos/gerarCodigoProjeto/{id_grupo}','ProjetosController@gerarCod
 Route::put('projetos','ProjetosController@update');
 Route::post('projetos/mudarSituacao', 'ProjetosController@mudarSituacao');
 
-/*ROTAS DE EMPREASS*/
+/*ROTAS DE EMPREAS*/
 Route::get('empresas','EmpresasController@getEmpresas');
 
 /**
@@ -168,4 +169,7 @@ Route::post('painel/ranking/mudarNbValor','RankingController@mudarNbValor');
  */
 Route::get('chat','ChatController@index');
 Route::get('painel/chat','ChatController@centralChat');
-Route::post('aval/novaMensagem','ChatController@novaMensagem');
+Route::post('painel/chat/removeMensagem','ChatController@removeMensagem');
+Route::post('chat/removeMensagem','ChatController@removeMensagem');
+Route::post('painel/chat/responderMensagem','ChatController@responderMensagem');
+Route::post('chat/novaMensagem','ChatController@novaMensagem');

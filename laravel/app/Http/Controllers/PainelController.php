@@ -150,8 +150,8 @@ class PainelController extends Controller
 
         return $result;
     }
-
-    public function gerarRelatorio(Request $request){
+//Relatorio Inicial Resumo Mensal
+    public function gerarRelatorioMensal(Request $request){
         
         $dt_resumo = $request->input('mes').'/'.$request->input('ano');
 
@@ -248,6 +248,68 @@ class PainelController extends Controller
         return response()->download($storagePath.'./relatorio_mensal_'.$periodo.'.xlsx');
 
     }
+
+//NOVO Relatorio de Totais
+public function gerarRelatorioTotal(){
+        
+    $dt_resumo =Date('m').'/'.Date('Y');
+
+    $sheet='Total por Projetos';
+    
+    $styles1 = array( 'font-size'=>12,'font-style'=>'bold');
+    $styles3 = array( [],['halign'=>'right'],[],[]);
+
+    $result0 = DB::table('v_horas_detalhadas')
+    ->select(DB::raw("id_projeto,projeto,SUM(hora) AS horas_totais, SUM(despesa) AS despesas_totais, SUM(total) AS soma"))
+    ->groupBy("id_projeto");
+
+    $writer = new XLSXWriter();
+    //Write XLS MetaData
+    $writer->setTitle('Total Acumulado dos Projetos');
+    $writer->setSubject('Relatorio');
+    $writer->setAuthor('SistemaPoliPHMT');
+    $writer->setCompany('Politecnia Engenharia');
+    //Write Cabeçalho
+      $writer->writeSheetHeader($sheet, array('Cod. Projeto' => 'string',
+                                            'Nome do Projeto' => 'string',
+                                            'Horas Trabalhadas' => 'integer',
+                                            'Despesas' => '[$R$-1009] #,##0.00',
+                                            'Valor Total' => '[$R$-1009] #,##0.00'),
+                                            $col_options = array('widths'=>[10,72,13,20,20] ));
+     $writer->markMergedCell($sheet, $start_row=1, $start_col=0, $end_row=1, $end_col=1);        
+    //Linha Principal
+    $writer->writeSheetRow($sheet, array('Acumulado Total por Projeto em: '.$dt_resumo), $styles1 );
+    $writer->writeSheetRow($sheet, array('','','','','')); 
+    
+    $color = 0;
+    //GERA linha nome do projeto
+    foreach ($result0->get() as $row0) {
+        
+        if(fmod($color,2) == 0){
+            $styles2 = array( 'font-size'=>12, 'fill'=> '#ffffff');
+            }
+            else {
+            $styles2 = array( 'font-size'=>12, 'fill'=> '#dddddd');
+            }
+
+        $writer->writeSheetRow($sheet, array($row0->id_projeto,$row0->projeto,$row0->horas_totais,$row0->despesas_totais,$row0->soma), $styles2 );
+        
+        $color += 1; 
+
+    }
+
+    $result = $result0 = '';
+    
+    $styles2 = $styles3 = '';
+
+    //Query END , create DOCUMENT
+    $storagePath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
+    $periodo = str_replace('/','-',$dt_resumo);
+    $writer->writeToFile($storagePath.'/relatorio_geral_'.$periodo.'.xlsx');
+    
+    return response()->download($storagePath.'./relatorio_geral_'.$periodo.'.xlsx');
+
+}
 
     //Banco de Horas
     public function bancoHoras(){

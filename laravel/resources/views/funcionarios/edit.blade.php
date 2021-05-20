@@ -42,12 +42,12 @@
 					<div class="form-group">
                         <label for="cs_tipo_contrato" class="control-label obrigatorio">Tipo de Contrato</label>
                         <select class="form-control select2-native" id="edit_funcionario_contrato" name="cs_tipo_contrato" required>
-                            <option value="0">Fixo</option>
-                            <option value="1">Terceiro</option>
-							<option value="2">Temporario</option>
-                            <option value="3">Estagiario</option>
-                            <option value="4">Sócio</option>
-                            <option value="5">Inativo</option>
+                            <option value="4">1. Sócio</option>
+                            <option value="0">2. Fixo</option>
+                            <option value="3">3. Estagiário</option>
+							<option value="2">4. Temporário</option>
+                            <option value="1">5. Terceiro</option>
+                            <option value="5">6. Inativo</option>
                         </select>
                     </div>
 					
