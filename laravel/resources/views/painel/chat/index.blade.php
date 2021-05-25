@@ -4,7 +4,7 @@
 
 @section('content_header')
 <h1>
-  	<i class="fa fa-envelope-o"></i>Central de Mensagens
+  	<i class="fa fa-envelope-o"></i>  Central de Mensagens
     <small>Painel > Central de Mensagens</small>
 </h1>
 <ol class="breadcrumb">
@@ -28,7 +28,7 @@
     		<div class="box box-poli">
     			<div class="box-header with-border">
 	    			<h3 class="box-title">
-	    			{{ $local->tx_lotacao }} - Mensagens
+	    			<i class="fa fa-inbox"></i>  {{ $local->tx_lotacao }} - Mensagens
 	    			</h3>
 	    			<div class="box-tools pull-right">
 	    				<button class="btn btn-box-toll" type="button" data-widget="collapse">

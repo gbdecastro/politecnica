@@ -33,7 +33,7 @@
                         <textarea class='form-control nova-msg' name='nova-msg' maxlength='200' required='' placeholder="Escreva aqui sua sugestão, reclamação ou mesmo elogio para a família Poli."></textarea>
                     </div>
                     <div class='box-footer'>
-                        <p class='text-warning'><i>Alerta: As mensagens enviadas são identificadas. Obrigado pela colaboração!</i></p>
+                        <h5 class='text-warning'><i class="fa fa-exclamation"></i>  <i>  As mensagens enviadas são identificadas e não poderão ser alteradas após envio. Agradecemos pela colaboração!</i></h5>
                         <p class='text-warning'>Tamanho Máximo da Mensagem: 200 caracteres.</p>
                         <button class="btn-lg btn-poli nova-enviar pull-right" type="button">Enviar</button>
                     </div>
@@ -54,9 +54,6 @@
 	    			{{ $chat->tx_titulo }}
 	    			</h3>
                     <div class="box-tools pull-right">
-                        <button class="btn btn-danger removeMsg" type="button" data-toggle="modal" data-target="#modal_removeMsg" data-id_msg="{{ $chat->id_msg }}">
-	    					<i class="fa fa-trash"></i>
-	    				</button>    
 	    				<button class="btn btn-box-toll" type="button" data-widget="collapse">
 	    					<i class="fa fa-minus"></i>
 	    				</button>	    				 				
@@ -102,35 +99,6 @@
   </div>  
 	
 @endforeach
-
-<div class="modal fade" id="modal_removeMsg" role="dialog" aria-labelledby="modal_removeMsg">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
-                <h4 class="modal-title">Confirmar Exclusão:</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
-
-                        <input type="hidden" id="id_msg">
-                        <p class='text-danger'><i>A mensagem será permanentemente excluída do sistema!</i></p>
-                        
-                    </div>
-                </div>
-                
-            </div>
-            <div class="modal-footer">
-                <a id="btn_submit_remove" class="btn btn-danger"><i class="fa fa-trash"></i>Excluir</a>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 @endsection
 

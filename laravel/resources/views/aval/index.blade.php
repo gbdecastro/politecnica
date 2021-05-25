@@ -59,7 +59,8 @@
 											@endswitch
 										 / {{ $ano }}
 	    			</h3>
-					<p>As notas de avaliação do mês atual podem ser alteradas livremente a qualquer momento, após a virada do mês essas notas não poderão mais ser revisadas.</p>
+					<h5 class='text-warning'><i class="fa fa-info"></i>  As notas de avaliação do mês atual podem ser alteradas livremente a qualquer momento, após a virada do mês essas notas não poderão mais ser revisadas.</h5>
+					<h5 class='text-danger'><i class="fa fa-exclamation"></i>  Atenção: Avaliados que ficarem com alguma categoria 'Sem Nota' não serão contabilizados pelo sistema.</h5>
 	    			<div class="box-tools pull-right">
 	    				<button class="btn btn-box-toll" type="button" data-widget="collapse">
 	    					<i class="fa fa-minus"></i>

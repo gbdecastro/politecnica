@@ -17,7 +17,11 @@
 		<i class="fa fa-thumbs-up"></i> Resumo Avaliação</a>
     </li>
 </ol>
-  
+<h4><i class="fa fa-info"></i>  Observações:</h4>
+<h5><i>  1. Os valores em Ótimo, Bom, Regular e Ruim são a quantidade total de notas recebidas.</i></h5>    
+<h5><i>  2. Os valores em Produtividade, Proatividade e Pontualidade são médias de todas notas recebidas respectivamente.</i></h5>    
+<h5><i>  3. Composição da Média Geral: Produtividade 50%, Proatividade 30% e Pontualidade 20%.</i></h5>
+<h5><i>  4. Nota Máxima: 4,0 e Nota Mínima: 1,0.</i></h5>    
 @endsection
 
 @section('content')
@@ -49,8 +53,8 @@
 									<th >Bom</th>
                                     <th class="text-warning">Regular</th>
                                     <th class="text-danger">Ruim</th>
-									<th>Proatividade</th>
 									<th>Produtividade</th>
+									<th>Proatividade</th>
 									<th>Pontualidade</th>
 									<th>Média Geral</th>
     							</tr>
@@ -75,8 +79,8 @@
                                     <td>{{ $user->nb_bom }} </td>
                                     <td class="text-warning">{{ $user->nb_regular }} </td>
                                     <td class="text-danger">{{ $user->nb_ruim }} </td>
-									<td>{{ number_format($user->md_proativ,2) }} </td>
 									<td>{{ number_format($user->md_produtiv,2) }} </td>
+									<td>{{ number_format($user->md_proativ,2) }} </td>
 									<td>{{ number_format($user->md_pontual,2) }} </td>
 									<td><b>{{ number_format((($user->md_pontual*2) + ($user->md_produtiv*5) + ($user->md_proativ)*3)/10,2) }}</b></td>
     							</tr>    							

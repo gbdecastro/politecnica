@@ -253,53 +253,213 @@ class PainelController extends Controller
 public function gerarRelatorioTotal(){
         
     $dt_resumo =Date('m').'/'.Date('Y');
-
-    $sheet='Total por Projetos';
+    ////SHEET 1 BEGIN
+    $sheet='Total por Projeto';
     
+    $style = array('font-size'=>12);
     $styles1 = array( 'font-size'=>12,'font-style'=>'bold');
     $styles3 = array( [],['halign'=>'right'],[],[]);
-
-    $result0 = DB::table('v_horas_detalhadas')
-    ->select(DB::raw("id_projeto,projeto,SUM(hora) AS horas_totais, SUM(despesa) AS despesas_totais, SUM(total) AS soma"))
-    ->groupBy("id_projeto");
-
+    $format1 = array('string','string','string','string','string');
+  //  $result0 = DB::table('v_horas_detalhadas')
+   // ->select(DB::raw("id_projeto,projeto,SUM(hora) AS horas_totais, SUM(despesa) AS despesas_totais, SUM(total) AS soma"))
+  //  ->groupBy("id_projeto");
+    $result0 = DB::select(
+    "SELECT id_projeto, projeto, SUM(hora) AS horas_totais, SUM(despesa) AS despesas_totais, SUM(total) AS soma, color
+    FROM v_horas_detalhadas
+    GROUP BY id_projeto"
+    );
     $writer = new XLSXWriter();
     //Write XLS MetaData
     $writer->setTitle('Total Acumulado dos Projetos');
     $writer->setSubject('Relatorio');
     $writer->setAuthor('SistemaPoliPHMT');
     $writer->setCompany('Politecnia Engenharia');
-    //Write Cabeçalho
-      $writer->writeSheetHeader($sheet, array('Cod. Projeto' => 'string',
-                                            'Nome do Projeto' => 'string',
-                                            'Horas Trabalhadas' => 'integer',
-                                            'Despesas' => '[$R$-1009] #,##0.00',
-                                            'Valor Total' => '[$R$-1009] #,##0.00'),
-                                            $col_options = array('widths'=>[10,72,13,20,20] ));
-     $writer->markMergedCell($sheet, $start_row=1, $start_col=0, $end_row=1, $end_col=1);        
+    //Write Cabeçalho Para Entradas
+    $writer->writeSheetHeader($sheet, array('Cod. Projeto' => 'integer',
+    'Nome do Projeto' => 'string',
+    'Horas Trabalhadas' => 'integer',
+    'Despesas' => '[$R$-1009] #,##0.00',
+    'Valor Total' => '[$R$-1009] #,##0.00'),
+    $col_options = array('widths'=>[12,96,14,20,20] ), array('font-size'=>12));
+    //$writer->markMergedCell($sheet, $start_row=1, $start_col=0, $end_row=1, $end_col=1);        
     //Linha Principal
-    $writer->writeSheetRow($sheet, array('Acumulado Total por Projeto em: '.$dt_resumo), $styles1 );
-    $writer->writeSheetRow($sheet, array('','','','','')); 
-    
+    $writer->writeSheetRow($sheet, array('','Acumulado Total por Projeto em: '.$dt_resumo), $styles1 );
+    $writer->writeSheetRowX($sheet, array('Código','Nome do Projeto','Horas','Despesas','Valor Total'), $style,$format1); 
+    $count = 3;
     $color = 0;
+
     //GERA linha nome do projeto
-    foreach ($result0->get() as $row0) {
+    foreach ($result0 as $row0) {
         
         if(fmod($color,2) == 0){
-            $styles2 = array( 'font-size'=>12, 'fill'=> '#ffffff');
+            $styles2 = array( 'font-size'=>12, 'fill'=> '#ffffff', 'color'=>$row0->color);
             }
             else {
-            $styles2 = array( 'font-size'=>12, 'fill'=> '#dddddd');
+            $styles2 = array( 'font-size'=>12, 'fill'=> '#eeeeee', 'color'=>$row0->color);
             }
 
-        $writer->writeSheetRow($sheet, array($row0->id_projeto,$row0->projeto,$row0->horas_totais,$row0->despesas_totais,$row0->soma), $styles2 );
+        $writer->writeSheetRowX($sheet, array($row0->id_projeto,$row0->projeto,$row0->horas_totais,$row0->despesas_totais,$row0->soma), $styles2 );
         
         $color += 1; 
-
+        $count += 1;    
     }
 
-    $result = $result0 = '';
+    $writer->writeSheetRowX($sheet, array('Código','Nome do Projeto','Horas','Despesas','Valor Total'), $style,$format1); 
     
+    $formulaE = "=SOMA(E4:E".$count.")";
+    $formulaD ="=SOMA(D4:D".$count.")";
+    $formulaC = "=SOMA(C4:C".$count.")";
+
+    $writer->writeSheetRowX($sheet, array('','Totais',$formulaC,$formulaD, $formulaE), $styles1,array('string','string','integer','[$R$-1009] #,##0.00','[$R$-1009] #,##0.00')); 
+
+    $result0 = null;
+    //SHEET 1 END
+    //SHEET 2 BEGIN
+    $result0 = DB::select(
+        "SELECT cliente, SUM(hora) AS horas_totais, SUM(despesa) AS despesas_totais, SUM(total) AS soma
+        FROM v_horas_detalhadas
+        GROUP BY id_empresa
+        ORDER BY cliente ASC;"
+        );
+
+    //Sheet 02 (CLIENTES)
+    $sheet='Total por Cliente';
+    //Write Cabeçalho Para Entradas
+    $writer->writeSheetHeader($sheet, array('Cliente' => 'string',
+    'Horas Trabalhadas' => 'integer',
+    'Despesas' => '[$R$-1009] #,##0.00',
+    'Valor Total' => '[$R$-1009] #,##0.00'),
+    $col_options = array('widths'=>[48,20,20,20] ), array('font-size'=>12));
+    //Inicia Info das Colunas    
+    $writer->writeSheetRowX($sheet, array('Acumulado Total por Cliente em: '.$dt_resumo), $styles1,$format1);
+    $writer->writeSheetRowX($sheet, array('Cliente','Horas Trabalhadas','Despesas','Valor Total'), $style,$format1); 
+    
+    $count = 3;
+    $color = 0;
+
+    //GERA linha nome do CLIENTE
+    foreach ($result0 as $row0) {
+        
+        if(fmod($color,2) == 0){
+            $styles2 = array( 'font-size'=>12, 'fill'=> '#ffffff', 'color'=>'#404040');
+            }
+            else {
+            $styles2 = array( 'font-size'=>12, 'fill'=> '#eeeeee');
+            }
+
+        $writer->writeSheetRowX($sheet, array($row0->cliente,$row0->horas_totais,$row0->despesas_totais,$row0->soma), $styles2 );
+        
+        $color += 1; 
+        $count += 1;    
+    }
+    //Info Footer
+    $writer->writeSheetRowX($sheet, array('Cliente','Horas Trabalhadas','Despesas','Valor Total'), $style,$format1); 
+    //Totais
+    $formulaB = "=SOMA(B4:B".$count.")";
+    $formulaD ="=SOMA(D4:D".$count.")";
+    $formulaC = "=SOMA(C4:C".$count.")";
+
+    $writer->writeSheetRowX($sheet, array('Totais',$formulaB,$formulaC, $formulaD), $styles1,array('string','integer','[$R$-1009] #,##0.00','[$R$-1009] #,##0.00')); 
+    $result0=null;
+    //SHEET 2 END
+    //SHEET 3 BEGIN
+    $sheet='Total por Grupo';
+    
+    $result0 = DB::select(
+        "SELECT grupo,SUM(hora) AS horas_totais, SUM(despesa) AS despesas_totais, SUM(total) AS soma, color
+        FROM v_horas_detalhadas
+        GROUP BY id_grupo
+        ORDER BY id_grupo ASC;"
+        );
+    
+     //Write Cabeçalho Para Entradas
+     $writer->writeSheetHeader($sheet, array('Grupo' => 'string',
+     'Horas Trabalhadas' => 'integer',
+     'Despesas' => '[$R$-1009] #,##0.00',
+     'Valor Total' => '[$R$-1009] #,##0.00'),
+     $col_options = array('widths'=>[48,20,20,20] ), array('font-size'=>12));
+     //Inicia Info das Colunas    
+     $writer->writeSheetRowX($sheet, array('Acumulado Total por Grupo em: '.$dt_resumo), $styles1,$format1);
+     $writer->writeSheetRowX($sheet, array('Grupo','Horas Trabalhadas','Despesas','Valor Total'), $style,$format1); 
+     
+    $count = 3;
+    $color = 0;
+
+    //GERA linha nome do GRUPO
+    foreach ($result0 as $row0) {
+        
+        if(fmod($color,2) == 0){
+            $styles2 = array( 'font-size'=>12, 'fill'=> '#eeeeee', 'color'=>$row0->color);
+            }
+            else {
+            $styles2 = array( 'font-size'=>12, 'fill'=> '#ffffff', 'color'=>$row0->color);
+            }
+
+        $writer->writeSheetRowX($sheet, array($row0->grupo,$row0->horas_totais,$row0->despesas_totais,$row0->soma), $styles2 );
+        
+        $color += 1; 
+        $count += 1;    
+    }
+     //Info Footer
+    
+     //Totais
+     $formulaB = "=SOMA(B4:B".$count.")";
+     $formulaD ="=SOMA(D4:D".$count.")";
+     $formulaC = "=SOMA(C4:C".$count.")";
+ 
+     $writer->writeSheetRowX($sheet, array('Totais',$formulaB,$formulaC, $formulaD), $styles1,array('string','integer','[$R$-1009] #,##0.00','[$R$-1009] #,##0.00')); 
+     $result0=null;
+
+    //SHEET 3 END
+    //SHEET 4 BEGIN
+    $sheet='Total por Status';
+    
+    $result0 = DB::select(
+        "SELECT case when status = 0 then 'Contrato' when status = 1 then 'Perene' when status = 2 then 'Particular' else 'Outros' end AS tipo,SUM(hora) AS horas_totais, SUM(despesa) AS despesas_totais, SUM(total) AS soma
+        FROM v_horas_detalhadas
+        GROUP BY status
+        ORDER BY status ASC;"
+        );
+    
+    //Write Cabeçalho Para Entradas
+    $writer->writeSheetHeader($sheet, array('Status' => 'string',
+    'Horas Trabalhadas' => 'integer',
+    'Despesas' => '[$R$-1009] #,##0.00',
+    'Valor Total' => '[$R$-1009] #,##0.00'),
+    $col_options = array('widths'=>[48,20,20,20] ), array('font-size'=>12));
+    //Inicia Info das Colunas    
+    $writer->writeSheetRowX($sheet, array('Acumulado Total por Status em: '.$dt_resumo), $styles1,$format1);
+    $writer->writeSheetRowX($sheet, array('Status','Horas Trabalhadas','Despesas','Valor Total'), $style,$format1); 
+    
+   $count = 3;
+   $color = 0;
+
+   //GERA linha nome do Contrato
+   foreach ($result0 as $row0) {
+       
+       if(fmod($color,2) == 0){
+           $styles2 = array( 'font-size'=>12, 'fill'=> '#eeeeee');
+           }
+           else {
+           $styles2 = array( 'font-size'=>12, 'fill'=> '#ffffff', 'color'=>'#404040');
+           }
+
+       $writer->writeSheetRowX($sheet, array($row0->tipo,$row0->horas_totais,$row0->despesas_totais,$row0->soma), $styles2 );
+       
+       $color += 1; 
+       $count += 1;    
+   }
+    //Info Footer
+    
+    //Totais
+    $formulaB = "=SOMA(B4:B".$count.")";
+    $formulaD ="=SOMA(D4:D".$count.")";
+    $formulaC = "=SOMA(C4:C".$count.")";
+
+    $writer->writeSheetRowX($sheet, array('Totais',$formulaB,$formulaC, $formulaD), $styles1,array('string','integer','[$R$-1009] #,##0.00','[$R$-1009] #,##0.00')); 
+    $result0=null;
+
+    //SHEET 4 END
     $styles2 = $styles3 = '';
 
     //Query END , create DOCUMENT

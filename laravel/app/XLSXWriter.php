@@ -234,7 +234,7 @@ class XLSXWriter
 		{
 			$header_row = array_keys($header_types);      
 
-			$sheet->file_writer->write('<row collapsed="false" customFormat="false" customHeight="false" hidden="false" ht="12.1" outlineLevel="0" r="' . (1) . '">');
+			$sheet->file_writer->write('<row collapsed="false" customFormat="false" customHeight="false" hidden="true" ht="12.1" outlineLevel="0" r="' . (1) . '">');
 			foreach ($header_row as $c => $v) {
 				$cell_style_idx = empty($style) ? $sheet->columns[$c]['default_cell_style'] : $this->addCellStyle( 'GENERAL', json_encode(isset($style[0]) ? $style[$c] : $style) );
 				$this->writeCell($sheet->file_writer, 0, $c, $v, $number_format_type='n_string', $cell_style_idx);
@@ -279,6 +279,70 @@ class XLSXWriter
 			$this->writeCell($sheet->file_writer, $sheet->row_count, $c, $v, $number_format_type, $cell_style_idx);
 			$c++;
 		}
+		$sheet->file_writer->write('</row>');
+		$sheet->row_count++;
+		$this->current_sheet = $sheet_name;
+	}
+
+	public function writeSheetRowX($sheet_name, array $row, $row_options=null, array $format=null)
+	{
+		if (empty($sheet_name))
+			return;
+
+		self::initializeSheet($sheet_name);
+		$sheet = &$this->sheets[$sheet_name];
+		if (count($sheet->columns) < count($row)) {
+			$default_column_types = $this->initializeColumnTypes( array_fill($from=0, $until=count($row), 'GENERAL') );//will map to n_auto
+			$sheet->columns = array_merge((array)$sheet->columns, $default_column_types);
+		}
+		
+		if (!empty($row_options))
+		{
+			$ht = isset($row_options['height']) ? floatval($row_options['height']) : 12.1;
+			$customHt = isset($row_options['height']) ? true : false;
+			$hidden = isset($row_options['hidden']) ? (bool)($row_options['hidden']) : false;
+			$collapsed = isset($row_options['collapsed']) ? (bool)($row_options['collapsed']) : false;
+			$sheet->file_writer->write('<row collapsed="'.($collapsed).'" customFormat="false" customHeight="'.($customHt).'" hidden="'.($hidden).'" ht="'.($ht).'" outlineLevel="0" r="' . ($sheet->row_count + 1) . '">');
+		}
+		else
+		{
+			$sheet->file_writer->write('<row collapsed="false" customFormat="false" customHeight="false" hidden="false" ht="12.1" outlineLevel="0" r="' . ($sheet->row_count + 1) . '">');
+		}
+
+		$style = &$row_options;
+		$c=0;
+		if(empty($format)){
+			foreach ($row as $v) {
+				$number_format = $sheet->columns[$c]['number_format'];
+				$number_format_type = $sheet->columns[$c]['number_format_type'];
+				$cell_style_idx = empty($style) ? $sheet->columns[$c]['default_cell_style'] : $this->addCellStyle( $number_format, json_encode(isset($style[0]) ? $style[$c] : $style) );
+				$this->writeCell($sheet->file_writer, $sheet->row_count, $c, $v, $number_format_type, $cell_style_idx);
+				$c++;
+			}
+		}
+		else
+		{	
+		$column_mode = array();
+			foreach($format as $mode) 
+			{
+				$number_format = self::numberFormatStandardized($mode);
+				$number_format_type = self::determineNumberFormatType($number_format);
+				$cell_style_idx = $this->addCellStyle($number_format, $style_string=null);
+				$column_mode[] = array('number_format' => $number_format,//contains excel format like 'YYYY-MM-DD HH:MM:SS'
+										'number_format_type' => $number_format_type, //contains friendly format like 'datetime'
+										'default_cell_style' => $cell_style_idx,
+										);
+				}
+
+			foreach ($row as $v) {
+				$number_format = $column_mode[$c]['number_format'];
+				$number_format_type = $column_mode[$c]['number_format_type'];
+				$cell_style_idx = empty($style) ? $column_mode[$c]['default_cell_style'] : $this->addCellStyle( $number_format, json_encode(isset($style[0]) ? $style[$c] : $style) );
+				$this->writeCell($sheet->file_writer, $sheet->row_count, $c, $v, $number_format_type, $cell_style_idx);
+				$c++;
+			}
+
+		}	
 		$sheet->file_writer->write('</row>');
 		$sheet->row_count++;
 		$this->current_sheet = $sheet_name;
@@ -374,6 +438,8 @@ class XLSXWriter
 			$file->write('<c r="'.$cell_name.'" s="'.$cell_style_idx.'" t="n"><v>'.self::xmlspecialchars($value).'</v></c>');//int,float,currency
 		} elseif ($num_format_type=='n_string') {
 			$file->write('<c r="'.$cell_name.'" s="'.$cell_style_idx.'" t="inlineStr"><is><t>'.self::xmlspecialchars($value).'</t></is></c>');
+		} elseif ($num_format_type=='n_formula') {
+			$file->write('<c r="'.$cell_name.'" s="'.$cell_style_idx.'" t="str"><f>'.self::xmlspecialchars($value).'</f><v></v></c>');	
 		} elseif ($num_format_type=='n_auto' || 1) { //auto-detect unknown column types
 			if (!is_string($value) || $value=='0' || ($value[0]!='0' && ctype_digit($value)) || preg_match("/^\-?(0|[1-9][0-9]*)(\.[0-9]+)?$/", $value)){
 				$file->write('<c r="'.$cell_name.'" s="'.$cell_style_idx.'" t="n"><v>'.self::xmlspecialchars($value).'</v></c>');//int,float,currency
@@ -773,6 +839,7 @@ class XLSXWriter
 	{
 		$num_format = preg_replace("/\[(Black|Blue|Cyan|Green|Magenta|Red|White|Yellow)\]/i", "", $num_format);
 		if ($num_format=='GENERAL') return 'n_auto';
+		if ($num_format=='!') return 'n_formula';
 		if ($num_format=='@') return 'n_string';
 		if ($num_format=='0') return 'n_numeric';
 		if (preg_match("/[H]{1,2}:[M]{1,2}/i", $num_format)) return 'n_datetime';
@@ -790,7 +857,7 @@ class XLSXWriter
 	{
 		if ($num_format=='money') { $num_format='dollar'; }
 		if ($num_format=='number') { $num_format='integer'; }
-
+		if ($num_format=='formula')   $num_format='!';
 		if      ($num_format=='string')   $num_format='@';
 		else if ($num_format=='integer')  $num_format='0';
 		else if ($num_format=='date')     $num_format='YYYY-MM-DD';

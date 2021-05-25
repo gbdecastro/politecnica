@@ -10,8 +10,8 @@ function resumoAnual(id_usuario,nb_ano){
             $('tbody#entryResumo.'+entry.nb_mes).append(
                 '<tr>'+
                 '<td>'+entry.tx_name+'</td>'+
-                '<td>'+entry.nb_proativ+'</td>'+
                 '<td>'+entry.nb_produtiv+'</td>'+
+                '<td>'+entry.nb_proativ+'</td>'+
                 '<td>'+entry.nb_pontual+'</td>'+
                 '</tr>');   
             

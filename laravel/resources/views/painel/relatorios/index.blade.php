@@ -97,7 +97,7 @@
                     <!-- Submit -->
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
-                            <button id="btn_gerar_total" type="submit" class="btn btn-poli btn-lg" disabled>
+                            <button id="btn_gerar_total" type="submit" class="btn btn-poli btn-lg">
                             <i class="fa fa-file-excel-o"></i>  Gerar Relatório
                             </button>
                        </div>

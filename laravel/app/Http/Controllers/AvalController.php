@@ -213,6 +213,24 @@ public function mudarPontual(Request $request){
                  ->where('nb_ano','=',$anoant)
                  ->where('id_f2','=',0)
                  ->delete();
+    DB::table('aval')
+                 ->where('id_f1','=',Auth::user()->id_usuario)
+                 ->where('nb_mes','=',$mesant)
+                 ->where('nb_ano','=',$anoant)
+                 ->where('nb_proativ','=',0)
+                 ->delete();
+    DB::table('aval')
+                 ->where('id_f1','=',Auth::user()->id_usuario)
+                 ->where('nb_mes','=',$mesant)
+                 ->where('nb_ano','=',$anoant)
+                 ->where('nb_produtiv','=',0)
+                 ->delete();
+    DB::table('aval')
+                 ->where('id_f1','=',Auth::user()->id_usuario)
+                 ->where('nb_mes','=',$mesant)
+                 ->where('nb_ano','=',$anoant)
+                 ->where('nb_pontual','=',0)
+                 ->delete();             
   }//public function end 
 
     public function situacaoAtual()
@@ -242,7 +260,7 @@ public function mudarPontual(Request $request){
         ->count();
 
          if($passado != 0){
-           //limpa o mes passado
+            //limpa o mes passado
              Self::trimAval($mesant,$anoant);
             //faz updates com os nomes dos usuarios já mencionados
              Self::copyAval($mesant,$anoant);

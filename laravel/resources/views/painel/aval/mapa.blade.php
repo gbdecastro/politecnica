@@ -3,11 +3,11 @@
         <div class="modal-fullscren">
             <div class="modal-content modal-content-fullscreen">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
+                    <button type="button" class="close btn-lg" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
                     <h4 class="modal-title"></h4>
-                    
+                    <h5><i class="fa fa-info"></i><i>  Quadro anual das notas recebedidas pelo colaborador discriminadas mês a mês.</i></h5>
                     <div class="form-group">
 									<select class="form-control select2-native slc-anos" required>
                                     @foreach($anos as $anos)
@@ -60,10 +60,10 @@
                                     <table id="tableAval" class="table table-striped no-margin">
                                         <thead>
                                             <tr>
-                                                <th>Colaborador</th>
-                                                <th>P.A.</th>
-                                                <th>P.D.</th>
-                                                <th>PT.</th>
+                                                <th>Avaliador</th>
+                                                <th>Produtiv</th>
+                                                <th>Proativ</th>
+                                                <th>Pontual</th>
                                             </tr>
                                         </thead>
                                         <tbody class="{{$i}}" id="entryResumo">
