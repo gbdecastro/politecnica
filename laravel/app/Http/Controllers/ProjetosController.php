@@ -21,7 +21,7 @@ class ProjetosController extends Controller
         $projetos =  DB::table('projetos')
          ->join('grupos','projetos.id_grupo','=','grupos.id_grupo')
          ->join('empresas','projetos.id_empresa','=','empresas.id_empresa')
-         ->selectRaw('projetos.*, empresas.*, grupos.tx_grupo, grupos.tx_color')
+         ->selectRaw('projetos.*, empresas.tx_empresa, empresas.id_empresa, grupos.tx_grupo, grupos.tx_color')
          ->orderBy('projetos.id_projeto','ASC')
          ->get();
 
