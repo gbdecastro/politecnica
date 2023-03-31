@@ -9,10 +9,10 @@ function situacaoAtual(){
 
             var e = $($('.slc-colaborador')[entry.nb_idx])
             e.val(entry.id_f2).trigger("change")
-            var e = $($('.slc-nb_proativ')[entry.nb_idx])
-            e.val(entry.nb_proativ).trigger("change")
             var e = $($('.slc-nb_produtiv')[entry.nb_idx])
             e.val(entry.nb_produtiv).trigger("change")
+            var e = $($('.slc-nb_proativ')[entry.nb_idx])
+            e.val(entry.nb_proativ).trigger("change")
             var e = $($('.slc-nb_pontual')[entry.nb_idx])
             e.val(entry.nb_pontual).trigger("change")
 

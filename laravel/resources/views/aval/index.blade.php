@@ -92,18 +92,7 @@
                                      @include('aval.option') 
 								<div>
 								</td>
-    					
-                                <td>Proatividade:
-									<div class="form-group">
-									<select class="form-control select2-native slc-nb_proativ" data-former="{{$i}}"  required>
-                                        <option value="0">Sem Nota</option>  
-									 	<option value="4">Ótimo</option>
-										<option value="3">Bom</option>
-										<option value="2">Regular</option>
-										<option value="1">Ruim</option>
-								<div>
-								</td>
-								<td>Produtividade:
+								<td><b>Produtividade:</b>
 									<div class="form-group">
 									<select class="form-control select2-native slc-nb_produtiv" data-former="{{$i}}"  required>
                                         <option value="0">Sem Nota</option>  
@@ -113,7 +102,17 @@
 										<option value="1">Ruim</option>		 
 								<div>
 								</td>
-								<td>Pontualidade:
+                                <td><b>Proatividade:</b>
+									<div class="form-group">
+									<select class="form-control select2-native slc-nb_proativ" data-former="{{$i}}"  required>
+                                        <option value="0">Sem Nota</option>  
+									 	<option value="4">Ótimo</option>
+										<option value="3">Bom</option>
+										<option value="2">Regular</option>
+										<option value="1">Ruim</option>
+								<div>
+								</td>
+								<td><b>Pontualidade:</b>
 									<div class="form-group">
 									<select class="form-control select2-native slc-nb_pontual" data-former="{{$i}}"  required>
                                         <option value="0">Sem Nota</option>  
