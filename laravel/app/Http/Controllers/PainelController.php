@@ -17,6 +17,26 @@ use App\XLSXWriter;
 class PainelController extends Controller
 {
     /**
+     * Simple helper to debug to the console
+     *
+     * @param $data object, array, string $data
+     * @param $context string  Optional a description.
+     *
+     * @return string
+     */
+    public function debug_to_console($data, $context = 'Debug in Console') {
+
+        // Buffering to solve problems frameworks, like header() in this and not a solid return.
+        ob_start();
+
+        $output  = 'console.info(\'' . $context . ':\');';
+        $output .= 'console.log(' . json_encode($data) . ');';
+        $output  = sprintf('<script>%s</script>', $output);
+
+        echo $output;
+    }
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -58,13 +78,23 @@ class PainelController extends Controller
     public function relatorioView(){
         $anomin = $this->carregarAno()[0];
         $anomax = $this->carregarAno()[1];
-        return view('painel.relatorios.index',compact('anomin','anomax'));
+        $empresas = $this->carregarEmpresas();
+        $colaboradores = $this->carregarUsers();
+        return view('painel.relatorios.index',compact('anomin','anomax',['empresas'],['colaboradores']));
     }
 
     //Carrega Dados para o Form de Pesquisa em Painel.
     public function carregarEmpresas(){
-        return DB::table('empresas')->orderBy('tx_empresa','ASC')->get();
-
+        return DB::table('empresas')
+        ->select('id_empresa','tx_empresa')
+        ->orderBy('tx_empresa','ASC')
+        ->get();
+    }
+    public function carregarUsers(){
+        return DB::table('users')
+        ->select('id_usuario','tx_name','cs_tipo_contrato')
+        ->orderBy('cs_tipo_contrato','ASC')
+        ->get();
     }
 
     public function carregarAno(){
@@ -167,8 +197,8 @@ class PainelController extends Controller
 		//Write XLS MetaData
 		$writer->setTitle('Resumo Mensal dos Projetos');
 		$writer->setSubject('Relatorio');
-		$writer->setAuthor('SistemaPoliPHT');
-		$writer->setCompany('Politecnia Engenharia');
+		$writer->setAuthor('SistemaPoliPMHT');
+		$writer->setCompany('Politecnica Engenharia');
 		//Write Cabeçalho
   		$writer->writeSheetHeader($sheet, array('Cod. Projeto' => 'string',
 												'Nome' => 'string',
@@ -248,11 +278,20 @@ class PainelController extends Controller
         return response()->download($storagePath.'./relatorio_mensal_'.$periodo.'.xlsx');
 
     }
-//NOVO Relatorio Anual 31-03-23
-public function gerarRelatorioTotal(Request $request){
 
-    $dt_ano = $request->input('dt_ano');
+//NOVO Relatorio Periodo 01-04-23
+public function gerarRelatorioPeriodo(Request $request){
+
+    
     $id_empresa = $request->input('id_empresa');
+    $id_usuario = $request->input('colaborador');
+    $mesend = $request->input('mes_fim');
+    $mesinit = $request->input('mes_inicio');
+    $anoend = $request->input('ano_fim');
+    $anoinit = $request->input('ano_inicio');
+
+    $anoinit = 2021;
+    $id_empresa = 2;
 
     //Busca nome da empresa
     $result = DB::table('empresas')
@@ -260,36 +299,212 @@ public function gerarRelatorioTotal(Request $request){
     ->where('id_empresa','=',$id_empresa)
     ->get();
 
-    foreach ($result as $row) {
-        $empresa = $row->tx_name;
-    }
+    $empresa = $result[0]->tx_empresa;
 
-    //Pesquisa central
-    $result0 = DB::select(DB::raw("SELECT id_empresa, id_funcionario, dt_ano, tx_name, dt_mes, dt_ano, 
-    CONCAT(dt_resumo ,'-', id_funcionario) AS id_code, 
-    SUM(nb_horas) AS nb_horas FROM v_resumo_mensal_empresa 
-    INNER JOIN users ON id_funcionario = id_usuario
+    $result = null;
+    //Busca nome do colaborador
+    $result = DB::table('users')
+    ->select('tx_name')
+    ->where('id_usuario','=',$id_usuario)
+    ->get();
+
+    $name = $result[0]->tx_name;
+
+    $result = null;
+    //Pesquisa Central
+    $result = DB::select("SELECT id_empresa, id_funcionario, dt_ano, dt_mes, nb_horas, id_projeto
+    FROM v_resumo_mensal_empresa 
+    WHERE dt_ano BETWEEN ".$anoinit." AND ".$anoend." AND
+    id_empresa = ".$id_empresa." AND id_funcionario = ".$id_usuario.";");
+    //Pesquisa Projetos
+    $result1 = DB::select("SELECT DISTINCT id_projeto, tx_projeto 
+    FROM v_resumo_mensal_empresa
+    WHERE dt_ano BETWEEN ".$anoinit." AND ".$anoend." AND
+    id_empresa = ".$id_empresa." AND id_funcionario = ".$id_usuario."
+    ORDER BY id_projeto ASC;");
+    $projetos = count($result1);
+    
+
+    $meses=array('Ano','Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro','Total');
+    
+    //Create Master Activities Array
+    $lines = array();
+    if($anoinit != $anoend){
+        $count = 0;
+        for($i=$anoinit; $i <= $anoend; $i++){
+           
+            foreach($result1 as $row1){
+                $line = array('',0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+                $line[14] += $i;
+                $line[0] = $row1->tx_projeto;
+                $prj1 = $row1->id_projeto;
+                
+                foreach($result as $row){
+                    $ano = $row->dt_ano;
+                    $prj = $row->id_projeto;
+                    return json_encode($prj);
+                    return json_encode($ano);
+                    if($prj == $prj1){
+                        $line[$row->dt_mes] += $row->nb_horas;
+                        $line[13] += $row->nb_horas;
+                        return json_encode($line);
+                    }
+
+                }
+                $lines[$count]=$line;
+                $count++;
+            }
+        }        
+    }
+    else{
+        $count = 0;  
+            foreach($result1 as $row1){
+                $line = array('',0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+                $line[14] += $anoinit;
+                $line[1] = $row1->tx_projeto;
+                return json_encode($row);
+                foreach($result as $row){
+                    
+                    if($row->id_projeto == $row1->id_projeto){
+                        $line[$row->dt_mes] += $row->nb_horas;
+                        $line[13] += $row->nb_horas;
+                    }
+                    
+                }
+                $lines[$count]=$line;
+                $count++;
+            }
+    }
+    return json_encode($lines);
+    //Now to write the datasheets
+    $sheet='Resumo '.$name;
+        
+    $styles1 = array( 'font-size'=>12,'font-style'=>'bold','fill'=> '#3e4a01','color'=>'#fff');
+    $styles2 = array( 'font-size'=>11,'font-style'=>'regular','fill'=> '#fff');
+        
+    $writer = new XLSXWriter();
+    //Write XLS MetaData
+    $writer->setTitle('Resumo Mensal de Horas Trabalhadas');
+    $writer->setSubject('Relatorio');
+    $writer->setAuthor('SistemaPoliPMHT');
+    $writer->setCompany('Politecnica Engenharia');
+    //Write Cabeçalho
+    $writer->writeSheetHeader($sheet, array('0' => 'string'),          
+    $col_options = array('widths'=>[40,10,10,10,10,10,10,10,10,11,10,12,12] ));
+    //Titulo Principal
+    $writer->writeSheetRow($sheet, array('Colaborado: '.$tx_name,'- Resumo de Horas Mensais de: '.$mesinit.'/'.$anoinit.' à '.$mesend.'/'.$anoend.' - '.$empresa), $styles1 );      
+    $writer->markMergedCell($sheet, $start_row=1, $start_col=1, $end_row=1, $end_col=13);           
+
+    $count = 0;
+    for($i=$anoinit; $i <= $anoend; $i++){
+        $meses[0]=$anoinit;
+        $writer->writeSheetRow($sheet, $meses, $styles2);
+        for($i=0; i>=$projetos; $i++){
+            $writer->writeSheetRowX($sheet, $lines[$count], $styles2);
+            $count++;
+        }
+    } 
+    $line = $lines = $styles1 = $styles2 = null;
+    $result = $result1 ='';    
+    //Function END , create DOCUMENT
+    $storagePath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
+    $empresa = str_replace(' ','_',$empresa);
+    $writer->writeToFile($storagePath.'./relatorio_periodo_'.$tx_name.'_'.$empresa.'.xlsx');
+    $writer = null;
+
+    return response()->download($storagePath.'./relatorio_periodo_'.$tx_name.'_'.$empresa.'.xlsx');
+}
+
+
+
+
+
+
+
+//NOVO Relatorio Anual 31-03-23
+public function gerarRelatorioAnual(Request $request){
+
+    $dt_ano = $request->input('data_ano');
+    $id_empresa = $request->input('id_empresa');
+    $meses=array('Colaborador','Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro','Total');
+    
+    //Busca nome da empresa
+    $result = DB::table('empresas')
+    ->select('tx_empresa')
+    ->where('id_empresa','=',$id_empresa)
+    ->get();
+
+    $empresa = $result[0]->tx_empresa;
+
+    //Pesquisa para gerar coluna de colaboradores
+    $result1 = DB::select("SELECT DISTINCT id_funcionario, tx_name 
+    FROM `v_resumo_mensal_empresa` 
+    INNER JOIN users ON id_funcionario = id_usuario 
     WHERE id_empresa = ".$id_empresa." and dt_ano = ".$dt_ano." 
-    GROUP BY id_code order by dt_mes, id_funcionario;"));
+    ORDER BY tx_name ASC;"); 
+    
+    //Pesquisa central
+    $result0 = DB::select("SELECT id_empresa, id_funcionario, dt_ano, dt_mes, 
+    CONCAT(dt_resumo ,'-', id_funcionario) AS id_code, SUM(nb_horas) AS nb_horas 
+    FROM v_resumo_mensal_empresa 
+    WHERE id_empresa = ".$id_empresa." and dt_ano = ".$dt_ano." 
+    GROUP BY id_code;");
 
     $sheet='Resumo '.$dt_ano;
         
-        $styles1 = array( 'font-size'=>12,'font-style'=>'bold');
-        $styles3 = array( [],['halign'=>'right'],[],[]);
+    $styles1 = array( 'font-size'=>12,'font-style'=>'bold','fill'=> '#3e4a01','color'=>'#fff');
+    $styles2 = array( 'font-size'=>11,'font-style'=>'regular','fill'=> '#fff');
+        
+    $writer = new XLSXWriter();
+    //Write XLS MetaData
+    $writer->setTitle('Resumo Anual de Horas Trabalhadas');
+    $writer->setSubject('Relatorio');
+    $writer->setAuthor('SistemaPoliPMHT');
+    $writer->setCompany('Politecnica Engenharia');
+    //Write Cabeçalho
+    $writer->writeSheetHeader($sheet, array('0' => 'string'),          
+    $col_options = array('widths'=>[35,10,10,10,10,10,10,10,10,11,10,12,12] ));
+    //Titulo Principal
+    $writer->writeSheetRow($sheet, array('','Resumo de Horas Trabalhadas por Colobarador para: '.$dt_ano.' - '.$empresa), $styles1 );      
+    $writer->markMergedCell($sheet, $start_row=1, $start_col=1, $end_row=1, $end_col=13);           
+    $writer->writeSheetRow($sheet, $meses, $styles2);
+        
+        $color = 0;
+        
+    foreach($result1 as $row1) {
+        $id='';
+        if(fmod($color,2) == 0){
+            $styles2['fill'] = '#eee';
+            }
+            else {
+            $styles2['fill'] = '#fff';
+            }
+        $line = array('',0,0,0,0,0,0,0,0,0,0,0,0,0);
+        
+        $id = $row1->id_funcionario;
+        foreach($result0 as $row0){
+            if($row0->id_funcionario == $id){
+                $line[($row0->dt_mes+0)]+=$row0->nb_horas;
+                $line[13]+=$row0->nb_horas;
+            }
+        }
+        $line[0] = $row1->tx_name;
+            
+        $writer->writeSheetRowX($sheet, $line, $styles2);
+        
+        $color++;
+    }
 
-        $writer = new XLSXWriter();
-		//Write XLS MetaData
-		$writer->setTitle('Resumo Anual de Horas Trabalhadas');
-		$writer->setSubject('Relatorio');
-		$writer->setAuthor('SistemaPoliPHT');
-		$writer->setCompany('Politecnia Engenharia');
-        //Write Cabeçalho
-  		$writer->writeSheetHeader($sheet, array('Mês' => 'string',
-          'Colaborador' => 'string',
-          'Horas' => 'integer'),
-          $col_options = array('widths'=>[10,72,13,20] ));
-        $writer->markMergedCell($sheet, $start_row=1, $start_col=0, $end_row=1, $end_col=1);    
+    $line = $styles1 = $styles3 = $styles4 = null;
 
+    $result = $result0 = $result1 ='';    
+
+    //Function END , create DOCUMENT
+    $storagePath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
+    $empresa = str_replace(' ','_',$empresa);
+    $writer->writeToFile($storagePath.'./relatorio_anual_'.$dt_ano.'_'.$empresa.'.xlsx');
+    
+    $writer = null;
 
     return response()->download($storagePath.'./relatorio_anual_'.$dt_ano.'_'.$empresa.'.xlsx');
 }
@@ -317,8 +532,8 @@ public function gerarRelatorioTotal(){
     //Write XLS MetaData
     $writer->setTitle('Total Acumulado dos Projetos');
     $writer->setSubject('Relatorio');
-    $writer->setAuthor('SistemaPoliPHMT');
-    $writer->setCompany('Politecnia Engenharia');
+    $writer->setAuthor('SistemaPoliPMHT');
+    $writer->setCompany('Politecnica Engenharia');
     //Write Cabeçalho Para Entradas
     $writer->writeSheetHeader($sheet, array('Cod. Projeto' => 'integer',
     'Nome do Projeto' => 'string',
