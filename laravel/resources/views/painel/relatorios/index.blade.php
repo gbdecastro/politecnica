@@ -249,7 +249,7 @@
                     <!-- Submit -->
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
-                            <button id="btn_gerar_debug" type="submit" class="btn btn-poli">
+                            <button id="btn_" type="submit" class="btn btn-poli">
                             <i class="fa fa-file-excel-o"></i>  Gerar Relatório
                             </button>
                         </div>
