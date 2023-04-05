@@ -60,6 +60,8 @@ Route::get('painel/resumo/projetos/empresas','PainelController@carregarEmpresas'
 Route::get('painel/relatorios','PainelController@relatorioView');
 Route::get('painel/relatorio/mensal','PainelController@gerarRelatorioMensal');
 Route::get('painel/relatorio/anual','PainelController@gerarRelatorioAnual');
+Route::get('painel/relatorio/projeto_anual','PainelController@gerarRelatorioProjetoAnual');
+Route::get('painel/relatorio/banco_anual)','PainelController@gerarRelatorioBancoAnual');
 Route::get('painel/relatorio/periodo','PainelController@gerarRelatorioPeriodo');
 Route::get('painel/relatorio/total','PainelController@gerarRelatorioTotal');
 Route::get('painel/bancohoras','PainelController@bancoHoras');

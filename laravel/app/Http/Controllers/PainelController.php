@@ -80,7 +80,9 @@ class PainelController extends Controller
         $anomax = $this->carregarAno()[1];
         $empresas = $this->carregarEmpresas();
         $colaboradores = $this->carregarUsers();
-        return view('painel.relatorios.index',compact('anomin','anomax',['empresas'],['colaboradores']));
+        $projetos = $this->carregarProjetos();
+        return view('painel.relatorios.index',compact('anomin','anomax',
+        ['empresas'],['colaboradores'],['projetos']));
     }
 
     //Carrega Dados para o Form de Pesquisa em Painel.
@@ -90,10 +92,18 @@ class PainelController extends Controller
         ->orderBy('tx_empresa','ASC')
         ->get();
     }
+    //Carrega Dados para o Form de Pesquisa em Painel.
     public function carregarUsers(){
         return DB::table('users')
         ->select('id_usuario','tx_name','cs_tipo_contrato')
         ->orderBy('cs_tipo_contrato','ASC')
+        ->get();
+    }
+    //Carrega Dados para o Form de Pesquisa em Painel.
+    public function carregarProjetos(){
+        return DB::table('projetos')
+        ->select('id_projeto','tx_projeto','created_at')
+        ->orderBy('created_at','DSC')
         ->get();
     }
 
@@ -508,6 +518,165 @@ public function gerarRelatorioAnual(Request $request){
 
     return response()->download($storagePath.'./relatorio_anual_'.$dt_ano.'_'.$empresa.'.xlsx');
 }
+
+
+
+
+
+//NOVO Relatorio PROJETO Anual 05-04-23
+public function gerarRelatorioProjetoAnual(Request $request){
+
+    $dt_ano = $request->input('projeto_ano');
+    $id_projeto = $request->input('id_projeto');
+    $meses=array('Colaborador','Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro','Total');
+    
+    //Pesquisa para gerar coluna de colaboradores
+    $result1 = DB::select("SELECT DISTINCT id_funcionario, tx_name 
+    FROM `v_resumo_mensal_empresa` 
+    INNER JOIN users ON id_funcionario = id_usuario 
+    WHERE id_projeto = ".$id_projeto." and dt_ano = ".$dt_ano." 
+    ORDER BY tx_name ASC;"); 
+    
+    //Pesquisa central
+    $result0 = DB::select("SELECT id_projeto, id_funcionario, dt_ano, dt_mes, tx_color, tx_projeto, nb_horas 
+    FROM v_resumo_mensal_empresa 
+    WHERE id_projeto = ".$id_projeto." and dt_ano = ".$dt_ano);
+
+    $projeto_color = $result0[0]->$tx_color;
+    $projeto_nome = $result0[0]->$tx_projeto;
+
+    $sheet='Resumo '.$dt_ano;
+        
+    $styles1 = array( 'font-size'=>12,'font-style'=>'bold','fill'=> $projeto_color ,'color'=>'#fff');
+    $styles2 = array( 'font-size'=>11,'font-style'=>'regular','fill'=> '#fff');
+        
+    $writer = new XLSXWriter();
+    //Write XLS MetaData
+    $writer->setTitle('Resumo Anual de Horas Trabalhadas');
+    $writer->setSubject('Relatorio');
+    $writer->setAuthor('SistemaPoliPMHT');
+    $writer->setCompany('Politecnica Engenharia');
+    //Write Cabeçalho
+    $writer->writeSheetHeader($sheet, array('0' => 'string'),          
+    $col_options = array('widths'=>[35,10,10,10,10,10,10,10,10,11,10,12,12] ));
+    //Titulo Principal
+    $writer->writeSheetRow($sheet, array('','Resumo de Horas Trabalhadas por Colobarador para: '.$dt_ano.' - '.$projeto_nome), $styles1 );      
+    $writer->markMergedCell($sheet, $start_row=1, $start_col=1, $end_row=1, $end_col=13);           
+    $writer->writeSheetRow($sheet, $meses, $styles2);
+        
+        $color = 0;
+        
+    foreach($result1 as $row1) {
+        $id='';
+        if(fmod($color,2) == 0){
+            $styles2['fill'] = '#eee';
+            }
+            else {
+            $styles2['fill'] = '#fff';
+            }
+        $line = array('',0,0,0,0,0,0,0,0,0,0,0,0,0);
+        
+        $id = $row1->id_funcionario;
+        foreach($result0 as $row0){
+            if($row0->id_funcionario == $id){
+                $line[($row0->dt_mes+0)]+=$row0->nb_horas;
+                $line[13]+=$row0->nb_horas;
+            }
+        }
+        $line[0] = $row1->tx_name;
+            
+        $writer->writeSheetRowX($sheet, $line, $styles2);
+        
+        $color++;
+    }
+
+    $line = $styles1 = $styles3 = $styles4 = null;
+
+    $result = $result0 = $result1 ='';    
+
+    //Function END , create DOCUMENT
+    $storagePath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
+    
+    $writer->writeToFile($storagePath.'./relatorio_anual_'.$dt_ano.'_'.$projeto_nome.'.xlsx');
+    
+    $writer = null;
+
+    return response()->download($storagePath.'./relatorio_anual_'.$dt_ano.'_'.$projeto_nome.'.xlsx');
+}
+
+
+//NOVO Relatorio Banco de Horas Anual 05-04-23
+public function gerarRelatorioBancoAnual(Request $request){
+
+    $banco_ano = $request->input('banco_ano');
+    $id_funcionario = $request->input('colaborador');
+    $meses=array('','Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro','Total');
+    
+    //Pesquisa para gerar coluna de colaboradores
+    $result1 = DB::select("SELECT id_funcionario, tx_funcionario, nb_mes, nb_ano, nb_saldo
+    FROM banco_horas 
+    WHERE id_funcionario = ".$id_funcionario); 
+    
+    //Pesquisa central
+    $result0 = DB::select("SELECT DISTINCT nb_ano
+    FROM banco_horas 
+    WHERE id_funcionario = ".$id_funcionario."
+    ORDER BY nb_ano ASC"); 
+
+    $tx_name = $result1[0]->$tx_funcionario;
+
+    $sheet='Banco de Horas';
+        
+    $styles1 = array( 'font-size'=>12,'font-style'=>'bold','fill'=> '#3e4a01' ,'color'=>'#fff');
+    $styles2 = array( 'font-size'=>11,'font-style'=>'regular','fill'=> '#fff');
+        
+    $writer = new XLSXWriter();
+    //Write XLS MetaData
+    $writer->setTitle('Resumo Banco de Horas');
+    $writer->setSubject('Relatorio');
+    $writer->setAuthor('SistemaPoliPMHT');
+    $writer->setCompany('Politecnica Engenharia');
+    //Write Cabeçalho
+    $writer->writeSheetHeader($sheet, array('0' => 'string'),          
+    $col_options = array('widths'=>[35,10,10,10,10,10,10,10,10,11,10,12,12] ));
+    //Titulo Principal
+    $writer->writeSheetRow($sheet, array('','Resumo Banco de Horas para: '.$tx_name), $styles1 );      
+    $writer->markMergedCell($sheet, $start_row=1, $start_col=1, $end_row=1, $end_col=13);           
+
+    foreach($result0 as $ano) {
+        $meses[0] = $ano = $ano->nb_ano;
+        $writer->writeSheetRow($sheet, $meses, $styles2);
+
+        $line = array('',0,0,0,0,0,0,0,0,0,0,0,0,0);
+        
+
+        foreach($result1 as $row0){
+            if($row0->nb_ano == $ano){
+                $line[($row0->nb_mes+0)]+=$row0->nb_saldo;
+                $line[13]+=$row0->nb_saldo;
+            }
+        }
+                    
+        $writer->writeSheetRowX($sheet, $line, $styles2);
+        
+           }
+
+    $line = $styles1 = $styles3 = $styles4 = null;
+
+    $result = $result0 = $result1 ='';    
+
+    //Function END , create DOCUMENT
+    $storagePath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
+    
+    $writer->writeToFile($storagePath.'./relatorio_banco-horas_'.$tx_name.'.xlsx');
+    
+    $writer = null;
+
+    return response()->download($storagePath.'./relatorio_banco-horas_'.$tx_name.'_'.$projeto_nome.'.xlsx');
+}
+
+
+
 
 //NOVO Relatorio de Totais
 public function gerarRelatorioTotal(){
