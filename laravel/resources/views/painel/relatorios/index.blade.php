@@ -231,7 +231,7 @@
         <div class="box box-poli" id="box_form">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                    Relatório Anual de Banco de Horas
+                    Relatório Geral de Banco de Horas
                 </h3>
                 <div class="box-tools pull-right">
                     <button class="btn btn-box-toll" type="button" data-widget="collapse">
@@ -254,16 +254,7 @@
                     </div>
 
                     <!-- Anos -->
-                    <div class="form-group">
-                        <label for="tx_name" class="col-md-5 control-label obrigatorio">Ano:</label>
-                        <div class="col-md-5">
-                            <select type="date" class="form-control select2-native" id="banco_ano" name="banco_ano" required autofocus>
-                                @for($i=$anomax;$i>=$anomin;$i--) 
-                                    <option value="{{$i}}"> {{$i}} </option>
-                                @endfor
-                            </select>
-                        </div>
-                    </div>
+                    
                     <!-- Submit -->
                     <div class="form-group">
                         <div class="col-md-5 col-md-offset-4">
