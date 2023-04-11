@@ -289,53 +289,41 @@ class PainelController extends Controller
 
     }
 
+
+
+
 //NOVO Relatorio Periodo 01-04-23
 public function gerarRelatorioPeriodo(Request $request){
-
     
-    $id_empresa = $request->input('id_empresa');
+    $id_projeto = $request->input('id_projeto');
     $id_usuario = $request->input('colaborador');
     $mesend = $request->input('mes_fim');
     $mesinit = $request->input('mes_inicio');
     $anoend = $request->input('ano_fim');
     $anoinit = $request->input('ano_inicio');
 
-    $anoinit = 2021;
-    $id_empresa = 2;
-
-    //Busca nome da empresa
-    $result = DB::table('empresas')
-    ->select('tx_empresa')
-    ->where('id_empresa','=',$id_empresa)
-    ->get();
-
-    $empresa = $result[0]->tx_empresa;
-
-    $result = null;
     //Busca nome do colaborador
     $result = DB::table('users')
     ->select('tx_name')
     ->where('id_usuario','=',$id_usuario)
     ->get();
 
-    $name = $result[0]->tx_name;
-
+    $tx_name = $result[0]->tx_name;
+    
     $result = null;
-    //Pesquisa Central
-    $result = DB::select("SELECT id_empresa, id_funcionario, dt_ano, dt_mes, nb_horas, id_projeto
+    //Pesquisa Central para TODOS PROJETOS
+    $result = DB::select("SELECT id_funcionario, dt_ano, dt_mes, nb_horas, id_projeto, tx_color
     FROM v_resumo_mensal_empresa 
-    WHERE dt_ano BETWEEN ".$anoinit." AND ".$anoend." AND
-    id_empresa = ".$id_empresa." AND id_funcionario = ".$id_usuario.";");
+    WHERE dt_ano BETWEEN ".$anoinit." AND ".$anoend." AND id_funcionario = ".$id_usuario.";");
     //Pesquisa Projetos
-    $result1 = DB::select("SELECT DISTINCT id_projeto, tx_projeto 
-    FROM v_resumo_mensal_empresa
-    WHERE dt_ano BETWEEN ".$anoinit." AND ".$anoend." AND
-    id_empresa = ".$id_empresa." AND id_funcionario = ".$id_usuario."
+    $result1 = DB::select("SELECT DISTINCT id_projeto, tx_projeto, tx_empresa 
+    FROM v_resumo_mensal_empresa JOIN empresas ON v_resumo_mensal_empresa.id_empresa = empresas.id_empresa
+    WHERE dt_ano BETWEEN ".$anoinit." AND ".$anoend." AND id_funcionario = ".$id_usuario."
     ORDER BY id_projeto ASC;");
+
     $projetos = count($result1);
     
-
-    $meses=array('Ano','Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro','Total');
+    $meses=array('Ano','Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro','Total','','Cliente');
     
     //Create Master Activities Array
     $lines = array();
@@ -344,22 +332,20 @@ public function gerarRelatorioPeriodo(Request $request){
         for($i=$anoinit; $i <= $anoend; $i++){
            
             foreach($result1 as $row1){
-                $line = array('',0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+                $line = array('',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'');
                 $line[14] += $i;
                 $line[0] = $row1->tx_projeto;
+                $line[15] = $row1->tx_empresa;
                 $prj1 = $row1->id_projeto;
                 
                 foreach($result as $row){
                     $ano = $row->dt_ano;
                     $prj = $row->id_projeto;
-                    return json_encode($prj);
-                    return json_encode($ano);
-                    if($prj == $prj1){
-                        $line[$row->dt_mes] += $row->nb_horas;
-                        $line[13] += $row->nb_horas;
-                        return json_encode($line);
-                    }
 
+                        if($prj == $prj1 && $ano == $i){
+                            $line[($row->dt_mes+0)] += $row->nb_horas;
+                            $line[13] += $row->nb_horas;
+                        }
                 }
                 $lines[$count]=$line;
                 $count++;
@@ -369,14 +355,15 @@ public function gerarRelatorioPeriodo(Request $request){
     else{
         $count = 0;  
             foreach($result1 as $row1){
-                $line = array('',0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+                $line = array('',0,0,0,0,0,0,0,0,0,0,0,0,0,0,'');
                 $line[14] += $anoinit;
-                $line[1] = $row1->tx_projeto;
-                return json_encode($row);
+                $line[0] = $row1->tx_projeto;
+                $line[15] = $row1->tx_empresa;
+                
                 foreach($result as $row){
                     
                     if($row->id_projeto == $row1->id_projeto){
-                        $line[$row->dt_mes] += $row->nb_horas;
+                        $line[($row->dt_mes+0)] += $row->nb_horas;
                         $line[13] += $row->nb_horas;
                     }
                     
@@ -385,9 +372,9 @@ public function gerarRelatorioPeriodo(Request $request){
                 $count++;
             }
     }
-    return json_encode($lines);
+    
     //Now to write the datasheets
-    $sheet='Resumo '.$name;
+    $sheet='Resumo';
         
     $styles1 = array( 'font-size'=>12,'font-style'=>'bold','fill'=> '#3e4a01','color'=>'#fff');
     $styles2 = array( 'font-size'=>11,'font-style'=>'regular','fill'=> '#fff');
@@ -400,16 +387,16 @@ public function gerarRelatorioPeriodo(Request $request){
     $writer->setCompany('Politecnica Engenharia');
     //Write Cabeçalho
     $writer->writeSheetHeader($sheet, array('0' => 'string'),          
-    $col_options = array('widths'=>[40,10,10,10,10,10,10,10,10,11,10,12,12] ));
+    $col_options = array('widths'=>[52,10,10,10,10,10,10,10,10,11,10,12,12,10,1,25] ));
     //Titulo Principal
-    $writer->writeSheetRow($sheet, array('Colaborado: '.$tx_name,'- Resumo de Horas Mensais de: '.$mesinit.'/'.$anoinit.' à '.$mesend.'/'.$anoend.' - '.$empresa), $styles1 );      
-    $writer->markMergedCell($sheet, $start_row=1, $start_col=1, $end_row=1, $end_col=13);           
+    $writer->writeSheetRow($sheet, array('Colaborador: '.$tx_name,'- Resumo de Horas Mensais de: '.$mesinit.'/'.$anoinit.' à '.$mesend.'/'.$anoend), $styles1 );      
+    $writer->markMergedCell($sheet, $start_row=1, $start_col=1, $end_row=1, $end_col=15);           
 
     $count = 0;
     for($i=$anoinit; $i <= $anoend; $i++){
         $meses[0]=$anoinit;
         $writer->writeSheetRow($sheet, $meses, $styles2);
-        for($i=0; i>=$projetos; $i++){
+        for($n=0; $n < $projetos; $n++){
             $writer->writeSheetRowX($sheet, $lines[$count], $styles2);
             $count++;
         }
@@ -418,14 +405,12 @@ public function gerarRelatorioPeriodo(Request $request){
     $result = $result1 ='';    
     //Function END , create DOCUMENT
     $storagePath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
-    $empresa = str_replace(' ','_',$empresa);
-    $writer->writeToFile($storagePath.'./relatorio_periodo_'.$tx_name.'_'.$empresa.'.xlsx');
+    
+    $writer->writeToFile($storagePath.'./relatorio_periodo_'.$mesinit.'-'.$anoinit.'a'.$mesend.'-'.$anoend.'-'.$tx_name.'.xlsx');
     $writer = null;
 
-    return response()->download($storagePath.'./relatorio_periodo_'.$tx_name.'_'.$empresa.'.xlsx');
+    return response()->download($storagePath.'./relatorio_periodo_'.$mesinit.'-'.$anoinit.'a'.$mesend.'-'.$anoend.'-'.$tx_name.'.xlsx');
 }
-
-
 
 
 

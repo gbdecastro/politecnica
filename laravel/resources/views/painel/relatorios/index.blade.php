@@ -184,7 +184,7 @@
             </div>
             <div class="box-body" id="box-body_form">
                 <div class="form-horizontal form_pesquisa">
-                    <!-- Meses -->
+                    <!-- Projetos -->
                     <div class="form-group">
                         <label for="projeto" class="col-md-5 control-label obrigatorio">Projeto:</label>
                         <div class="col-md-5">
@@ -297,11 +297,12 @@
                     </div>
                     <!-- Empresa -->
                     <div class="form-group">
-                        <label for="empresa" class="col-md-5 control-label obrigatorio">Empresa:</label>
+                        <label for="projeto" class="col-md-5 control-label obrigatorio">Projeto:</label>
                         <div class="col-md-5">
-                            <select type="date" class="form-control select2-native" id="empresa" name="empresa" required autofocus>
-                            @foreach($empresas as $empresa)  
-                                    <option value="{{$empresa->id_empresa}}"> {{$empresa->tx_empresa}} </option>
+                            <select type="date" class="form-control select2-native" id="per_projeto" name="per_projeto" required autofocus>
+                                <option selected value=0>Todos</option>
+                            @foreach($projetos as $projeto)  
+                                    <option value="{{$projeto->id_projeto}}">{{$projeto->id_projeto}} - {{$projeto->tx_projeto}} </option>
                             @endforeach
                             </select>
                         </div>
@@ -364,7 +365,7 @@
                     <!-- Submit -->
                     <div class="form-group">
                         <div class="col-md-5 col-md-offset-4">
-                            <button id="btn_" type="submit" class="btn btn-poli">
+                            <button id="btn_gerar_periodo" type="submit" class="btn btn-poli">
                             <i class="fa fa-file-excel-o"></i>  Gerar Relatório
                             </button>
                         </div>

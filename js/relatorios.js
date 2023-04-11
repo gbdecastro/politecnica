@@ -249,7 +249,7 @@ $("#btn_gerar_periodo").click(function(){
 
     dados = {
         colaborador: $("#colaborador").val(),
-        id_empresa: $("#empresa").val(),
+        id_projeto: $("#per_projeto").val(),
         ano_inicio: $("#anoin").val(),
         ano_fim: $("#anoout").val(),
         mes_fim: $("#mesout").val(),
@@ -315,12 +315,17 @@ $("#btn_gerar_periodo").click(function(){
 $("#btn_gerar_debug").click(function(){
 
     dados = {
-        projeto_ano: $("#projeto_ano").val(),
-        id_projeto: $("#id_projeto").val()
+        colaborador: $("#colaborador").val(),
+        id_projeto: $("#per_projeto").val(),
+        ano_inicio: $("#anoin").val(),
+        ano_fim: $("#anoout").val(),
+        mes_fim: $("#mesout").val(),
+        mes_inicio: $("#mesin").val()
+
     }
 
     $.ajax({
-        url: './relatorio/projeto_anual',
+        url: './relatorio/periodo',
         type: 'get',
         data: dados,
         xhrFields: {
